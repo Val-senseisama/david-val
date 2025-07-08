@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import Hero3D from './components/Hero3D';
 import ErrorBoundary from './components/ErrorBoundary';
 import LazySection from './components/LazySection';
