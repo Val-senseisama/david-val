@@ -1,9 +1,12 @@
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useRef, useState, Suspense } from 'react';
 import * as THREE from 'three';
 
-export default function SpaceshipModel(props: any) {
+// Preload the model
+useGLTF.preload('/models/Spaceship.glb');
+
+function SpaceshipModelInner(props: any) {
   const { scene } = useGLTF('/models/Spaceship.glb');
   const spaceshipRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
@@ -24,5 +27,13 @@ export default function SpaceshipModel(props: any) {
       onPointerOut={() => setHovered(false)}
       {...props}
     />
+  );
+}
+
+export default function SpaceshipModel(props: any) {
+  return (
+    <Suspense fallback={null}>
+      <SpaceshipModelInner {...props} />
+    </Suspense>
   );
 } 

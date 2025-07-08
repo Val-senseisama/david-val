@@ -1,14 +1,57 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Hero3D from './components/Hero3D';
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
 import ErrorBoundary from './components/ErrorBoundary';
-import { motion } from 'framer-motion';
-import { FaChevronDown } from 'react-icons/fa';
+import LazySection from './components/LazySection';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaChevronDown, FaSpinner, FaBars, FaTimes } from 'react-icons/fa';
+
+// Loading component for lazy-loaded sections
+const SectionLoader = () => (
+  <div style={{
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%)',
+    color: '#4a9eff'
+  }}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 2, duration: 0.5 }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '1rem'
+      }}
+    >
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+      >
+        <FaSpinner size={40} />
+      </motion.div>
+      <p style={{ fontSize: '1.1rem', margin: 0 }}>Loading...</p>
+    </motion.div>
+  </div>
+);
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check screen size on mount and resize
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   useEffect(() => {
     // Smooth scrolling for anchor links
     const handleAnchorClick = (e: MouseEvent) => {
@@ -32,7 +75,15 @@ function App() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    // Close mobile menu after navigation
+    setIsMobileMenuOpen(false);
   };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const navigationItems = ['About', 'Skills', 'Experience', 'Contact'];
 
   return (
     <ErrorBoundary>
@@ -51,20 +102,24 @@ function App() {
           background: 'rgba(12, 12, 12, 0.9)',
           backdropFilter: 'blur(10px)',
           borderBottom: '1px solid rgba(74, 158, 255, 0.2)',
-          padding: '1rem 2rem'
+          padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem)',
+          width: '100%',
+          maxWidth: '100vw',
+          boxSizing: 'border-box'
         }}>
           <div style={{
             maxWidth: '1200px',
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center'
+            alignItems: 'center',
+            width: '100%'
           }}>
             <motion.h1
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               style={{
-                fontSize: '1.5rem',
+                fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
                 color: '#4a9eff',
                 margin: 0,
                 cursor: 'pointer'
@@ -74,41 +129,130 @@ function App() {
               ValTech
             </motion.h1>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              style={{
-                display: 'flex',
-                gap: '2rem'
-              }}
-            >
-              {['About', 'Skills', 'Experience', 'Contact'].map((item, index) => (
-                <motion.button
-                  key={item}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#e0e0e0',
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '5px',
-                    transition: 'all 0.3s ease'
-                  }}
-                  whileHover={{
-                    color: '#4a9eff',
-                    background: 'rgba(74, 158, 255, 0.1)'
-                  }}
-                >
-                  {item}
-                </motion.button>
-              ))}
-            </motion.div>
+            {/* Desktop Navigation */}
+            {!isMobile && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                style={{
+                  display: 'flex',
+                  gap: '2rem'
+                }}
+              >
+                {navigationItems.map((item, index) => (
+                  <motion.button
+                    key={item}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => scrollToSection(item.toLowerCase())}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#e0e0e0',
+                      fontSize: '1rem',
+                      cursor: 'pointer',
+                      padding: '0.5rem 1rem',
+                      borderRadius: '5px',
+                      transition: 'all 0.3s ease'
+                    }}
+                    whileHover={{
+                      color: '#4a9eff',
+                      background: 'rgba(74, 158, 255, 0.1)'
+                    }}
+                  >
+                    {item}
+                  </motion.button>
+                ))}
+              </motion.div>
+            )}
+
+            {/* Mobile Hamburger Menu Button */}
+            {isMobile && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onClick={toggleMobileMenu}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#4a9eff',
+                  cursor: 'pointer',
+                  padding: '0.5rem',
+                  borderRadius: '5px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.5rem'
+                }}
+                whileHover={{
+                  background: 'rgba(74, 158, 255, 0.1)'
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+              </motion.button>
+            )}
           </div>
+
+          {/* Mobile Menu Overlay */}
+          <AnimatePresence>
+            {isMobileMenuOpen && isMobile && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: 0,
+                  background: 'rgba(12, 12, 12, 0.95)',
+                  backdropFilter: 'blur(15px)',
+                  borderTop: '1px solid rgba(74, 158, 255, 0.2)',
+                  overflow: 'hidden'
+                }}
+              >
+                <div style={{
+                  padding: 'clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.5rem'
+                }}>
+                  {navigationItems.map((item, index) => (
+                    <motion.button
+                      key={item}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onClick={() => scrollToSection(item.toLowerCase())}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#e0e0e0',
+                        fontSize: '1.1rem',
+                        cursor: 'pointer',
+                        padding: '1rem',
+                        borderRadius: '8px',
+                        textAlign: 'left',
+                        transition: 'all 0.3s ease',
+                        borderBottom: '1px solid rgba(74, 158, 255, 0.1)'
+                      }}
+                      whileHover={{
+                        color: '#4a9eff',
+                        background: 'rgba(74, 158, 255, 0.1)',
+                        paddingLeft: '1.5rem'
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {item}
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </nav>
 
         {/* Hero Section */}
@@ -142,24 +286,44 @@ function App() {
           <FaChevronDown size={24} color="#4a9eff" />
         </motion.div>
 
-        {/* About Section */}
+        {/* About Section - Lazy loaded with intersection observer */}
         <section id="about">
-          <About />
+          <LazySection 
+            component={() => import('./components/About')}
+            fallback={<SectionLoader />}
+            rootMargin="100px"
+            componentName="About"
+          />
         </section>
 
-        {/* Skills Section */}
+        {/* Skills Section - Lazy loaded with intersection observer */}
         <section id="skills">
-          <Skills />
+          <LazySection 
+            component={() => import('./components/Skills')}
+            fallback={<SectionLoader />}
+            rootMargin="100px"
+            componentName="Skills"
+          />
         </section>
 
-        {/* Experience Section */}
+        {/* Experience Section - Lazy loaded with intersection observer */}
         <section id="experience">
-          <Experience />
+          <LazySection 
+            component={() => import('./components/Experience')}
+            fallback={<SectionLoader />}
+            rootMargin="100px"
+            componentName="Experience"
+          />
         </section>
 
-        {/* Contact Section */}
+        {/* Contact Section - Lazy loaded with intersection observer */}
         <section id="contact">
-          <Contact />
+          <LazySection 
+            component={() => import('./components/Contact')}
+            fallback={<SectionLoader />}
+            rootMargin="100px"
+            componentName="Contact"
+          />
         </section>
 
         {/* Footer */}

@@ -1,9 +1,12 @@
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 import * as THREE from 'three';
 
-export default function MoonModel(props: any) {
+// Preload the model
+useGLTF.preload('/models/Moon.glb');
+
+function MoonModelInner(props: any) {
   const { scene } = useGLTF('/models/Moon.glb');
   const moonRef = useRef<THREE.Group>(null);
 
@@ -14,4 +17,12 @@ export default function MoonModel(props: any) {
   });
 
   return <primitive ref={moonRef} object={scene} scale={6} {...props} />;
+}
+
+export default function MoonModel(props: any) {
+  return (
+    <Suspense fallback={null}>
+      <MoonModelInner {...props} />
+    </Suspense>
+  );
 } 
