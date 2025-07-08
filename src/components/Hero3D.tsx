@@ -3,9 +3,40 @@ import { Stars, OrbitControls } from '@react-three/drei';
 import MoonModel from './MoonModel';
 import SpaceshipModel from './SpaceshipModel';
 import { motion } from 'framer-motion';
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 
 export default function Hero3D() {
+  const [isWebGLAvailable, setIsWebGLAvailable] = useState(true);
+
+  useEffect(() => {
+    // Check WebGL availability
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) {
+      setIsWebGLAvailable(false);
+    }
+  }, []);
+
+  if (!isWebGLAvailable) {
+    return (
+      <div style={{
+        width: '100%',
+        height: '100vh',
+        background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        textAlign: 'center'
+      }}>
+        <div>
+          <h1>WebGL Not Available</h1>
+          <p>Your browser doesn't support WebGL. Please try a different browser.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -15,19 +46,26 @@ export default function Hero3D() {
         width: '100%',
         height: '100vh',
         position: 'relative',
-        background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%)'
+        background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%)',
+        overflow: 'hidden'
       }}
     >
       <Canvas 
         camera={{ position: [0, 0, 10], fov: 75 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         gl={{ 
           antialias: true,
           alpha: true,
-          powerPreference: "high-performance"
+          powerPreference: "default",
+          preserveDrawingBuffer: false,
+          failIfMajorPerformanceCaveat: false
         }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
+        }}
+        onError={(error) => {
+          console.error('Canvas error:', error);
+          setIsWebGLAvailable(false);
         }}
       >
         <Suspense fallback={null}>
@@ -38,10 +76,10 @@ export default function Hero3D() {
           <Stars 
             radius={100} 
             depth={50} 
-            count={3000} 
+            count={1500} 
             factor={4} 
             fade 
-            speed={1} 
+            speed={0.5} 
           />
           
           <MoonModel position={[0, 0, -5]} />
@@ -52,7 +90,7 @@ export default function Hero3D() {
             enablePan={true} 
             enableRotate={true}
             autoRotate={true}
-            autoRotateSpeed={0.5}
+            autoRotateSpeed={0.3}
             maxDistance={20}
             minDistance={5}
           />

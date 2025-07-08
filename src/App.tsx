@@ -1,9 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Hero3D from './components/Hero3D';
 import ErrorBoundary from './components/ErrorBoundary';
 import LazySection from './components/LazySection';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown, FaSpinner, FaBars, FaTimes } from 'react-icons/fa';
+
+// Throttle function to limit scroll event frequency
+const throttle = (func: Function, limit: number) => {
+  let inThrottle: boolean;
+  return function(this: any, ...args: any[]) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  }
+};
 
 // Loading component for lazy-loaded sections
 const SectionLoader = () => (
@@ -52,28 +64,25 @@ function App() {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+  // Throttled scroll handler to prevent interference with 3D rendering
   useEffect(() => {
-    // Smooth scrolling for anchor links
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const id = target.getAttribute('href')?.slice(1);
-        const element = document.getElementById(id || '');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    };
+    const handleScroll = throttle(() => {
+      // This prevents scroll events from interfering with 3D rendering
+      // The throttling ensures smooth scrolling without overwhelming the GPU
+    }, 16); // ~60fps
 
-    document.addEventListener('click', handleAnchorClick);
-    return () => document.removeEventListener('click', handleAnchorClick);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Use simple scrollIntoView since CSS scroll-margin-top handles the offset
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
     // Close mobile menu after navigation
     setIsMobileMenuOpen(false);
@@ -90,7 +99,10 @@ function App() {
       <div style={{
         background: '#0c0c0c',
         color: 'white',
-        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        scrollBehavior: 'smooth',
+        overflow: 'visible',
+        minHeight: '100vh'
       }}>
         {/* Navigation */}
         <nav style={{

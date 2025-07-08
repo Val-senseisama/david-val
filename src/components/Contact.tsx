@@ -4,7 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
 import SatelliteModel from './SatelliteModel';
 import { FaEnvelope, FaLinkedin, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 
 export default function Contact() {
@@ -12,6 +12,29 @@ export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Prevent scroll interference
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      // Allow normal scrolling without interference
+      e.stopPropagation();
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      // Allow normal touch scrolling
+      e.stopPropagation();
+    };
+
+    const section = document.getElementById('contact');
+    if (section) {
+      section.addEventListener('wheel', handleWheel, { passive: true });
+      section.addEventListener('touchmove', handleTouchMove, { passive: true });
+      return () => {
+        section.removeEventListener('wheel', handleWheel);
+        section.removeEventListener('touchmove', handleTouchMove);
+      };
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,13 +81,25 @@ export default function Contact() {
     }
   };
 
+  // Prevent form from interfering with scrolling
+  const handleFormFocus = () => {
+    // Ensure smooth scrolling when form is focused
+    document.body.style.overflow = 'auto';
+  };
+
+  const handleFormBlur = () => {
+    // Restore normal scrolling when form loses focus
+    document.body.style.overflow = 'auto';
+  };
+
   return (
-    <section style={{
+    <section id="contact" style={{
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%)',
       color: 'white',
       padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
       <div style={{
         position: 'absolute',
@@ -72,13 +107,34 @@ export default function Contact() {
         left: 0,
         width: '100%',
         height: '100%',
-        zIndex: 1
+        zIndex: 1,
+        pointerEvents: 'none'
       }}>
-        <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 75 }}>
+        <Canvas 
+          dpr={[1, 1.5]} 
+          camera={{ position: [0, 0, 5], fov: 75 }}
+          gl={{ 
+            antialias: true,
+            alpha: true,
+            powerPreference: "default",
+            preserveDrawingBuffer: false,
+            failIfMajorPerformanceCaveat: false
+          }}
+          onError={(error) => {
+            console.error('Contact Canvas error:', error);
+          }}
+          style={{ pointerEvents: 'none' }}
+        >
           <ambientLight intensity={0.3} />
-          <Stars radius={80} depth={60} count={5000} factor={6} fade speed={1.2} />
+          <Stars radius={80} depth={60} count={1200} factor={4} fade speed={0.6} />
           <SatelliteModel position={[0, 0, -3]} />
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
+          <OrbitControls 
+            enableZoom={false} 
+            enablePan={false} 
+            enableRotate={false}
+            autoRotate 
+            autoRotateSpeed={0.15} 
+          />
         </Canvas>
       </div>
 
@@ -132,7 +188,12 @@ export default function Contact() {
               Send a Message
             </h3>
 
-            <form ref={formRef} onSubmit={handleSubmit}>
+            <form 
+              ref={formRef} 
+              onSubmit={handleSubmit}
+              onFocus={handleFormFocus}
+              onBlur={handleFormBlur}
+            >
               <div style={{ marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
                 <label style={{
                   display: 'block',

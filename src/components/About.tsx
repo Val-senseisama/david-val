@@ -14,7 +14,8 @@ export default function About() {
       background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%)',
       color: 'white',
       padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
       <div style={{
         position: 'absolute',
@@ -26,17 +27,23 @@ export default function About() {
       }}>
         <Canvas 
           camera={{ position: [0, 0, 5], fov: 75 }}
+          dpr={[1, 1.5]}
           gl={{ 
             antialias: true,
             alpha: true,
-            powerPreference: "high-performance"
+            powerPreference: "default",
+            preserveDrawingBuffer: false,
+            failIfMajorPerformanceCaveat: false
+          }}
+          onError={(error) => {
+            console.error('About Canvas error:', error);
           }}
         >
           <Suspense fallback={null}>
             <ambientLight intensity={0.3} />
-            <Stars radius={50} depth={30} count={1500} factor={3} fade speed={0.5} />
+            <Stars radius={50} depth={30} count={800} factor={3} fade speed={0.3} />
             <SpaceStationModel position={[3, 1, -2]} />
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.3} />
+            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
           </Suspense>
         </Canvas>
       </div>

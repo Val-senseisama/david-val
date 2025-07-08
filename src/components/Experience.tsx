@@ -26,7 +26,8 @@ export default function Experience() {
       background: 'linear-gradient(135deg, #16213e 0%, #0c0c0c 100%)',
       color: 'white',
       padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
       <div style={{
         position: 'absolute',
@@ -36,11 +37,24 @@ export default function Experience() {
         height: '100%',
         zIndex: 1
       }}>
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+        <Canvas 
+          camera={{ position: [0, 0, 5], fov: 75 }}
+          dpr={[1, 1.5]}
+          gl={{ 
+            antialias: true,
+            alpha: true,
+            powerPreference: "default",
+            preserveDrawingBuffer: false,
+            failIfMajorPerformanceCaveat: false
+          }}
+          onError={(error) => {
+            console.error('Experience Canvas error:', error);
+          }}
+        >
           <ambientLight intensity={0.3} />
-          <Stars radius={70} depth={50} count={4000} factor={5} fade speed={1} />
+          <Stars radius={70} depth={50} count={1500} factor={4} fade speed={0.5} />
           <SpaceshipModel position={[4, 2, -3]} />
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.4} />
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.25} />
         </Canvas>
       </div>
 

@@ -12,14 +12,28 @@ const globalStyles = `
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
+    overflow-y: auto;
   }
 
+  /* Fix scroll positioning for sections with fixed navigation */
+  section {
+    scroll-margin-top: 80px;
+    overflow: visible;
+  }
+
+  /* Ensure sections don't create individual scrollbars */
+  section > div {
+    overflow: visible;
+  }
+
+  /* Optimize scrollbar for better performance */
   ::-webkit-scrollbar {
     width: 8px;
   }

@@ -38,7 +38,8 @@ export default function Skills() {
       background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
       color: 'white',
       padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
-      position: 'relative'
+      position: 'relative',
+      overflow: 'hidden'
     }}>
       <div style={{
         position: 'absolute',
@@ -50,17 +51,23 @@ export default function Skills() {
       }}>
         <Canvas 
           camera={{ position: [0, 0, 5], fov: 75 }}
+          dpr={[1, 1.5]}
           gl={{ 
             antialias: true,
             alpha: true,
-            powerPreference: "high-performance"
+            powerPreference: "default",
+            preserveDrawingBuffer: false,
+            failIfMajorPerformanceCaveat: false
+          }}
+          onError={(error) => {
+            console.error('Skills Canvas error:', error);
           }}
         >
           <Suspense fallback={null}>
             <ambientLight intensity={0.3} />
-            <Stars radius={60} depth={40} count={2000} factor={4} fade speed={0.8} />
+            <Stars radius={60} depth={40} count={1000} factor={4} fade speed={0.4} />
             <SpaceRoverModel position={[-3, 0, -2]} />
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
+            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.15} />
           </Suspense>
         </Canvas>
       </div>
