@@ -1,0 +1,98 @@
+{
+    "name": "David Uyi Val-Izevbigie",
+    "title": "Fullstack Developer",
+    "summary": "Fullstack Developer with 4+ years of experience architecting ERP, POS, and AI-driven inventory management platforms. Proficient in TypeScript, React Native, Apollo GraphQL, MySQL, and offline-first mobile systems. Passionate about scalable, secure, and intuitive solutions that improve business operations.",
+    "location": "Lagos, Nigeria",
+    "email": "valizevbigiedavid@gmail.com",
+    "linkedin": "https://linkedin.com/in/david-uyi-val-izevbigie",
+    "phone": "+2348039496798",
+    "skills": {
+      "languagesAndFrameworks": [
+        "TypeScript (React, Node.js, Express)",
+        "JavaScript",
+        "React Native"
+      ],
+      "databases": [
+        "MySQL",
+        "PostgreSQL",
+        "SQLite",
+        "MongoDB"
+      ],
+      "toolsPlatforms": [
+        "Apollo GraphQL",
+        "Docker",
+        "ElectronJS",
+        "Expo",
+        "Git",
+        "Unit Testing"
+      ],
+      "specialties": [
+        "Offline-First Mobile Apps",
+        "ERP Systems",
+        "AI/ML",
+        "Natural Language Processing (NLP)",
+        "CI/CD",
+        "Data Security"
+      ]
+    },
+    "experience": [
+      {
+        "role": "Junior Fullstack Developer",
+        "company": "Techbox Labs",
+        "duration": "Jan 2025 – Present",
+        "location": "Lagos, Nigeria",
+        "technologies": [
+          "TypeScript", "React Native (Expo)", "ElectronJS", "Apollo GraphQL", "Flutterwave APIs", "MySQL", "AWS"
+        ],
+        "achievements": [
+          "Architected and deployed ERP modules across inventory, POS, fixed asset management, and finance.",
+          "Developed AI-powered sales forecasting, stock optimization, and NLP-enhanced search features.",
+          "Built offline-first mobile and desktop apps with biometric login, budgeting tools, and PDF export functionality.",
+          "Designed and deployed a gamified goal-setting platform with XP rewards and multiplayer quests.",
+          "Integrated secure payment workflows with Flutterwave APIs for a multi-vendor eCommerce system."
+        ]
+      },
+      {
+        "role": "Junior Fullstack Developer Intern",
+        "company": "Syllabux Learning Solutions",
+        "duration": "Jun 2024 – Dec 2024",
+        "location": "Lagos, Nigeria",
+        "technologies": [
+          "React Native (Expo)", "Node.js", "SQLite", "Apollo GraphQL", "MySQL"
+        ],
+        "achievements": [
+          "Designed and launched an AI-powered inventory and POS system.",
+          "Built scalable backend architectures for batch inventory updates and loyalty programs.",
+          "Developed mobile apps with offline capabilities and PIN-based authentication.",
+          "Streamlined receipt generation with dynamic HTML templates and base64 encoding."
+        ]
+      },
+      {
+        "role": "Freelance Fullstack Web Developer",
+        "company": "Self-employed",
+        "duration": "Nov 2020 – Jun 2024",
+        "location": "Lagos, Nigeria",
+        "technologies": [
+          "React", "Node.js", "MySQL", "MongoDB", "Django"
+        ],
+        "achievements": [
+          "Delivered custom websites and ERP solutions tailored to client needs.",
+          "Integrated backend services and databases with responsive frontends.",
+          "Conducted testing and optimized codebases.",
+          "Designed and maintained databases for dynamic web applications."
+        ]
+      }
+    ],
+    "education": {
+      "institution": "University of Benin",
+      "degree": "Bachelor of Engineering (B.Eng)",
+      "field": "Mechanical Engineering",
+      "duration": "Jan 2018 – Mar 2024",
+      "coursework": [
+        "Programming for Engineers",
+        "Data Structures & Algorithms",
+        "Engineering Data Analysis"
+      ]
+    }
+}
+  
