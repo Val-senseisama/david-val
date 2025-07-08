@@ -2,10 +2,13 @@ import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
-import SatelliteModel from './SatelliteModel';
+import { Suspense, lazy } from 'react';
 import { FaEnvelope, FaLinkedin, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+
+// Lazy load the 3D model component
+const LazySatelliteModel = lazy(() => import('./SatelliteModel'));
 
 export default function Contact() {
   const data = usePortfolioData();
@@ -13,28 +16,28 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  // Prevent scroll interference
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // Allow normal scrolling without interference
-      e.stopPropagation();
-    };
+  // Remove scroll interference prevention - it was causing issues
+  // useEffect(() => {
+  //   const handleWheel = (e: WheelEvent) => {
+  //     // Allow normal scrolling without interference
+  //     e.stopPropagation();
+  //   };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      // Allow normal touch scrolling
-      e.stopPropagation();
-    };
+  //   const handleTouchMove = (e: TouchEvent) => {
+  //     // Allow normal touch scrolling
+  //     e.stopPropagation();
+  //   };
 
-    const section = document.getElementById('contact');
-    if (section) {
-      section.addEventListener('wheel', handleWheel, { passive: true });
-      section.addEventListener('touchmove', handleTouchMove, { passive: true });
-      return () => {
-        section.removeEventListener('wheel', handleWheel);
-        section.removeEventListener('touchmove', handleTouchMove);
-      };
-    }
-  }, []);
+  //   const section = document.getElementById('contact');
+  //   if (section) {
+  //     section.addEventListener('wheel', handleWheel, { passive: true });
+  //     section.addEventListener('touchmove', handleTouchMove, { passive: true });
+  //     return () => {
+  //       section.removeEventListener('wheel', handleWheel);
+  //       section.removeEventListener('touchmove', handleTouchMove);
+  //     };
+  //   }
+  // }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,16 +84,16 @@ export default function Contact() {
     }
   };
 
-  // Prevent form from interfering with scrolling
-  const handleFormFocus = () => {
-    // Ensure smooth scrolling when form is focused
-    document.body.style.overflow = 'auto';
-  };
+  // Remove form focus/blur handlers that were interfering with scroll
+  // const handleFormFocus = () => {
+  //   // Ensure smooth scrolling when form is focused
+  //   document.body.style.overflow = 'auto';
+  // };
 
-  const handleFormBlur = () => {
-    // Restore normal scrolling when form loses focus
-    document.body.style.overflow = 'auto';
-  };
+  // const handleFormBlur = () => {
+  //   // Restore normal scrolling when form loses focus
+  //   document.body.style.overflow = 'auto';
+  // };
 
   return (
     <section id="contact" style={{
@@ -127,7 +130,9 @@ export default function Contact() {
         >
           <ambientLight intensity={0.3} />
           <Stars radius={80} depth={60} count={1200} factor={4} fade speed={0.6} />
-          <SatelliteModel position={[0, 0, -3]} />
+          <Suspense fallback={null}>
+            <LazySatelliteModel position={[0, 0, -3]} />
+          </Suspense>
           <OrbitControls 
             enableZoom={false} 
             enablePan={false} 
@@ -191,8 +196,8 @@ export default function Contact() {
             <form 
               ref={formRef} 
               onSubmit={handleSubmit}
-              onFocus={handleFormFocus}
-              onBlur={handleFormBlur}
+              // onFocus={handleFormFocus}
+              // onBlur={handleFormBlur}
             >
               <div style={{ marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
                 <label style={{

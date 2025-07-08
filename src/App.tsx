@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import Hero3D from './components/Hero3D';
 import ErrorBoundary from './components/ErrorBoundary';
-import LazySection from './components/LazySection';
+import About from './components/About';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Contact from './components/Contact';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronDown, FaSpinner, FaBars, FaTimes } from 'react-icons/fa';
+import { FaChevronDown,  FaBars, FaTimes } from 'react-icons/fa';
 
 // Throttle function to limit scroll event frequency
 const throttle = (func: Function, limit: number) => {
@@ -16,38 +19,6 @@ const throttle = (func: Function, limit: number) => {
     }
   }
 };
-
-// Loading component for lazy-loaded sections
-const SectionLoader = () => (
-  <div style={{
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%)',
-    color: '#4a9eff'
-  }}>
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 2, duration: 0.5 }}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '1rem'
-      }}
-    >
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-      >
-        <FaSpinner size={40} />
-      </motion.div>
-      <p style={{ fontSize: '1.1rem', margin: 0 }}>Loading...</p>
-    </motion.div>
-  </div>
-);
 
 function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -69,6 +40,7 @@ function App() {
     const handleScroll = throttle(() => {
       // This prevents scroll events from interfering with 3D rendering
       // The throttling ensures smooth scrolling without overwhelming the GPU
+      // No additional logic needed - just prevent interference
     }, 16); // ~60fps
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -298,44 +270,24 @@ function App() {
           <FaChevronDown size={24} color="#4a9eff" />
         </motion.div>
 
-        {/* About Section - Lazy loaded with intersection observer */}
+        {/* About Section */}
         <section id="about">
-          <LazySection 
-            component={() => import('./components/About')}
-            fallback={<SectionLoader />}
-            rootMargin="100px"
-            componentName="About"
-          />
+          <About />
         </section>
 
-        {/* Skills Section - Lazy loaded with intersection observer */}
+        {/* Skills Section */}
         <section id="skills">
-          <LazySection 
-            component={() => import('./components/Skills')}
-            fallback={<SectionLoader />}
-            rootMargin="100px"
-            componentName="Skills"
-          />
+          <Skills />
         </section>
 
-        {/* Experience Section - Lazy loaded with intersection observer */}
+        {/* Experience Section */}
         <section id="experience">
-          <LazySection 
-            component={() => import('./components/Experience')}
-            fallback={<SectionLoader />}
-            rootMargin="100px"
-            componentName="Experience"
-          />
+          <Experience />
         </section>
 
-        {/* Contact Section - Lazy loaded with intersection observer */}
+        {/* Contact Section */}
         <section id="contact">
-          <LazySection 
-            component={() => import('./components/Contact')}
-            fallback={<SectionLoader />}
-            rootMargin="100px"
-            componentName="Contact"
-          />
+          <Contact />
         </section>
 
         {/* Footer */}

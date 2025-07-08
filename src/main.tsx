@@ -13,6 +13,7 @@ const globalStyles = `
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    height: 100%;
   }
 
   body {
@@ -20,17 +21,31 @@ const globalStyles = `
     line-height: 1.6;
     overflow-x: hidden;
     overflow-y: auto;
+    height: 100%;
+    position: relative;
+  }
+
+  #root {
+    height: 100%;
+    position: relative;
   }
 
   /* Fix scroll positioning for sections with fixed navigation */
   section {
     scroll-margin-top: 80px;
     overflow: visible;
+    position: relative;
+    min-height: 100vh;
   }
 
   /* Ensure sections don't create individual scrollbars */
   section > div {
     overflow: visible;
+  }
+
+  /* Prevent any interference with scroll behavior */
+  canvas {
+    display: block;
   }
 
   /* Optimize scrollbar for better performance */
@@ -59,6 +74,19 @@ const globalStyles = `
     outline: none;
     border-color: #4a9eff !important;
     box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2) !important;
+  }
+
+  /* Ensure smooth scrolling without interference */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent any layout shifts during lazy loading */
+  .lazy-load-container {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

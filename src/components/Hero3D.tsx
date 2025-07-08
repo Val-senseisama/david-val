@@ -1,9 +1,11 @@
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
-import MoonModel from './MoonModel';
-import SpaceshipModel from './SpaceshipModel';
 import { motion } from 'framer-motion';
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, lazy } from 'react';
+
+// Lazy load the 3D model components
+const LazyMoonModel = lazy(() => import('./MoonModel'));
+const LazySpaceshipModel = lazy(() => import('./SpaceshipModel'));
 
 export default function Hero3D() {
   const [isWebGLAvailable, setIsWebGLAvailable] = useState(true);
@@ -68,33 +70,33 @@ export default function Hero3D() {
           setIsWebGLAvailable(false);
         }}
       >
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} intensity={1} />
+        <pointLight position={[-10, -10, -10]} intensity={0.5} />
+        
+        <Stars 
+          radius={100} 
+          depth={50} 
+          count={1500} 
+          factor={4} 
+          fade 
+          speed={0.5} 
+        />
+        
         <Suspense fallback={null}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={1} />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} />
-          
-          <Stars 
-            radius={100} 
-            depth={50} 
-            count={1500} 
-            factor={4} 
-            fade 
-            speed={0.5} 
-          />
-          
-          <MoonModel position={[0, 0, -5]} />
-          <SpaceshipModel position={[6, 3, -2]} />
-          
-          <OrbitControls 
-            enableZoom={true} 
-            enablePan={true} 
-            enableRotate={true}
-            autoRotate={true}
-            autoRotateSpeed={0.3}
-            maxDistance={20}
-            minDistance={5}
-          />
+          <LazyMoonModel position={[0, 0, -5]} />
+          <LazySpaceshipModel position={[6, 3, -2]} />
         </Suspense>
+        
+        <OrbitControls 
+          enableZoom={true} 
+          enablePan={true} 
+          enableRotate={true}
+          autoRotate={true}
+          autoRotateSpeed={0.3}
+          maxDistance={20}
+          minDistance={5}
+        />
       </Canvas>
       
       <div style={{

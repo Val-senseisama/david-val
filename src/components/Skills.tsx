@@ -2,9 +2,11 @@ import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
-import SpaceRoverModel from './SpaceRoverModel';
+import { Suspense, lazy } from 'react';
 import { FaCode, FaDatabase, FaTools, FaRocket } from 'react-icons/fa';
-import { Suspense } from 'react';
+
+// Lazy load the 3D model component
+const LazySpaceRoverModel = lazy(() => import('./SpaceRoverModel'));
 
 export default function Skills() {
   const data = usePortfolioData();
@@ -63,12 +65,12 @@ export default function Skills() {
             console.error('Skills Canvas error:', error);
           }}
         >
+          <ambientLight intensity={0.3} />
+          <Stars radius={60} depth={40} count={1000} factor={4} fade speed={0.4} />
           <Suspense fallback={null}>
-            <ambientLight intensity={0.3} />
-            <Stars radius={60} depth={40} count={1000} factor={4} fade speed={0.4} />
-            <SpaceRoverModel position={[-3, 0, -2]} />
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.15} />
+            <LazySpaceRoverModel position={[-3, 0, -2]} />
           </Suspense>
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.15} />
         </Canvas>
       </div>
 

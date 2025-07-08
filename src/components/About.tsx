@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
-import SpaceStationModel from './SpaceStationModel';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
+
+// Lazy load the 3D model component
+const LazySpaceStationModel = lazy(() => import('./SpaceStationModel'));
 
 export default function About() {
   const data = usePortfolioData();
@@ -39,12 +41,12 @@ export default function About() {
             console.error('About Canvas error:', error);
           }}
         >
+          <ambientLight intensity={0.3} />
+          <Stars radius={50} depth={30} count={800} factor={3} fade speed={0.3} />
           <Suspense fallback={null}>
-            <ambientLight intensity={0.3} />
-            <Stars radius={50} depth={30} count={800} factor={3} fade speed={0.3} />
-            <SpaceStationModel position={[3, 1, -2]} />
-            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
+            <LazySpaceStationModel position={[3, 1, -2]} />
           </Suspense>
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
         </Canvas>
       </div>
 

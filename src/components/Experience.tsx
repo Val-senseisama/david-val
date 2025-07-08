@@ -2,9 +2,12 @@ import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
-import SpaceshipModel from './SpaceshipModel';
+import { Suspense, lazy } from 'react';
 import { FaBriefcase, FaCalendar, FaMapMarkerAlt } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
+
+// Lazy load the 3D model component
+const LazySpaceshipModel = lazy(() => import('./SpaceshipModel'));
 
 export default function Experience() {
   const data = usePortfolioData();
@@ -53,7 +56,9 @@ export default function Experience() {
         >
           <ambientLight intensity={0.3} />
           <Stars radius={70} depth={50} count={1500} factor={4} fade speed={0.5} />
-          <SpaceshipModel position={[4, 2, -3]} />
+          <Suspense fallback={null}>
+            <LazySpaceshipModel position={[4, 2, -3]} />
+          </Suspense>
           <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.25} />
         </Canvas>
       </div>
@@ -61,7 +66,7 @@ export default function Experience() {
       <div style={{
         position: 'relative',
         zIndex: 2,
-        maxWidth: '1000px',
+        maxWidth: '1200px',
         margin: '0 auto'
       }}>
         <motion.h2
@@ -106,7 +111,7 @@ export default function Experience() {
               viewport={{ once: true }}
               style={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: isDesktop ? (index % 2 === 0 ? 'flex-start' : 'flex-end') : 'center',
                 marginBottom: 'clamp(2rem, 4vw, 3rem)',
                 position: 'relative',
                 zIndex: 2
@@ -121,7 +126,12 @@ export default function Experience() {
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 position: 'relative',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                ...(isDesktop && {
+                  width: '45%',
+                  marginLeft: index % 2 === 0 ? '0' : 'auto',
+                  marginRight: index % 2 === 0 ? 'auto' : '0'
+                })
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px)';
@@ -137,7 +147,7 @@ export default function Experience() {
                   <div style={{
                     position: 'absolute',
                     top: '50%',
-                    right: '-60px',
+                    [index % 2 === 0 ? 'right' : 'left']: '-60px',
                     width: '20px',
                     height: '20px',
                     background: '#4a9eff',
