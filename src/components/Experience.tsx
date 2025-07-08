@@ -13,7 +13,7 @@ export default function Experience() {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #16213e 0%, #0c0c0c 100%)',
       color: 'white',
-      padding: '4rem 2rem',
+      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
       position: 'relative'
     }}>
       <div style={{
@@ -44,9 +44,9 @@ export default function Experience() {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
           style={{
-            fontSize: '3rem',
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
             textAlign: 'center',
-            marginBottom: '4rem',
+            marginBottom: 'clamp(2rem, 5vw, 4rem)',
             color: '#4a9eff',
             textShadow: '0 0 20px rgba(74, 158, 255, 0.5)'
           }}
@@ -57,7 +57,7 @@ export default function Experience() {
         <div style={{
           position: 'relative'
         }}>
-          {/* Timeline line */}
+          {/* Timeline line - hidden on mobile */}
           <div style={{
             position: 'absolute',
             left: '50%',
@@ -66,7 +66,11 @@ export default function Experience() {
             width: '2px',
             background: 'linear-gradient(180deg, #4a9eff 0%, transparent 100%)',
             transform: 'translateX(-50%)',
-            zIndex: 1
+            zIndex: 1,
+            display: 'none',
+            '@media (min-width: 768px)': {
+              display: 'block'
+            }
           }} />
 
           {data.experience.map((exp, index) => (
@@ -78,17 +82,18 @@ export default function Experience() {
               viewport={{ once: true }}
               style={{
                 display: 'flex',
-                justifyContent: index % 2 === 0 ? 'flex-start' : 'flex-end',
-                marginBottom: '3rem',
+                justifyContent: 'center',
+                marginBottom: 'clamp(2rem, 4vw, 3rem)',
                 position: 'relative',
                 zIndex: 2
               }}
             >
               <div style={{
-                width: '45%',
+                width: '100%',
+                maxWidth: '500px',
                 background: 'rgba(255, 255, 255, 0.05)',
                 borderRadius: '15px',
-                padding: '2rem',
+                padding: 'clamp(1.5rem, 3vw, 2rem)',
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 position: 'relative',
@@ -103,29 +108,33 @@ export default function Experience() {
                 e.currentTarget.style.boxShadow = 'none';
               }}
               >
-                {/* Timeline dot */}
+                {/* Timeline dot - hidden on mobile */}
                 <div style={{
                   position: 'absolute',
                   top: '50%',
-                  [index % 2 === 0 ? 'right' : 'left']: '-60px',
+                  right: '-60px',
                   width: '20px',
                   height: '20px',
                   background: '#4a9eff',
                   borderRadius: '50%',
                   transform: 'translateY(-50%)',
                   boxShadow: '0 0 20px rgba(74, 158, 255, 0.8)',
-                  zIndex: 3
+                  zIndex: 3,
+                  display: 'none',
+                  '@media (min-width: 768px)': {
+                    display: 'block'
+                  }
                 }} />
 
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  marginBottom: '1rem',
+                  marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
                   color: '#4a9eff'
                 }}>
                   <FaBriefcase size={20} />
                   <h3 style={{
-                    fontSize: '1.4rem',
+                    fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
                     marginLeft: '0.5rem',
                     color: '#4a9eff'
                   }}>
@@ -134,7 +143,7 @@ export default function Experience() {
                 </div>
 
                 <h4 style={{
-                  fontSize: '1.2rem',
+                  fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
                   marginBottom: '0.5rem',
                   color: '#e0e0e0'
                 }}>
@@ -146,7 +155,7 @@ export default function Experience() {
                   alignItems: 'center',
                   marginBottom: '0.5rem',
                   color: '#a0a0a0',
-                  fontSize: '0.9rem'
+                  fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)'
                 }}>
                   <FaCalendar size={14} />
                   <span style={{ marginLeft: '0.5rem' }}>{exp.duration}</span>
@@ -155,9 +164,9 @@ export default function Experience() {
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  marginBottom: '1.5rem',
+                  marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)',
                   color: '#a0a0a0',
-                  fontSize: '0.9rem'
+                  fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)'
                 }}>
                   <FaMapMarkerAlt size={14} />
                   <span style={{ marginLeft: '0.5rem' }}>{exp.location}</span>
@@ -166,8 +175,8 @@ export default function Experience() {
                 <div style={{
                   display: 'flex',
                   flexWrap: 'wrap',
-                  gap: '0.5rem',
-                  marginBottom: '1.5rem'
+                  gap: 'clamp(0.4rem, 1.5vw, 0.5rem)',
+                  marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
                 }}>
                   {exp.technologies.map((tech, techIndex) => (
                     <motion.span
@@ -180,8 +189,8 @@ export default function Experience() {
                         background: 'rgba(74, 158, 255, 0.1)',
                         border: '1px solid rgba(74, 158, 255, 0.3)',
                         borderRadius: '15px',
-                        padding: '0.3rem 0.8rem',
-                        fontSize: '0.8rem',
+                        padding: 'clamp(0.25rem, 1.5vw, 0.3rem) clamp(0.6rem, 2vw, 0.8rem)',
+                        fontSize: 'clamp(0.7rem, 2.5vw, 0.8rem)',
                         color: '#4a9eff'
                       }}
                     >
@@ -202,11 +211,12 @@ export default function Experience() {
                       transition={{ delay: index * 0.3 + achievementIndex * 0.1, duration: 0.6 }}
                       viewport={{ once: true }}
                       style={{
-                        marginBottom: '0.8rem',
-                        paddingLeft: '1.5rem',
+                        marginBottom: 'clamp(0.6rem, 2vw, 0.8rem)',
+                        paddingLeft: 'clamp(1rem, 3vw, 1.5rem)',
                         position: 'relative',
                         lineHeight: '1.6',
-                        color: '#e0e0e0'
+                        color: '#e0e0e0',
+                        fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
                       }}
                     >
                       <div style={{
@@ -234,23 +244,23 @@ export default function Experience() {
           viewport={{ once: true }}
           style={{
             textAlign: 'center',
-            marginTop: '4rem',
-            padding: '2rem',
+            marginTop: 'clamp(2rem, 5vw, 4rem)',
+            padding: 'clamp(1.5rem, 3vw, 2rem)',
             background: 'rgba(74, 158, 255, 0.05)',
             borderRadius: '15px',
             border: '1px solid rgba(74, 158, 255, 0.2)'
           }}
         >
           <h3 style={{
-            fontSize: '1.5rem',
-            marginBottom: '1rem',
+            fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
+            marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
             color: '#4a9eff'
           }}>
             Continuous Growth & Innovation
           </h3>
           <p style={{
             color: '#e0e0e0',
-            fontSize: '1.1rem',
+            fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
             lineHeight: '1.6'
           }}>
             From freelance development to building enterprise-grade ERP systems, 

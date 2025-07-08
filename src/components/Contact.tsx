@@ -63,7 +63,7 @@ export default function Contact() {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%)',
       color: 'white',
-      padding: '4rem 2rem',
+      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
       position: 'relative'
     }}>
       <div style={{
@@ -94,9 +94,9 @@ export default function Contact() {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
           style={{
-            fontSize: '3rem',
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
             textAlign: 'center',
-            marginBottom: '4rem',
+            marginBottom: 'clamp(2rem, 5vw, 4rem)',
             color: '#4a9eff',
             textShadow: '0 0 20px rgba(74, 158, 255, 0.5)'
           }}
@@ -106,8 +106,8 @@ export default function Contact() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '4rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: 'clamp(2rem, 4vw, 4rem)',
           alignItems: 'start'
         }}>
           {/* Contact Form */}
@@ -119,25 +119,26 @@ export default function Contact() {
             style={{
               background: 'rgba(255, 255, 255, 0.05)',
               borderRadius: '15px',
-              padding: '2rem',
+              padding: 'clamp(1.5rem, 3vw, 2rem)',
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255, 255, 255, 0.1)'
             }}
           >
             <h3 style={{
-              fontSize: '1.8rem',
-              marginBottom: '2rem',
+              fontSize: 'clamp(1.4rem, 3.5vw, 1.8rem)',
+              marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
               color: '#4a9eff'
             }}>
               Send a Message
             </h3>
 
             <form ref={formRef} onSubmit={handleSubmit}>
-              <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
                 <label style={{
                   display: 'block',
                   marginBottom: '0.5rem',
-                  color: '#e0e0e0'
+                  color: '#e0e0e0',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
                 }}>
                   Name
                 </label>
@@ -147,22 +148,23 @@ export default function Contact() {
                   required
                   style={{
                     width: '100%',
-                    padding: '0.8rem',
+                    padding: 'clamp(0.6rem, 2vw, 0.8rem)',
                     background: 'rgba(255, 255, 255, 0.1)',
                     border: '1px solid rgba(74, 158, 255, 0.3)',
                     borderRadius: '8px',
                     color: 'white',
-                    fontSize: '1rem'
+                    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
                   }}
                   placeholder="Your name"
                 />
               </div>
 
-              <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
                 <label style={{
                   display: 'block',
                   marginBottom: '0.5rem',
-                  color: '#e0e0e0'
+                  color: '#e0e0e0',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
                 }}>
                   Email
                 </label>
@@ -172,22 +174,23 @@ export default function Contact() {
                   required
                   style={{
                     width: '100%',
-                    padding: '0.8rem',
+                    padding: 'clamp(0.6rem, 2vw, 0.8rem)',
                     background: 'rgba(255, 255, 255, 0.1)',
                     border: '1px solid rgba(74, 158, 255, 0.3)',
                     borderRadius: '8px',
                     color: 'white',
-                    fontSize: '1rem'
+                    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
                   }}
                   placeholder="your.email@example.com"
                 />
               </div>
 
-              <div style={{ marginBottom: '2rem' }}>
+              <div style={{ marginBottom: 'clamp(1.5rem, 3vw, 2rem)' }}>
                 <label style={{
                   display: 'block',
                   marginBottom: '0.5rem',
-                  color: '#e0e0e0'
+                  color: '#e0e0e0',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
                 }}>
                   Message
                 </label>
@@ -197,12 +200,12 @@ export default function Contact() {
                   rows={5}
                   style={{
                     width: '100%',
-                    padding: '0.8rem',
+                    padding: 'clamp(0.6rem, 2vw, 0.8rem)',
                     background: 'rgba(255, 255, 255, 0.1)',
                     border: '1px solid rgba(74, 158, 255, 0.3)',
                     borderRadius: '8px',
                     color: 'white',
-                    fontSize: '1rem',
+                    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
                     resize: 'vertical'
                   }}
                   placeholder="Tell me about your project..."
@@ -218,9 +221,10 @@ export default function Contact() {
                     background: 'rgba(34, 197, 94, 0.1)',
                     border: '1px solid rgba(34, 197, 94, 0.3)',
                     borderRadius: '8px',
-                    padding: '1rem',
-                    marginBottom: '1rem',
-                    color: '#22c55e'
+                    padding: 'clamp(0.75rem, 2vw, 1rem)',
+                    marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
+                    color: '#22c55e',
+                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
                   }}
                 >
                   ✅ Thank you! Your message has been sent successfully. I'll get back to you soon!
@@ -235,9 +239,10 @@ export default function Contact() {
                     background: 'rgba(239, 68, 68, 0.1)',
                     border: '1px solid rgba(239, 68, 68, 0.3)',
                     borderRadius: '8px',
-                    padding: '1rem',
-                    marginBottom: '1rem',
-                    color: '#ef4444'
+                    padding: 'clamp(0.75rem, 2vw, 1rem)',
+                    marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
+                    color: '#ef4444',
+                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
                   }}
                 >
                   ❌ Sorry, there was an error sending your message. Please try again or contact me directly.
@@ -251,14 +256,14 @@ export default function Contact() {
                 whileTap={!isSubmitting ? { scale: 0.95 } : {}}
                 style={{
                   width: '100%',
-                  padding: '1rem',
+                  padding: 'clamp(0.8rem, 2.5vw, 1rem)',
                   background: isSubmitting 
                     ? 'rgba(74, 158, 255, 0.5)' 
                     : 'linear-gradient(135deg, #4a9eff 0%, #357abd 100%)',
                   border: 'none',
                   borderRadius: '8px',
                   color: 'white',
-                  fontSize: '1.1rem',
+                  fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
                   fontWeight: 'bold',
                   cursor: isSubmitting ? 'not-allowed' : 'pointer',
                   transition: 'all 0.3s ease'
@@ -277,8 +282,8 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             <h3 style={{
-              fontSize: '1.8rem',
-              marginBottom: '2rem',
+              fontSize: 'clamp(1.4rem, 3.5vw, 1.8rem)',
+              marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
               color: '#4a9eff'
             }}>
               Get in Touch
@@ -287,25 +292,29 @@ export default function Contact() {
             <div style={{
               background: 'rgba(255, 255, 255, 0.05)',
               borderRadius: '15px',
-              padding: '2rem',
+              padding: 'clamp(1.5rem, 3vw, 2rem)',
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
-              marginBottom: '2rem'
+              marginBottom: 'clamp(1.5rem, 3vw, 2rem)'
             }}>
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                marginBottom: '1.5rem'
+                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
               }}>
                 <FaEnvelope size={20} color="#4a9eff" />
                 <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ color: '#e0e0e0', margin: 0 }}>Email</p>
+                  <p style={{ 
+                    color: '#e0e0e0', 
+                    margin: 0,
+                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
+                  }}>Email</p>
                   <a 
                     href={`mailto:${data.email}`}
                     style={{ 
                       color: '#4a9eff', 
                       textDecoration: 'none',
-                      fontSize: '1.1rem'
+                      fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
                     }}
                   >
                     {data.email}
@@ -316,17 +325,21 @@ export default function Contact() {
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                marginBottom: '1.5rem'
+                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
               }}>
                 <FaPhone size={20} color="#4a9eff" />
                 <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ color: '#e0e0e0', margin: 0 }}>Phone</p>
+                  <p style={{ 
+                    color: '#e0e0e0', 
+                    margin: 0,
+                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
+                  }}>Phone</p>
                   <a 
                     href={`tel:${data.phone}`}
                     style={{ 
                       color: '#4a9eff', 
                       textDecoration: 'none',
-                      fontSize: '1.1rem'
+                      fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
                     }}
                   >
                     {data.phone}
@@ -337,12 +350,20 @@ export default function Contact() {
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                marginBottom: '1.5rem'
+                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
               }}>
                 <FaMapMarkerAlt size={20} color="#4a9eff" />
                 <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ color: '#e0e0e0', margin: 0 }}>Location</p>
-                  <p style={{ color: '#4a9eff', margin: 0, fontSize: '1.1rem' }}>
+                  <p style={{ 
+                    color: '#e0e0e0', 
+                    margin: 0,
+                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
+                  }}>Location</p>
+                  <p style={{ 
+                    color: '#4a9eff', 
+                    margin: 0, 
+                    fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
+                  }}>
                     {data.location}
                   </p>
                 </div>
@@ -354,7 +375,11 @@ export default function Contact() {
               }}>
                 <FaLinkedin size={20} color="#4a9eff" />
                 <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ color: '#e0e0e0', margin: 0 }}>LinkedIn</p>
+                  <p style={{ 
+                    color: '#e0e0e0', 
+                    margin: 0,
+                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
+                  }}>LinkedIn</p>
                   <a 
                     href={data.linkedin}
                     target="_blank"
@@ -362,7 +387,7 @@ export default function Contact() {
                     style={{ 
                       color: '#4a9eff', 
                       textDecoration: 'none',
-                      fontSize: '1.1rem'
+                      fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
                     }}
                   >
                     Connect on LinkedIn
@@ -379,21 +404,22 @@ export default function Contact() {
               style={{
                 background: 'rgba(74, 158, 255, 0.05)',
                 borderRadius: '15px',
-                padding: '2rem',
+                padding: 'clamp(1.5rem, 3vw, 2rem)',
                 border: '1px solid rgba(74, 158, 255, 0.2)',
                 textAlign: 'center'
               }}
             >
               <h4 style={{
-                fontSize: '1.3rem',
-                marginBottom: '1rem',
+                fontSize: 'clamp(1.1rem, 3vw, 1.3rem)',
+                marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
                 color: '#4a9eff'
               }}>
                 Ready to Build Together?
               </h4>
               <p style={{
                 color: '#e0e0e0',
-                lineHeight: '1.6'
+                lineHeight: '1.6',
+                fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
               }}>
                 Whether you need a full-stack developer for your next project, 
                 want to discuss potential collaborations, or just want to say hello, 

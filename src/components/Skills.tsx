@@ -37,7 +37,7 @@ export default function Skills() {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
       color: 'white',
-      padding: '4rem 2rem',
+      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
       position: 'relative'
     }}>
       <div style={{
@@ -77,9 +77,9 @@ export default function Skills() {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
           style={{
-            fontSize: '3rem',
+            fontSize: 'clamp(2rem, 6vw, 3rem)',
             textAlign: 'center',
-            marginBottom: '3rem',
+            marginBottom: 'clamp(2rem, 4vw, 3rem)',
             color: '#4a9eff',
             textShadow: '0 0 20px rgba(74, 158, 255, 0.5)'
           }}
@@ -90,7 +90,7 @@ export default function Skills() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '2rem'
+          gap: 'clamp(1.5rem, 3vw, 2rem)'
         }}>
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
@@ -102,7 +102,7 @@ export default function Skills() {
               style={{
                 background: 'rgba(255, 255, 255, 0.05)',
                 borderRadius: '15px',
-                padding: '2rem',
+                padding: 'clamp(1.5rem, 3vw, 2rem)',
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 transition: 'all 0.3s ease'
@@ -115,12 +115,12 @@ export default function Skills() {
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                marginBottom: '1.5rem',
+                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)',
                 color: '#4a9eff'
               }}>
                 {category.icon}
                 <h3 style={{
-                  fontSize: '1.3rem',
+                  fontSize: 'clamp(1.1rem, 3vw, 1.3rem)',
                   marginLeft: '1rem',
                   color: '#4a9eff'
                 }}>
@@ -131,7 +131,7 @@ export default function Skills() {
               <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '0.8rem'
+                gap: 'clamp(0.6rem, 1.5vw, 0.8rem)'
               }}>
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
@@ -147,8 +147,8 @@ export default function Skills() {
                       background: 'rgba(74, 158, 255, 0.1)',
                       border: '1px solid rgba(74, 158, 255, 0.3)',
                       borderRadius: '20px',
-                      padding: '0.5rem 1rem',
-                      fontSize: '0.9rem',
+                      padding: 'clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2vw, 1rem)',
+                      fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)',
                       transition: 'all 0.3s ease',
                       cursor: 'pointer'
                     }}
@@ -173,23 +173,23 @@ export default function Skills() {
           viewport={{ once: true }}
           style={{
             textAlign: 'center',
-            marginTop: '4rem',
-            padding: '2rem',
+            marginTop: 'clamp(2rem, 5vw, 4rem)',
+            padding: 'clamp(1.5rem, 3vw, 2rem)',
             background: 'rgba(74, 158, 255, 0.05)',
             borderRadius: '15px',
             border: '1px solid rgba(74, 158, 255, 0.2)'
           }}
         >
           <h3 style={{
-            fontSize: '1.5rem',
-            marginBottom: '1rem',
+            fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
+            marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
             color: '#4a9eff'
           }}>
             Ready to Build the Future
           </h3>
           <p style={{
             color: '#e0e0e0',
-            fontSize: '1.1rem',
+            fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
             lineHeight: '1.6'
           }}>
             From offline-first mobile apps to AI-powered ERP systems, 

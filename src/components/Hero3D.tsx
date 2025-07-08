@@ -67,16 +67,18 @@ export default function Hero3D() {
         textAlign: 'center',
         color: 'white',
         zIndex: 10,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        padding: '0 1rem'
       }}>
         <motion.h1
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
           style={{
-            fontSize: '3rem',
+            fontSize: 'clamp(1.5rem, 5vw, 3rem)',
             marginBottom: '1rem',
-            textShadow: '0 0 20px rgba(74, 158, 255, 0.8)'
+            textShadow: '0 0 20px rgba(74, 158, 255, 0.8)',
+            lineHeight: '1.2'
           }}
         >
           David Uyi Val-Izevbigie
@@ -86,9 +88,10 @@ export default function Hero3D() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
           style={{
-            fontSize: '1.5rem',
+            fontSize: 'clamp(1rem, 3vw, 1.5rem)',
             color: '#4a9eff',
-            textShadow: '0 0 10px rgba(74, 158, 255, 0.5)'
+            textShadow: '0 0 10px rgba(74, 158, 255, 0.5)',
+            marginBottom: '0.5rem'
           }}
         >
           Fullstack Developer
@@ -98,10 +101,11 @@ export default function Hero3D() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 2, duration: 1 }}
           style={{
-            fontSize: '1rem',
+            fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
             color: '#a0a0a0',
             maxWidth: '600px',
-            margin: '1rem auto'
+            margin: '1rem auto',
+            lineHeight: '1.4'
           }}
         >
           Building for Earth, from Space 🚀

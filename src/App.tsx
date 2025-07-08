@@ -71,7 +71,7 @@ function App() {
               }}
               onClick={() => scrollToSection('hero')}
             >
-              David Uyi
+              ValTech
             </motion.h1>
 
             <motion.div
