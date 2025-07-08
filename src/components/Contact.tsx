@@ -74,7 +74,7 @@ export default function Contact() {
         height: '100%',
         zIndex: 1
       }}>
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+        <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 75 }}>
           <ambientLight intensity={0.3} />
           <Stars radius={80} depth={60} count={5000} factor={6} fade speed={1.2} />
           <MoonModel position={[0, 0, -3]} />
