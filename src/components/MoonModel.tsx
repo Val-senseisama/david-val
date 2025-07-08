@@ -13,5 +13,5 @@ export default function MoonModel(props: any) {
     }
   });
 
-  return <primitive ref={moonRef} object={scene} scale={2} {...props} />;
+  return <primitive ref={moonRef} object={scene} scale={6} {...props} />;
 } 

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
-import MoonModel from './MoonModel';
+import SatelliteModel from './SatelliteModel';
 import { FaEnvelope, FaLinkedin, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
@@ -77,7 +77,7 @@ export default function Contact() {
         <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 75 }}>
           <ambientLight intensity={0.3} />
           <Stars radius={80} depth={60} count={5000} factor={6} fade speed={1.2} />
-          <MoonModel position={[0, 0, -3]} />
+          <SatelliteModel position={[0, 0, -3]} />
           <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.2} />
         </Canvas>
       </div>

@@ -45,7 +45,7 @@ export default function Hero3D() {
           />
           
           <MoonModel position={[0, 0, -5]} />
-          <SpaceshipModel position={[4, 2, -2]} />
+          <SpaceshipModel position={[6, 3, -2]} />
           
           <OrbitControls 
             enableZoom={true} 

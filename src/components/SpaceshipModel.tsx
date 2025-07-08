@@ -19,7 +19,7 @@ export default function SpaceshipModel(props: any) {
     <primitive
       ref={spaceshipRef}
       object={scene}
-      scale={hovered ? 1.2 : 1}
+      scale={hovered ? 1.8 : 1.6}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
       {...props}
