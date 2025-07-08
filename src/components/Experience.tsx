@@ -4,9 +4,21 @@ import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
 import SpaceshipModel from './SpaceshipModel';
 import { FaBriefcase, FaCalendar, FaMapMarkerAlt } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 
 export default function Experience() {
   const data = usePortfolioData();
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   return (
     <section style={{
@@ -57,21 +69,19 @@ export default function Experience() {
         <div style={{
           position: 'relative'
         }}>
-          {/* Timeline line - hidden on mobile */}
-          <div style={{
-            position: 'absolute',
-            left: '50%',
-            top: 0,
-            bottom: 0,
-            width: '2px',
-            background: 'linear-gradient(180deg, #4a9eff 0%, transparent 100%)',
-            transform: 'translateX(-50%)',
-            zIndex: 1,
-            display: 'none',
-            '@media (min-width: 768px)': {
-              display: 'block'
-            }
-          }} />
+          {/* Timeline line - only shown on desktop */}
+          {isDesktop && (
+            <div style={{
+              position: 'absolute',
+              left: '50%',
+              top: 0,
+              bottom: 0,
+              width: '2px',
+              background: 'linear-gradient(180deg, #4a9eff 0%, transparent 100%)',
+              transform: 'translateX(-50%)',
+              zIndex: 1
+            }} />
+          )}
 
           {data.experience.map((exp, index) => (
             <motion.div
@@ -108,23 +118,21 @@ export default function Experience() {
                 e.currentTarget.style.boxShadow = 'none';
               }}
               >
-                {/* Timeline dot - hidden on mobile */}
-                <div style={{
-                  position: 'absolute',
-                  top: '50%',
-                  right: '-60px',
-                  width: '20px',
-                  height: '20px',
-                  background: '#4a9eff',
-                  borderRadius: '50%',
-                  transform: 'translateY(-50%)',
-                  boxShadow: '0 0 20px rgba(74, 158, 255, 0.8)',
-                  zIndex: 3,
-                  display: 'none',
-                  '@media (min-width: 768px)': {
-                    display: 'block'
-                  }
-                }} />
+                {/* Timeline dot - only shown on desktop */}
+                {isDesktop && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    right: '-60px',
+                    width: '20px',
+                    height: '20px',
+                    background: '#4a9eff',
+                    borderRadius: '50%',
+                    transform: 'translateY(-50%)',
+                    boxShadow: '0 0 20px rgba(74, 158, 255, 0.8)',
+                    zIndex: 3
+                  }} />
+                )}
 
                 <div style={{
                   display: 'flex',
