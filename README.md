@@ -10,6 +10,7 @@ A stunning, interactive 3D portfolio built with React, Three.js, and Framer Moti
 - **Space Theme**: Beautiful galaxy backgrounds with animated stars
 - **Portfolio Sections**: About, Skills, Experience, and Contact sections
 - **Interactive Elements**: Hover effects, smooth scrolling, and 3D model interactions
+- **Contact Form**: Functional contact form with EmailJS integration
 
 ## 🚀 Technologies Used
 
@@ -21,6 +22,7 @@ A stunning, interactive 3D portfolio built with React, Three.js, and Framer Moti
 - **Framer Motion** - Animation library
 - **React Icons** - Icon library
 - **TypeScript** - Type safety
+- **EmailJS** - Email service integration
 
 ## 📁 Project Structure
 
@@ -35,7 +37,8 @@ src/
 │   ├── About.tsx           # About section
 │   ├── Skills.tsx          # Skills section
 │   ├── Experience.tsx      # Experience timeline
-│   └── Contact.tsx         # Contact form and info
+│   ├── Contact.tsx         # Contact form and info
+│   └── ErrorBoundary.tsx   # Error handling component
 ├── hooks/
 │   └── usePortfolioData.ts # Custom hook for portfolio data
 ├── data/
@@ -64,15 +67,94 @@ public/
    npm install
    ```
 
-3. **Start development server**
+3. **Set up EmailJS (Optional but Recommended)**
+   
+   The contact form uses EmailJS to send emails. To set it up:
+   
+   a. Create an account at [EmailJS](https://www.emailjs.com/)
+   
+   b. Create an email service (Gmail, Outlook, etc.)
+   
+   c. Create two email templates:
+      - **Template for you**: Receives messages from visitors
+      - **Template for sender**: Auto-reply confirmation to visitors
+   
+   d. Copy the `env.example` file to `.env`:
+      ```bash
+      cp env.example .env
+      ```
+   
+   e. Fill in your EmailJS credentials in `.env`:
+      ```env
+      VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
+      VITE_EMAILJS_SERVICE_ID=your_service_id_here
+      VITE_EMAILJS_TEMPLATE_TO_YOU=your_template_id_for_you
+      VITE_EMAILJS_TEMPLATE_TO_SENDER=your_template_id_for_sender
+      ```
+
+4. **Start development server**
    ```bash
    npm run dev
    ```
 
-4. **Build for production**
+5. **Build for production**
    ```bash
    npm run build
    ```
+
+## 📧 EmailJS Setup Guide
+
+### Step 1: Create EmailJS Account
+1. Go to [EmailJS Dashboard](https://dashboard.emailjs.com/)
+2. Sign up for a free account
+3. Verify your email
+
+### Step 2: Add Email Service
+1. Go to "Email Services" tab
+2. Click "Add New Service"
+3. Choose your email provider (Gmail recommended)
+4. Follow the authentication steps
+5. Note down your **Service ID**
+
+### Step 3: Create Email Templates
+1. Go to "Email Templates" tab
+2. Create two templates:
+
+   **Template 1 - For You (David):**
+   ```
+   Subject: New Contact Form Message from {{name}}
+   
+   Name: {{name}}
+   Email: {{email}}
+   Message: {{message}}
+   ```
+
+   **Template 2 - For Sender (Auto-reply):**
+   ```
+   Subject: Thank you for your message!
+   
+   Hi {{name}},
+   
+   Thank you for reaching out! I've received your message and will get back to you soon.
+   
+   Best regards,
+   David Uyi Val-Izevbigie
+   ```
+
+3. Note down both **Template IDs**
+
+### Step 4: Get Your Public Key
+1. Go to "Account" tab
+2. Copy your **Public Key**
+
+### Step 5: Update Environment Variables
+Create a `.env` file in the root directory:
+```env
+VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
+VITE_EMAILJS_SERVICE_ID=your_service_id_here
+VITE_EMAILJS_TEMPLATE_TO_YOU=your_template_id_for_you
+VITE_EMAILJS_TEMPLATE_TO_SENDER=your_template_id_for_sender
+```
 
 ## 🎨 Customization
 
@@ -134,6 +216,12 @@ Each section has its own 3D canvas with:
 - **Three.js Animation**: Models rotate and float using `useFrame`
 - **Scroll-triggered animations**: Elements animate when they come into view
 
+### Contact Form
+- **EmailJS Integration**: Sends emails directly from the browser
+- **Dual Email System**: Sends message to you + auto-reply to sender
+- **Error Handling**: Graceful error handling with user feedback
+- **Loading States**: Visual feedback during form submission
+
 ### Responsive Design
 - Grid layouts that adapt to screen size
 - Mobile-friendly navigation
@@ -144,11 +232,13 @@ Each section has its own 3D canvas with:
 ### Vercel
 1. Push your code to GitHub
 2. Connect your repository to Vercel
-3. Deploy automatically
+3. Add environment variables in Vercel dashboard
+4. Deploy automatically
 
 ### Netlify
 1. Build the project: `npm run build`
 2. Upload the `dist` folder to Netlify
+3. Add environment variables in Netlify dashboard
 
 ### GitHub Pages
 1. Add to `vite.config.ts`:
@@ -166,6 +256,7 @@ Each section has its own 3D canvas with:
 - Lazy loading for sections
 - Efficient animation loops
 - Optimized bundle size with Vite
+- EmailJS for lightweight email handling
 
 ## 🤝 Contributing
 
@@ -187,4 +278,3 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 Built with ❤️ and ☕ by David Uyi Val-Izevbigie
-# david-val

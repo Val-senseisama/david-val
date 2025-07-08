@@ -4,29 +4,58 @@ import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
 import MoonModel from './MoonModel';
 import { FaEnvelope, FaLinkedin, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const data = usePortfolioData();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I\'ll get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
-  };
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    if (!formRef.current) return;
+
+    try {
+      // Send email to yourself (David)
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_contact',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_TO_YOU || 'template_to_you',
+        formRef.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      // Send confirmation email to the sender
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_contact',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_TO_SENDER || 'template_to_sender',
+        formRef.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      setSubmitStatus('success');
+      formRef.current.reset();
+      
+      // Reset status after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
+
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setSubmitStatus('error');
+      
+      // Reset status after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('idle');
+      }, 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -103,7 +132,7 @@ export default function Contact() {
               Send a Message
             </h3>
 
-            <form onSubmit={handleSubmit}>
+            <form ref={formRef} onSubmit={handleSubmit}>
               <div style={{ marginBottom: '1.5rem' }}>
                 <label style={{
                   display: 'block',
@@ -115,8 +144,6 @@ export default function Contact() {
                 <input
                   type="text"
                   name="name"
-                  value={formData.name}
-                  onChange={handleChange}
                   required
                   style={{
                     width: '100%',
@@ -142,8 +169,6 @@ export default function Contact() {
                 <input
                   type="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
                   style={{
                     width: '100%',
@@ -168,8 +193,6 @@ export default function Contact() {
                 </label>
                 <textarea
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
                   required
                   rows={5}
                   style={{
@@ -186,24 +209,62 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  style={{
+                    background: 'rgba(34, 197, 94, 0.1)',
+                    border: '1px solid rgba(34, 197, 94, 0.3)',
+                    borderRadius: '8px',
+                    padding: '1rem',
+                    marginBottom: '1rem',
+                    color: '#22c55e'
+                  }}
+                >
+                  ✅ Thank you! Your message has been sent successfully. I'll get back to you soon!
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  style={{
+                    background: 'rgba(239, 68, 68, 0.1)',
+                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                    borderRadius: '8px',
+                    padding: '1rem',
+                    marginBottom: '1rem',
+                    color: '#ef4444'
+                  }}
+                >
+                  ❌ Sorry, there was an error sending your message. Please try again or contact me directly.
+                </motion.div>
+              )}
+
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                disabled={isSubmitting}
+                whileHover={!isSubmitting ? { scale: 1.05 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.95 } : {}}
                 style={{
                   width: '100%',
                   padding: '1rem',
-                  background: 'linear-gradient(135deg, #4a9eff 0%, #357abd 100%)',
+                  background: isSubmitting 
+                    ? 'rgba(74, 158, 255, 0.5)' 
+                    : 'linear-gradient(135deg, #4a9eff 0%, #357abd 100%)',
                   border: 'none',
                   borderRadius: '8px',
                   color: 'white',
                   fontSize: '1.1rem',
                   fontWeight: 'bold',
-                  cursor: 'pointer',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
                   transition: 'all 0.3s ease'
                 }}
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </motion.button>
             </form>
           </motion.div>
