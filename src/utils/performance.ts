@@ -43,7 +43,6 @@ class PerformanceMonitor {
   }
 
   private logMetrics() {
-    if (process.env.NODE_ENV === 'development') {
       console.group('🚀 Performance Metrics');
       console.log('Initial Load Time:', `${this.metrics.initialLoadTime.toFixed(2)}ms`);
       
@@ -64,7 +63,7 @@ class PerformanceMonitor {
       }
       
       console.groupEnd();
-    }
+    
   }
 }
 
