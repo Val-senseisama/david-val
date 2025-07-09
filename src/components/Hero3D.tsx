@@ -50,8 +50,6 @@ class ErrorBoundary extends React.Component<
 
 export default function Hero3D() {
   const [isWebGLAvailable, setIsWebGLAvailable] = useState(true);
-  const [modelsLoaded, setModelsLoaded] = useState(false);
-  const [modelErrors, setModelErrors] = useState<string[]>([]);
 
   useEffect(() => {
     // Check WebGL availability
@@ -63,11 +61,7 @@ export default function Hero3D() {
   }, []);
 
   const handleModelError = (modelName: string) => {
-    setModelErrors(prev => [...prev, modelName]);
-  };
-
-  const handleModelsLoaded = () => {
-    setModelsLoaded(true);
+    console.warn(`Failed to load ${modelName} model`);
   };
 
   if (!isWebGLAvailable) {
