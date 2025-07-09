@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
 import { Suspense, lazy } from 'react';
-import {  FaDatabase, FaExternalLinkAlt, FaChartBar } from 'react-icons/fa';
+import {  FaDatabase, FaExternalLinkAlt, FaChartBar, FaCreditCard, FaTrophy, FaBrain } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 // Lazy load the 3D model component
@@ -45,6 +45,39 @@ export default function Showcase() {
       path: '/sales-forecast',
       status: 'completed',
       color: '#4a9eff'
+    },
+    {
+      id: 'multivendor-payments',
+      title: 'Multi-Vendor Payments',
+      description: 'Professional payment splitting system with vendor payouts, platform fees, and VAT calculations.',
+      icon: <FaCreditCard size={32} />,
+      technologies: ['React', 'TypeScript', 'localStorage', 'Payment Logic'],
+      features: ['Payment Splitting', 'Vendor Payouts', 'Transaction History'],
+      path: '/multivendor',
+      status: 'completed',
+      color: '#ff6b35'
+    },
+    {
+      id: 'goal-quest-tracker',
+      title: 'Goal Quest Tracker',
+      description: 'Gamified productivity app with XP system, quest tracking, and achievement analytics.',
+      icon: <FaTrophy size={32} />,
+      technologies: ['React', 'TypeScript', 'localStorage', 'Gamification'],
+      features: ['Quest Management', 'XP System', 'Progress Analytics'],
+      path: '/goal-quest',
+      status: 'completed',
+      color: '#f59e0b'
+    },
+    {
+      id: 'mind-map-creator',
+      title: 'Mind Map Creator',
+      description: 'Interactive web application for creating and managing mind maps with drag-and-drop functionality.',
+      icon: <FaBrain size={32} />,
+      technologies: ['React', 'TypeScript', 'localStorage', 'Drag & Drop'],
+      features: ['Create, Edit, Delete Nodes', 'Connect Nodes', 'Save/Load Mind Maps'],
+      path: '/mind-map',
+      status: 'completed',
+      color: '#6c757d'
     }
   ];
 
@@ -139,7 +172,7 @@ export default function Showcase() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: 'clamp(1.5rem, 3vw, 2rem)',
           marginBottom: 'clamp(2rem, 5vw, 4rem)'
         }}>
@@ -157,7 +190,11 @@ export default function Showcase() {
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                minHeight: '200px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between'
               }}
               whileHover={{
                 transform: 'translateY(-10px)',
@@ -167,31 +204,33 @@ export default function Showcase() {
               whileTap={{ scale: 0.98 }}
               onClick={() => handleProjectClick(project)}
             >
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)',
-                color: project.color
-              }}>
-                {project.icon}
-                <h3 style={{
-                  fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
-                  marginLeft: '1rem',
-                  color: project.color,
-                  margin: 0
+              <div>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)',
+                  color: project.color
                 }}>
-                  {project.title}
-                </h3>
-              </div>
+                  {project.icon}
+                  <h3 style={{
+                    fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
+                    marginLeft: '1rem',
+                    color: project.color,
+                    margin: 0
+                  }}>
+                    {project.title}
+                  </h3>
+                </div>
 
-              <p style={{
-                color: '#e0e0e0',
-                fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
-                lineHeight: '1.6',
-                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
-              }}>
-                {project.description}
-              </p>
+                <p style={{
+                  color: '#e0e0e0',
+                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
+                  lineHeight: '1.6',
+                  marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
+                }}>
+                  {project.description}
+                </p>
+              </div>
 
               <div style={{
                 display: 'flex',
@@ -200,7 +239,12 @@ export default function Showcase() {
                 gap: '0.5rem',
                 color: project.color,
                 fontSize: '0.9rem',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                padding: '0.75rem',
+                borderRadius: '8px',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                transition: 'all 0.3s ease'
               }}>
                 <span>View Project</span>
                 <FaExternalLinkAlt size={14} />

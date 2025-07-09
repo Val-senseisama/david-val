@@ -79,6 +79,31 @@ export default function SalesForecast() {
     }
   }, [darkMode]);
 
+  // Handle mobile sidebar close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const sidebar = document.querySelector('.analytics-sidebar');
+      const sidebarToggle = document.querySelector('.sidebar-toggle');
+      
+      if (sidebar && sidebarToggle && window.innerWidth <= 768) {
+        const target = event.target as Element;
+        if (!sidebar.contains(target) && !sidebarToggle.contains(target)) {
+          setSidebarOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Close sidebar when navigating to different pages on mobile
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setSidebarOpen(false);
+    }
+  }, [activePage]);
+
   const generateId = () => {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   };

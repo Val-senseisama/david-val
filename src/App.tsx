@@ -8,6 +8,9 @@ import Experience from './components/Experience';
 import Contact from './components/Contact';
 import Inventory from './pages/Inventory';
 import SalesForecast from './pages/SalesForecast';
+import MultiVendor from './pages/MultiVendor/index';
+import GoalQuest from './pages/GoalQuest/GoalQuest';
+import MindMap from './pages/MindMap/MindMap';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
 import Showcase from './components/Showcase';
@@ -78,6 +81,9 @@ function PortfolioApp() {
         <Routes>
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/sales-forecast" element={<SalesForecast />} />
+          <Route path="/multivendor" element={<MultiVendor />} />
+          <Route path="/goal-quest" element={<GoalQuest />} />
+          <Route path="/mind-map" element={<MindMap />} />
         </Routes>
       </ErrorBoundary>
     );
@@ -250,7 +256,7 @@ function PortfolioApp() {
                       {item}
                     </motion.button>
                   ))}
-                </div>
+      </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -344,6 +350,9 @@ function App() {
         <Route path="/" element={<PortfolioApp />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/sales-forecast" element={<SalesForecast />} />
+        <Route path="/multivendor" element={<MultiVendor />} />
+        <Route path="/goal-quest" element={<GoalQuest />} />
+        <Route path="/mind-map" element={<MindMap />} />
       </Routes>
     </Router>
   );
