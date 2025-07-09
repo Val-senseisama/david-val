@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Hero3D from './components/Hero3D';
 import ErrorBoundary from './components/ErrorBoundary';
 import About from './components/About';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
+import Inventory from './pages/Inventory';
+import SalesForecast from './pages/SalesForecast';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronDown,  FaBars, FaTimes } from 'react-icons/fa';
+import { FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
+import Showcase from './components/Showcase';
 
 // Throttle function to limit scroll event frequency
 const throttle = (func: Function, limit: number) => {
@@ -20,9 +24,10 @@ const throttle = (func: Function, limit: number) => {
   }
 };
 
-function App() {
+function PortfolioApp() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     // Check screen size on mount and resize
@@ -64,7 +69,19 @@ function App() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const navigationItems = ['About', 'Skills', 'Experience', 'Contact'];
+  const navigationItems = ['About', 'Skills', 'Experience', 'Showcase', 'Contact'];
+
+  // Don't show navigation for project pages
+  if (location.pathname !== '/') {
+    return (
+      <ErrorBoundary>
+        <Routes>
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/sales-forecast" element={<SalesForecast />} />
+        </Routes>
+      </ErrorBoundary>
+    );
+  }
 
   return (
     <ErrorBoundary>
@@ -285,6 +302,11 @@ function App() {
           <Experience />
         </section>
 
+        {/* Showcase Section */}
+        <section id="showcase">
+          <Showcase />
+        </section>
+
         {/* Contact Section */}
         <section id="contact">
           <Contact />
@@ -312,6 +334,18 @@ function App() {
         </footer>
       </div>
     </ErrorBoundary>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<PortfolioApp />} />
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/sales-forecast" element={<SalesForecast />} />
+      </Routes>
+    </Router>
   );
 }
 
