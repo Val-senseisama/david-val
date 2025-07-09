@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://david-val.vercel.app/sitemap.xml
+Sitemap: https://david-val.vercel.app/sitemap-v1.xml
 
 # Allow all pages to be crawled
 Allow: /inventory
