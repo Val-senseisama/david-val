@@ -1,6 +1,6 @@
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useRef, useState, Suspense } from 'react';
+import { useRef, useState, Suspense, useEffect } from 'react';
 import * as THREE from 'three';
 
 // Preload the model
@@ -11,12 +11,23 @@ function SpaceshipModelInner(props: any) {
   const spaceshipRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
 
+  // Handle model loading errors
+  useEffect(() => {
+    if (props.onError && !scene) {
+      props.onError();
+    }
+  }, [scene, props.onError]);
+
   useFrame((state) => {
     if (spaceshipRef.current) {
       spaceshipRef.current.rotation.y += 0.01;
       spaceshipRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.5;
     }
   });
+
+  if (!scene) {
+    return null;
+  }
 
   return (
     <primitive

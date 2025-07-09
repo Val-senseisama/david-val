@@ -1,14 +1,57 @@
+import React, { Suspense, useState, useEffect, lazy } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
 import { motion } from 'framer-motion';
-import { Suspense, useState, useEffect, lazy } from 'react';
 
 // Lazy load the 3D model components
 const LazyMoonModel = lazy(() => import('./MoonModel'));
 const LazySpaceshipModel = lazy(() => import('./SpaceshipModel'));
 
+// Error boundary component for 3D models
+function ModelErrorBoundary({ children, fallback }: { children: React.ReactNode; fallback: React.ReactNode }) {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return <>{fallback}</>;
+  }
+
+  return (
+    <ErrorBoundary onError={() => setHasError(true)}>
+      {children}
+    </ErrorBoundary>
+  );
+}
+
+// Simple ErrorBoundary component
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode; onError: () => void },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode; onError: () => void }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch() {
+    this.props.onError();
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
 export default function Hero3D() {
   const [isWebGLAvailable, setIsWebGLAvailable] = useState(true);
+  const [modelsLoaded, setModelsLoaded] = useState(false);
+  const [modelErrors, setModelErrors] = useState<string[]>([]);
 
   useEffect(() => {
     // Check WebGL availability
@@ -18,6 +61,14 @@ export default function Hero3D() {
       setIsWebGLAvailable(false);
     }
   }, []);
+
+  const handleModelError = (modelName: string) => {
+    setModelErrors(prev => [...prev, modelName]);
+  };
+
+  const handleModelsLoaded = () => {
+    setModelsLoaded(true);
+  };
 
   if (!isWebGLAvailable) {
     return (
@@ -84,8 +135,29 @@ export default function Hero3D() {
         />
         
         <Suspense fallback={null}>
-          <LazyMoonModel position={[0, 0, -5]} />
-          <LazySpaceshipModel position={[6, 3, -2]} />
+          <ModelErrorBoundary fallback={
+            <mesh position={[0, 0, -5]}>
+              <sphereGeometry args={[2, 32, 32]} />
+              <meshStandardMaterial color="#888888" />
+            </mesh>
+          }>
+            <LazyMoonModel 
+              position={[0, 0, -5]} 
+              onError={() => handleModelError('moon')}
+            />
+          </ModelErrorBoundary>
+          
+          <ModelErrorBoundary fallback={
+            <mesh position={[6, 3, -2]}>
+              <boxGeometry args={[1, 1, 2]} />
+              <meshStandardMaterial color="#4a9eff" />
+            </mesh>
+          }>
+            <LazySpaceshipModel 
+              position={[6, 3, -2]} 
+              onError={() => handleModelError('spaceship')}
+            />
+          </ModelErrorBoundary>
         </Suspense>
         
         <OrbitControls 
