@@ -432,7 +432,7 @@ export default function MindMap() {
             {filteredNodes.length > 0 ? (
               filteredNodes.map((node, index) => (
                 <div
-                  key={node.id}
+                  key={node.id + index}
                   className={`mindmap-node ${isDragging && draggedNode === node.id ? 'dragging' : ''}`}
                   style={{
                     left: node.position.x,
