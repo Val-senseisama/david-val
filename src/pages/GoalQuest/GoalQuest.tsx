@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaTrophy, FaCalendarAlt, FaStar, FaCheck, FaPlay } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './GoalQuest.css';
@@ -466,7 +467,23 @@ export default function GoalQuest() {
   };
 
   return (
-    <div className={`goal-quest-dashboard ${darkMode ? 'dark-mode' : ''}`}>
+    <>
+      <Helmet>
+        <title>GoalQuest - Gamified Goal Tracking | ValTech</title>
+        <meta name="description" content="Gamified goal tracking and quest management system. Turn your goals into quests, earn XP, track progress, and stay motivated with a fun RPG-style interface." />
+        <meta name="keywords" content="Goal Tracking, Quest Management, Gamification, Productivity, XP System, Goal Setting, Progress Tracking, Motivation" />
+        <meta name="author" content="David Uyi Val-Izevbigie" />
+        <meta property="og:title" content="GoalQuest - Gamified Goal Tracking | ValTech" />
+        <meta property="og:description" content="Gamified goal tracking and quest management system with XP rewards and progress tracking." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://david-val.vercel.app/goal-quest" />
+        <meta property="og:image" content="https://david-val.vercel.app/goal-quest-og.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="GoalQuest - Gamified Goal Tracking | ValTech" />
+        <meta name="twitter:description" content="Gamified goal tracking and quest management system with XP rewards and progress tracking." />
+        <link rel="canonical" href="https://david-val.vercel.app/goal-quest" />
+      </Helmet>
+      <div className={`goal-quest-dashboard ${darkMode ? 'dark-mode' : ''}`}>
       {/* Sidebar */}
       <div className={`quest-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
@@ -566,5 +583,6 @@ export default function GoalQuest() {
         </div>
       )}
     </div>
+    </>
   );
 } 

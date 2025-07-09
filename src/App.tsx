@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Hero3D from './components/Hero3D';
 import ErrorBoundary from './components/ErrorBoundary';
 import About from './components/About';
@@ -94,6 +95,21 @@ function PortfolioApp() {
 
   return (
     <ErrorBoundary>
+      <Helmet>
+        <title>David Uyi Val-Izevbigie - Fullstack Developer | ValTech</title>
+        <meta name="description" content="David Uyi Val-Izevbigie is a passionate Fullstack Developer specializing in React, Three.js, and modern web technologies. Building innovative solutions for Earth, from Space." />
+        <meta name="keywords" content="Fullstack Developer, React, Three.js, Web Development, Portfolio, David Val-Izevbigie, ValTech" />
+        <meta name="author" content="David Uyi Val-Izevbigie" />
+        <meta property="og:title" content="David Uyi Val-Izevbigie - Fullstack Developer" />
+        <meta property="og:description" content="Passionate Fullstack Developer specializing in React, Three.js, and modern web technologies." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://david-val.vercel.app/" />
+        <meta property="og:image" content="https://david-val.vercel.app/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="David Uyi Val-Izevbigie - Fullstack Developer" />
+        <meta name="twitter:description" content="Passionate Fullstack Developer specializing in React, Three.js, and modern web technologies." />
+        <link rel="canonical" href="https://david-val.vercel.app/" />
+      </Helmet>
       <div style={{
         background: '#0c0c0c',
         color: 'white',
@@ -348,18 +364,20 @@ function PortfolioApp() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<PortfolioApp />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/sales-forecast" element={<SalesForecast />} />
-        <Route path="/multivendor" element={<MultiVendor />} />
-        <Route path="/goal-quest" element={<GoalQuest />} />
-        <Route path="/mind-map" element={<MindMap />} />
-        <Route path="/shardspace" element={<ShardSpace />} />
-        <Route path="/shardspace/:shardId" element={<ShardSpace />} />
-      </Routes>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<PortfolioApp />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/sales-forecast" element={<SalesForecast />} />
+          <Route path="/multivendor" element={<MultiVendor />} />
+          <Route path="/goal-quest" element={<GoalQuest />} />
+          <Route path="/mind-map" element={<MindMap />} />
+          <Route path="/shardspace" element={<ShardSpace />} />
+          <Route path="/shardspace/:shardId" element={<ShardSpace />} />
+        </Routes>
+      </Router>
+    </HelmetProvider>
   );
 }
 

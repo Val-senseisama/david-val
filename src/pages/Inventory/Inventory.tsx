@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FaPlus, FaSearch, FaEdit, FaTrash, FaBars, FaTimes, FaArrowLeft, FaDatabase, FaChartBar, FaUsers, FaBoxes, FaTruck, FaCog, FaSun, FaMoon, FaEye } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Inventory.css';
@@ -350,7 +351,23 @@ export default function Inventory() {
   };
 
   return (
-    <div className={`inventory-dashboard ${darkMode ? 'dark-mode' : ''}`}>
+    <>
+      <Helmet>
+        <title>Inventory Management System | ValTech</title>
+        <meta name="description" content="Comprehensive inventory management system with real-time tracking, analytics, and reporting. Manage products, track stock levels, and optimize your inventory." />
+        <meta name="keywords" content="Inventory Management, Stock Tracking, Product Management, Inventory System, Warehouse Management, Stock Control" />
+        <meta name="author" content="David Uyi Val-Izevbigie" />
+        <meta property="og:title" content="Inventory Management System | ValTech" />
+        <meta property="og:description" content="Comprehensive inventory management system with real-time tracking, analytics, and reporting." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://david-val.vercel.app/inventory" />
+        <meta property="og:image" content="https://david-val.vercel.app/inventory-og.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Inventory Management System | ValTech" />
+        <meta name="twitter:description" content="Comprehensive inventory management system with real-time tracking, analytics, and reporting." />
+        <link rel="canonical" href="https://david-val.vercel.app/inventory" />
+      </Helmet>
+      <div className={`inventory-dashboard ${darkMode ? 'dark-mode' : ''}`}>
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
@@ -502,5 +519,6 @@ export default function Inventory() {
         </div>
       )}
     </div>
+    </>
   );
 } 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FaUpload, FaDownload, FaChartBar, FaBars, FaTimes, FaArrowLeft, FaPlus, FaTrash, FaSun, FaMoon, FaFileCsv, FaDatabase, FaDollarSign, FaCalendarAlt, FaChartLine } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
@@ -574,7 +575,23 @@ export default function SalesForecast() {
   };
 
   return (
-    <div className={`sales-analytics ${darkMode ? 'dark-mode' : ''}`}>
+    <>
+      <Helmet>
+        <title>Sales Forecasting & Analytics | ValTech</title>
+        <meta name="description" content="Advanced sales forecasting and analytics platform. Analyze sales trends, predict future performance, and make data-driven business decisions with interactive charts and reports." />
+        <meta name="keywords" content="Sales Forecasting, Business Analytics, Sales Analytics, Data Visualization, Business Intelligence, Sales Trends, Revenue Prediction" />
+        <meta name="author" content="David Uyi Val-Izevbigie" />
+        <meta property="og:title" content="Sales Forecasting & Analytics | ValTech" />
+        <meta property="og:description" content="Advanced sales forecasting and analytics platform with interactive charts and reports." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://david-val.vercel.app/sales-forecast" />
+        <meta property="og:image" content="https://david-val.vercel.app/sales-forecast-og.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sales Forecasting & Analytics | ValTech" />
+        <meta name="twitter:description" content="Advanced sales forecasting and analytics platform with interactive charts and reports." />
+        <link rel="canonical" href="https://david-val.vercel.app/sales-forecast" />
+      </Helmet>
+      <div className={`sales-analytics ${darkMode ? 'dark-mode' : ''}`}>
       {/* Sidebar */}
       <div className={`analytics-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
@@ -656,5 +673,6 @@ export default function SalesForecast() {
         </div>
       )}
     </div>
+    </>
   );
 } 

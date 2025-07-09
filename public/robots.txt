@@ -1,0 +1,33 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://david-val.vercel.app/sitemap.xml
+
+# Allow all pages to be crawled
+Allow: /inventory
+Allow: /sales-forecast
+Allow: /multivendor
+Allow: /goal-quest
+Allow: /mind-map
+Allow: /shardspace
+
+# Crawl delay (optional - helps prevent overwhelming the server)
+Crawl-delay: 1
+
+# Disallow any potential admin or private areas (if they exist in the future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Allow important files
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico 

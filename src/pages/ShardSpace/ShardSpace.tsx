@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaGem, FaTrophy, FaCheck, FaPlay, FaPause, FaDownload, FaArchive, FaStar } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -941,7 +942,23 @@ export default function ShardSpace() {
   };
 
   return (
-    <div className={`shardspace-dashboard ${darkMode ? 'dark-mode' : ''}`}>
+    <>
+      <Helmet>
+        <title>ShardSpace - Gamified Goal Visualization | ValTech</title>
+        <meta name="description" content="Gamified goal visualization platform that breaks large goals into milestones and mini-quests. Track XP progress, earn badges, and stay motivated with a unique space-themed interface." />
+        <meta name="keywords" content="Goal Visualization, Gamification, Milestone Tracking, Quest Management, XP System, Progress Tracking, Motivation, Space Theme" />
+        <meta name="author" content="David Uyi Val-Izevbigie" />
+        <meta property="og:title" content="ShardSpace - Gamified Goal Visualization | ValTech" />
+        <meta property="og:description" content="Gamified goal visualization platform with milestone tracking and XP rewards." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://david-val.vercel.app/shardspace" />
+        <meta property="og:image" content="https://david-val.vercel.app/shardspace-og.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ShardSpace - Gamified Goal Visualization | ValTech" />
+        <meta name="twitter:description" content="Gamified goal visualization platform with milestone tracking and XP rewards." />
+        <link rel="canonical" href="https://david-val.vercel.app/shardspace" />
+      </Helmet>
+      <div className={`shardspace-dashboard ${darkMode ? 'dark-mode' : ''}`}>
       {/* Sidebar */}
       <div className={`shardspace-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
@@ -1043,5 +1060,6 @@ export default function ShardSpace() {
         </div>
       )}
     </div>
+    </>
   );
 } 
