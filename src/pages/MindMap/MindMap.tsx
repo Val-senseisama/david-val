@@ -112,16 +112,33 @@ export default function MindMap() {
     
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    const canvasWidth = rect.width;
+    const canvasHeight = rect.height;
     
-    // Random position around center with some spread
-    const angle = Math.random() * 2 * Math.PI;
-    const distance = 100 + Math.random() * 150;
+    // Ensure minimum canvas size for mobile
+    const minWidth = Math.max(canvasWidth, 300);
+    const minHeight = Math.max(canvasHeight, 400);
     
+    // Calculate safe boundaries (accounting for node size and padding)
+    const nodeSize = 100;
+    const padding = 50;
+    const maxX = minWidth - nodeSize - padding;
+    const maxY = minHeight - nodeSize - padding;
+    const minX = padding;
+    const minY = padding;
+    
+    // If canvas is too small, center the node
+    if (maxX <= minX || maxY <= minY) {
+      return {
+        x: Math.max(minX, (minWidth - nodeSize) / 2),
+        y: Math.max(minY, (minHeight - nodeSize) / 2)
+      };
+    }
+    
+    // Random position within safe boundaries
     return {
-      x: centerX + Math.cos(angle) * distance,
-      y: centerY + Math.sin(angle) * distance
+      x: minX + Math.random() * (maxX - minX),
+      y: minY + Math.random() * (maxY - minY)
     };
   };
 
@@ -201,6 +218,24 @@ export default function MindMap() {
     setIsDragging(true);
   };
 
+  // Touch event handlers for mobile dragging
+  const handleTouchStart = (e: React.TouchEvent, nodeId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const node = nodes.find(n => n.id === nodeId);
+    if (!node) return;
+
+    const touch = e.touches[0];
+    const rect = e.currentTarget.getBoundingClientRect();
+    const offsetX = touch.clientX - rect.left;
+    const offsetY = touch.clientY - rect.top;
+    
+    setDragOffset({ x: offsetX, y: offsetY });
+    setDraggedNode(nodeId);
+    setIsDragging(true);
+  };
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !draggedNode || !canvasRef.current) return;
 
@@ -218,19 +253,46 @@ export default function MindMap() {
     );
   };
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !draggedNode || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left - dragOffset.x;
+    const y = touch.clientY - rect.top - dragOffset.y;
+
+    setNodes(prevNodes => 
+      prevNodes.map(node => 
+        node.id === draggedNode 
+          ? { ...node, position: { x, y } }
+          : node
+      )
+    );
+  };
+
   const handleMouseUp = () => {
     setIsDragging(false);
     setDraggedNode(null);
   };
 
-  // Add global mouse event listeners
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    setDraggedNode(null);
+  };
+
+  // Add global mouse and touch event listeners
   useEffect(() => {
     if (isDragging) {
       document.addEventListener('mousemove', handleMouseMove as any);
       document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('touchmove', handleTouchMove as any, { passive: false });
+      document.addEventListener('touchend', handleTouchEnd);
       return () => {
         document.removeEventListener('mousemove', handleMouseMove as any);
         document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('touchmove', handleTouchMove as any);
+        document.removeEventListener('touchend', handleTouchEnd);
       };
     }
   }, [isDragging, draggedNode, dragOffset]);
@@ -424,6 +486,8 @@ export default function MindMap() {
             className="mindmap-canvas"
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             <svg className="connections-svg">
               {drawConnections()}
@@ -441,6 +505,7 @@ export default function MindMap() {
                     borderColor: node.color
                   }}
                   onMouseDown={(e) => handleMouseDown(e, node.id)}
+                  onTouchStart={(e) => handleTouchStart(e, node.id)}
                 >
                   <div className="node-content">
                     <div className="node-category-badge" style={{ backgroundColor: node.color }}>
