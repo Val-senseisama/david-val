@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useSEO } from '../../hooks/useSEO';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaShoppingCart, FaCreditCard, FaCalculator, FaHistory,  FaStore, FaChartPie, FaReceipt, FaMoneyBillWave, FaPercent } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './MultiVendor.css';
@@ -43,6 +43,16 @@ export default function MultiVendor() {
     name: '',
     vendor: '',
     price: ''
+  });
+
+  // SEO for MultiVendor page
+  useSEO({
+    title: 'Multi-Vendor Marketplace | ValTech',
+    description: 'Complete multi-vendor marketplace solution with checkout system, vendor management, and transaction history. Streamline your e-commerce operations.',
+    keywords: 'Multi-Vendor Marketplace, E-commerce Platform, Vendor Management, Checkout System, Online Store, Payment Processing',
+    ogUrl: 'https://david-val.vercel.app/multivendor',
+    ogImage: 'https://david-val.vercel.app/multivendor-og.jpg',
+    canonical: 'https://david-val.vercel.app/multivendor'
   });
 
   // Constants for calculations
@@ -513,23 +523,7 @@ export default function MultiVendor() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Multi-Vendor Marketplace | ValTech</title>
-        <meta name="description" content="Multi-vendor marketplace platform with automated checkout, vendor payouts, and transaction management. Handle multiple vendors, calculate fees, and manage payments seamlessly." />
-        <meta name="keywords" content="Multi-Vendor Marketplace, E-commerce Platform, Vendor Management, Payment Processing, Transaction Management, Marketplace Solution" />
-        <meta name="author" content="David Uyi Val-Izevbigie" />
-        <meta property="og:title" content="Multi-Vendor Marketplace | ValTech" />
-        <meta property="og:description" content="Multi-vendor marketplace platform with automated checkout and vendor payouts." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://david-val.vercel.app/multivendor" />
-        <meta property="og:image" content="https://david-val.vercel.app/multivendor-og.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Multi-Vendor Marketplace | ValTech" />
-        <meta name="twitter:description" content="Multi-vendor marketplace platform with automated checkout and vendor payouts." />
-        <link rel="canonical" href="https://david-val.vercel.app/multivendor" />
-      </Helmet>
-      <div className={`payment-dashboard ${darkMode ? 'dark-mode' : ''}`}>
+    <div className={`multivendor-dashboard ${darkMode ? 'dark-mode' : ''}`}>
       {/* Sidebar */}
       <div className={`payment-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
@@ -622,6 +616,5 @@ export default function MultiVendor() {
         </div>
       </div>
     </div>
-    </>
   );
 } 

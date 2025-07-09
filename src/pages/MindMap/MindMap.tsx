@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useSEO } from '../../hooks/useSEO';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaBrain, FaSearch, FaFilter, FaDownload, FaPalette } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './MindMap.css';
@@ -49,6 +49,16 @@ export default function MindMap() {
     category: 'Ideas'
   });
   const canvasRef = useRef<HTMLDivElement>(null);
+
+  // SEO for MindMap page
+  useSEO({
+    title: 'Mind Map Creator | ValTech',
+    description: 'Interactive mind map creator with drag-and-drop functionality, category organization, and visual brainstorming tools. Create and organize your ideas visually.',
+    keywords: 'Mind Map Creator, Visual Thinking, Brainstorming Tool, Idea Organization, Creative Mapping, Visual Notes',
+    ogUrl: 'https://david-val.vercel.app/mind-map',
+    ogImage: 'https://david-val.vercel.app/mind-map-og.jpg',
+    canonical: 'https://david-val.vercel.app/mind-map'
+  });
 
   // Load nodes from localStorage on component mount
   useEffect(() => {
@@ -682,23 +692,7 @@ export default function MindMap() {
   };
 
   return (
-    <>
-      <Helmet>
-        <title>Mind Map Creator | ValTech</title>
-        <meta name="description" content="Interactive mind map creator with drag-and-drop functionality. Organize ideas, tasks, goals, and projects visually with customizable categories and real-time collaboration." />
-        <meta name="keywords" content="Mind Map, Brainstorming, Idea Organization, Visual Thinking, Project Planning, Creative Tools, Mind Mapping Software" />
-        <meta name="author" content="David Uyi Val-Izevbigie" />
-        <meta property="og:title" content="Mind Map Creator | ValTech" />
-        <meta property="og:description" content="Interactive mind map creator with drag-and-drop functionality and visual organization tools." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://david-val.vercel.app/mind-map" />
-        <meta property="og:image" content="https://david-val.vercel.app/mind-map-og.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Mind Map Creator | ValTech" />
-        <meta name="twitter:description" content="Interactive mind map creator with drag-and-drop functionality and visual organization tools." />
-        <link rel="canonical" href="https://david-val.vercel.app/mind-map" />
-      </Helmet>
-      <div className={`mindmap-dashboard ${darkMode ? 'dark-mode' : ''}`}>
+    <div className={`mindmap-dashboard ${darkMode ? 'dark-mode' : ''}`}>
       {/* Sidebar */}
       <div className={`mindmap-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
@@ -798,6 +792,5 @@ export default function MindMap() {
         </div>
       )}
     </div>
-    </>
   );
 } 
