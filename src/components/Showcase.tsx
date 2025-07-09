@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Stars, OrbitControls } from '@react-three/drei';
 import { Suspense, lazy } from 'react';
-import {  FaDatabase, FaExternalLinkAlt, FaChartBar, FaCreditCard, FaTrophy, FaBrain } from 'react-icons/fa';
+import {  FaDatabase, FaExternalLinkAlt, FaChartBar, FaCreditCard, FaTrophy, FaBrain, FaGem } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 // Lazy load the 3D model component
@@ -78,6 +78,17 @@ export default function Showcase() {
       path: '/mind-map',
       status: 'completed',
       color: '#6c757d'
+    },
+    {
+      id: 'shardspace',
+      title: 'ShardSpace',
+      description: 'Gamified goal visualization tool that breaks down large goals into milestones and mini-quests with XP tracking.',
+      icon: <FaGem size={32} />,
+      technologies: ['React', 'TypeScript', 'localStorage', 'Gamification'],
+      features: ['Goal Breakdown', 'Milestone Management', 'Quest Tracking', 'XP System'],
+      path: '/shardspace',
+      status: 'completed',
+      color: '#8b5cf6'
     }
   ];
 

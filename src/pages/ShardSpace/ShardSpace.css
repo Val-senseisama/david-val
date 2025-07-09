@@ -1,5 +1,5 @@
-/* Mind Map Creator - Modern Clean Design */
-.mindmap-dashboard {
+/* ShardSpace - Gamified Goal Visualization */
+.shardspace-dashboard {
   display: flex;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -7,13 +7,13 @@
   transition: all 0.3s ease;
 }
 
-.mindmap-dashboard.dark-mode {
+.shardspace-dashboard.dark-mode {
   background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
   color: #e0e0e0;
 }
 
-/* Mind Map Sidebar */
-.mindmap-sidebar {
+/* ShardSpace Sidebar */
+.shardspace-sidebar {
   width: 280px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -30,13 +30,13 @@
   border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.dark-mode .mindmap-sidebar {
+.dark-mode .shardspace-sidebar {
   background: rgba(30, 27, 75, 0.95);
   color: #f9fafb;
   border-right-color: rgba(255, 255, 255, 0.1);
 }
 
-.mindmap-sidebar.open {
+.shardspace-sidebar.open {
   left: 0;
 }
 
@@ -201,7 +201,7 @@
 }
 
 @media (min-width: 768px) {
-  .mindmap-sidebar {
+  .shardspace-sidebar {
     left: 0;
   }
   
@@ -210,8 +210,8 @@
   }
 }
 
-/* Mind Map Topbar */
-.mindmap-topbar {
+/* ShardSpace Topbar */
+.shardspace-topbar {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   padding: 1rem 2rem;
@@ -222,7 +222,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.dark-mode .mindmap-topbar {
+.dark-mode .shardspace-topbar {
   background: rgba(30, 27, 75, 0.95);
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
@@ -389,18 +389,18 @@
   color: #9ca3af;
 }
 
-/* Mind Map Container */
-.mindmap-container {
+/* Shards Container */
+.shards-container {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-.mindmap-header {
+.shards-header {
   text-align: center;
   margin-bottom: 3rem;
 }
 
-.mindmap-header h2 {
+.shards-header h2 {
   font-size: 2.5rem;
   font-weight: 800;
   color: white;
@@ -408,21 +408,21 @@
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.dark-mode .mindmap-header h2 {
+.dark-mode .shards-header h2 {
   color: #f9fafb;
 }
 
-.mindmap-header p {
+.shards-header p {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
 }
 
-.dark-mode .mindmap-header p {
+.dark-mode .shards-header p {
   color: rgba(249, 250, 251, 0.8);
 }
 
-.mindmap-content {
+.shards-content {
   display: grid;
   gap: 2rem;
 }
@@ -453,8 +453,8 @@
   color: #f9fafb;
 }
 
-/* Node Form */
-.node-form {
+/* Shard Form */
+.shard-form {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -553,92 +553,459 @@
   box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
 }
 
-/* Filters Section */
-.filters-header {
+/* Shards Grid */
+.shards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Shard Cards */
+.shard-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark-mode .shard-card {
+  background: rgba(30, 27, 75, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.shard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.shard-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
-.filter-controls {
+.shard-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.dark-mode .shard-info h3 {
+  color: #f9fafb;
+}
+
+.shard-category {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.shard-actions {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.search-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.search-icon {
-  position: absolute;
-  left: 1rem;
+.action-btn {
+  background: none;
+  border: none;
   color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
   font-size: 0.9rem;
 }
 
-.dark-mode .search-icon {
+.dark-mode .action-btn {
   color: #9ca3af;
 }
 
-.search-input {
-  padding: 0.75rem 1rem 0.75rem 2.5rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  background: white;
-  color: #1f2937;
-  transition: all 0.3s ease;
-  min-width: 250px;
+.action-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #374151;
+  transform: scale(1.1);
 }
 
-.dark-mode .search-input {
-  background: #374151;
-  border-color: #4b5563;
-  color: #f9fafb;
+.dark-mode .action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f3f4f6;
 }
 
-.search-input:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+.action-btn.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
-.category-filter {
+/* Progress Bars */
+.shard-progress {
+  margin-bottom: 1rem;
+}
+
+.progress-info {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.xp-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.dark-mode .xp-text {
+  color: #f3f4f6;
+}
+
+.progress-percentage {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.dark-mode .progress-percentage {
+  color: #9ca3af;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dark-mode .progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar.large {
+  height: 12px;
+  border-radius: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+  border-radius: inherit;
+}
+
+.progress-percentage-large {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-top: 0.5rem;
+}
+
+.dark-mode .progress-percentage-large {
+  color: #a5b4fc;
+}
+
+/* Shard Stats */
+.shard-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.filter-select {
-  padding: 0.75rem 1rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  background: white;
-  color: #1f2937;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 150px;
+.stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.dark-mode .filter-select {
-  background: #374151;
-  border-color: #4b5563;
+.dark-mode .stat-label {
+  color: #9ca3af;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #374151;
+}
+
+.dark-mode .stat-value {
+  color: #f3f4f6;
+}
+
+/* Badges */
+.shard-badges {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.badges-section {
+  margin-top: 1.5rem;
+}
+
+.badges-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.dark-mode .badges-section h3 {
+  color: #f3f4f6;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.badge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.dark-mode .badge-card {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.badge-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.badge-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.dark-mode .badge-name {
+  color: #f3f4f6;
+}
+
+.badge-xp {
+  font-size: 0.7rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.dark-mode .badge-xp {
+  color: #9ca3af;
+}
+
+/* Empty States */
+.empty-shards,
+.empty-milestones,
+.empty-quests,
+.empty-archived {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #6b7280;
+  grid-column: 1 / -1;
+}
+
+.dark-mode .empty-shards,
+.dark-mode .empty-milestones,
+.dark-mode .empty-quests,
+.dark-mode .empty-archived {
+  color: #9ca3af;
+}
+
+.empty-shards svg,
+.empty-milestones svg,
+.empty-quests svg,
+.empty-archived svg {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+  color: #667eea;
+}
+
+.dark-mode .empty-shards svg,
+.dark-mode .empty-milestones svg,
+.dark-mode .empty-quests svg,
+.dark-mode .empty-archived svg {
+  color: #a5b4fc;
+}
+
+.empty-shards h3,
+.empty-milestones h3,
+.empty-quests h3,
+.empty-archived h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.dark-mode .empty-shards h3,
+.dark-mode .empty-milestones h3,
+.dark-mode .empty-quests h3,
+.dark-mode .empty-archived h3 {
+  color: #f3f4f6;
+}
+
+.empty-shards p,
+.empty-milestones p,
+.empty-quests p,
+.empty-archived p {
+  margin: 0;
+  font-size: 1rem;
+  max-width: 400px;
+}
+
+/* Shard Detail */
+.shard-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.shard-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.shard-title-section h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .shard-title-section h2 {
   color: #f9fafb;
 }
 
-.filter-select:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+.shard-progress-section {
+  margin-bottom: 3rem;
 }
 
-/* Mind Map Workspace */
-.mindmap-workspace {
+.progress-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.dark-mode .progress-card {
+  background: rgba(30, 27, 75, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.progress-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.dark-mode .progress-header h3 {
+  color: #f9fafb;
+}
+
+.xp-display {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.xp-earned {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #667eea;
+}
+
+.dark-mode .xp-earned {
+  color: #a5b4fc;
+}
+
+.xp-separator {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.dark-mode .xp-separator {
+  color: #9ca3af;
+}
+
+.xp-target {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.dark-mode .xp-target {
+  color: #f3f4f6;
+}
+
+.xp-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.dark-mode .xp-label {
+  color: #9ca3af;
+}
+
+/* Milestones Section */
+.milestones-section {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 20px;
@@ -647,541 +1014,346 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.dark-mode .mindmap-workspace {
+.dark-mode .milestones-section {
   background: rgba(30, 27, 75, 0.95);
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-.workspace-header {
+.section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
-.workspace-header h3 {
+.section-header h3 {
   margin: 0;
   font-size: 1.3rem;
   font-weight: 700;
   color: #1f2937;
 }
 
-.dark-mode .workspace-header h3 {
+.dark-mode .section-header h3 {
   color: #f9fafb;
 }
 
-.workspace-actions {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+/* Form Cards */
+.form-card {
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Mind Map Canvas */
-.mindmap-canvas {
-  position: relative;
-  width: 100%;
-  height: 600px;
+.dark-mode .form-card {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.form-card h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.dark-mode .form-card h4 {
+  color: #f3f4f6;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Milestones Grid */
+.milestones-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Milestone Cards */
+.milestone-card {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  overflow: hidden;
-  cursor: grab;
-}
-
-.dark-mode .mindmap-canvas {
-  background: rgba(30, 27, 75, 0.1);
-}
-
-.mindmap-canvas:active {
-  cursor: grabbing;
-}
-
-.connections-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Mind Map Nodes */
-.mindmap-node {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid;
-  cursor: grab;
-  transition: all 0.3s ease;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-}
-
-.mindmap-node:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
-}
-
-.mindmap-node:active {
-  cursor: grabbing;
-}
-
-.mindmap-node.dragging {
-  opacity: 0.8;
-  transform: scale(1.05);
-  z-index: 100;
-}
-
-.node-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  text-align: center;
-  color: white;
-  font-weight: 600;
-  font-size: 0.75rem;
-  line-height: 1.2;
-  overflow: hidden;
-}
-
-.node-category-badge {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.2rem 0.5rem;
-  border-radius: 10px;
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.node-text {
-  margin: 0;
-  font-size: 0.7rem;
-  line-height: 1.1;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  max-width: 80px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.node-actions {
-  position: absolute;
-  bottom: -8px;
-  right: -8px;
-  display: flex;
-  gap: 0.25rem;
-}
-
-.delete-btn {
-  background: rgba(239, 68, 68, 0.9);
-  border: none;
-  color: white;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.6rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.delete-btn:hover {
-  background: #ef4444;
-  transform: scale(1.1);
-}
-
-/* Empty Canvas */
-.empty-canvas {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-  color: #6b7280;
-}
-
-.dark-mode .empty-canvas {
-  color: #9ca3af;
-}
-
-.empty-canvas svg {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.5;
-  color: #667eea;
-}
-
-.dark-mode .empty-canvas svg {
-  color: #a5b4fc;
-}
-
-.empty-canvas h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #374151;
-}
-
-.dark-mode .empty-canvas h3 {
-  color: #f3f4f6;
-}
-
-.empty-canvas p {
-  margin: 0;
-  font-size: 1rem;
-  max-width: 400px;
-}
-
-/* Analytics */
-.analytics-container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.analytics-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.analytics-header h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: white;
-  margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark-mode .analytics-header h2 {
-  color: #f9fafb;
-}
-
-.analytics-header p {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0;
-}
-
-.dark-mode .analytics-header p {
-  color: rgba(249, 250, 251, 0.8);
-}
-
-.analytics-content {
-  display: grid;
-  gap: 2rem;
-}
-
-/* Category Stats */
-.category-stats {
-  display: grid;
-  gap: 1rem;
-}
-
-.category-stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: rgba(102, 126, 234, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.dark-mode .category-stat {
-  background: rgba(102, 126, 234, 0.1);
-}
-
-.category-stat:hover {
-  transform: translateX(5px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
-}
-
-.category-info {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.category-color {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.category-name {
-  font-weight: 600;
-  color: #374151;
-}
-
-.dark-mode .category-name {
-  color: #f3f4f6;
-}
-
-.category-numbers {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.category-count {
-  font-weight: 700;
-  color: #667eea;
-  font-size: 1.1rem;
-}
-
-.dark-mode .category-count {
-  color: #a5b4fc;
-}
-
-.category-percentage {
-  font-size: 0.9rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.dark-mode .category-percentage {
-  color: #9ca3af;
-}
-
-/* Insights Grid */
-.insights-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
-.insight-item {
-  text-align: center;
   padding: 1.5rem;
-  background: rgba(102, 126, 234, 0.05);
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
 }
 
-.dark-mode .insight-item {
-  background: rgba(102, 126, 234, 0.1);
+.dark-mode .milestone-card {
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.insight-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+.milestone-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.insight-value {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #667eea;
-  margin-bottom: 0.5rem;
-}
-
-.dark-mode .insight-value {
-  color: #a5b4fc;
-}
-
-.insight-label {
-  font-size: 0.9rem;
-  color: #6b7280;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.dark-mode .insight-label {
-  color: #9ca3af;
-}
-
-/* Export */
-.export-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.export-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.export-header h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: white;
-  margin: 0 0 0.5rem 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.dark-mode .export-header h2 {
-  color: #f9fafb;
-}
-
-.export-header p {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0;
-}
-
-.dark-mode .export-header p {
-  color: rgba(249, 250, 251, 0.8);
-}
-
-.export-content {
-  display: grid;
-  gap: 2rem;
-}
-
-.export-options {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.export-option {
+.milestone-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  background: rgba(102, 126, 234, 0.05);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  flex-wrap: wrap;
-  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.dark-mode .export-option {
-  background: rgba(102, 126, 234, 0.1);
-}
-
-.export-option:hover {
-  transform: translateX(5px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
-}
-
-.option-info h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #374151;
-}
-
-.dark-mode .option-info h4 {
-  color: #f3f4f6;
-}
-
-.option-info p {
+.milestone-header h4 {
   margin: 0;
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.dark-mode .option-info p {
-  color: #9ca3af;
-}
-
-.summary-stats {
-  display: grid;
-  gap: 0.5rem;
-}
-
-.stat {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.dark-mode .stat {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-.stat:last-child {
-  border-bottom: none;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.dark-mode .stat-label {
-  color: #9ca3af;
-}
-
-.stat-value {
-  font-weight: 600;
-  color: #374151;
-}
-
-.dark-mode .stat-value {
-  color: #f3f4f6;
-}
-
-/* Coming Soon */
-.coming-soon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 60vh;
-}
-
-.coming-soon-content {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 3rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.dark-mode .coming-soon-content {
-  background: rgba(30, 27, 75, 0.95);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.coming-soon-content h2 {
-  margin: 0 0 1rem 0;
-  font-size: 2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #1f2937;
 }
 
-.dark-mode .coming-soon-content h2 {
+.dark-mode .milestone-header h4 {
+  color: #f3f4f6;
+}
+
+.milestone-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.milestone-progress {
+  margin-bottom: 1rem;
+}
+
+/* Quest Form Card */
+.quest-form-card {
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.dark-mode .quest-form-card {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.quest-form-card h5 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.dark-mode .quest-form-card h5 {
+  color: #f3f4f6;
+}
+
+/* Quests List */
+.quests-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Quest Cards */
+.quest-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .quest-card {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.quest-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.quest-card.pending {
+  border-left: 4px solid #6b7280;
+}
+
+.quest-card.in-progress {
+  border-left: 4px solid #f59e0b;
+}
+
+.quest-card.completed {
+  border-left: 4px solid #10b981;
+}
+
+.quest-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.quest-info h5 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dark-mode .quest-info h5 {
+  color: #f3f4f6;
+}
+
+.quest-xp {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.dark-mode .quest-xp {
+  color: #9ca3af;
+}
+
+.quest-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+.status-badge.in-progress {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.status-badge.completed {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.quest-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Archived */
+.archived-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.archived-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.archived-header h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .archived-header h2 {
   color: #f9fafb;
 }
 
-.coming-soon-content p {
+.archived-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
-  color: #6b7280;
+}
+
+.dark-mode .archived-header p {
+  color: rgba(249, 250, 251, 0.8);
+}
+
+.archived-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.archived-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
+}
+
+.dark-mode .archived-card {
+  background: rgba(30, 27, 75, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.archived-header h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.dark-mode .archived-header h3 {
+  color: #f9fafb;
+}
+
+.archived-category {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.archived-progress {
+  margin: 1rem 0;
+}
+
+.archived-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+/* Shard Not Found */
+.shard-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.shard-not-found h2 {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.dark-mode .shard-not-found h2 {
+  color: #f9fafb;
+}
+
+.shard-not-found p {
+  margin: 0 0 2rem 0;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 1.1rem;
 }
 
-.dark-mode .coming-soon-content p {
-  color: #9ca3af;
+.dark-mode .shard-not-found p {
+  color: rgba(249, 250, 251, 0.8);
 }
 
 /* Toast Notification */
@@ -1216,12 +1388,13 @@
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .insights-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .shards-grid,
+  .archived-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
   
-  .mindmap-canvas {
-    height: 500px;
+  .badges-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 }
 
@@ -1230,21 +1403,7 @@
     grid-template-columns: 1fr;
   }
   
-  .filters-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .filter-controls {
-    width: 100%;
-    flex-direction: column;
-  }
-  
-  .search-input {
-    min-width: 100%;
-  }
-  
-  .mindmap-topbar {
+  .shardspace-topbar {
     padding: 1rem;
     flex-direction: column;
     gap: 1rem;
@@ -1281,48 +1440,49 @@
     font-size: 1.5rem;
   }
   
-  .mindmap-canvas {
-    height: 400px;
-  }
-  
-  .mindmap-node {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .node-text {
-    font-size: 0.6rem;
-    max-width: 60px;
-  }
-  
-  .workspace-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .workspace-actions {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .insights-grid {
+  .shards-grid,
+  .archived-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
-  .export-option {
+  .shard-detail-header {
     flex-direction: column;
     align-items: flex-start;
   }
   
-  .analytics-header h2,
-  .mindmap-header h2,
-  .export-header h2 {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .quest-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .quest-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .archived-actions {
+    flex-direction: column;
+  }
+  
+  .shards-header h2,
+  .archived-header h2 {
     font-size: 2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .mindmap-topbar {
+  .shardspace-topbar {
     padding: 0.75rem;
   }
   
@@ -1354,39 +1514,23 @@
     font-size: 0.75rem;
   }
   
-  .mindmap-canvas {
-    height: 350px;
+  .shard-card,
+  .archived-card {
+    padding: 1.25rem;
   }
   
-  .mindmap-node {
-    width: 70px;
-    height: 70px;
+  .milestone-card {
+    padding: 1.25rem;
   }
   
-  .node-text {
-    font-size: 0.55rem;
-    max-width: 50px;
-  }
-  
-  .node-category-badge {
-    font-size: 0.5rem;
-    padding: 0.15rem 0.4rem;
-  }
-  
-  .delete-btn {
-    width: 18px;
-    height: 18px;
-    font-size: 0.5rem;
+  .quest-card {
+    padding: 1rem;
   }
   
   .btn-primary,
   .btn-secondary {
     padding: 0.6rem 0.8rem;
     font-size: 0.85rem;
-  }
-  
-  .insight-value {
-    font-size: 2rem;
   }
   
   .toast-notification {

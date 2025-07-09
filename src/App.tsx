@@ -11,6 +11,7 @@ import SalesForecast from './pages/SalesForecast';
 import MultiVendor from './pages/MultiVendor/index';
 import GoalQuest from './pages/GoalQuest/GoalQuest';
 import MindMap from './pages/MindMap/MindMap';
+import ShardSpace from './pages/ShardSpace/ShardSpace';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown, FaBars, FaTimes } from 'react-icons/fa';
 import Showcase from './components/Showcase';
@@ -84,6 +85,8 @@ function PortfolioApp() {
           <Route path="/multivendor" element={<MultiVendor />} />
           <Route path="/goal-quest" element={<GoalQuest />} />
           <Route path="/mind-map" element={<MindMap />} />
+          <Route path="/shardspace" element={<ShardSpace />} />
+          <Route path="/shardspace/:shardId" element={<ShardSpace />} />
         </Routes>
       </ErrorBoundary>
     );
@@ -353,6 +356,8 @@ function App() {
         <Route path="/multivendor" element={<MultiVendor />} />
         <Route path="/goal-quest" element={<GoalQuest />} />
         <Route path="/mind-map" element={<MindMap />} />
+        <Route path="/shardspace" element={<ShardSpace />} />
+        <Route path="/shardspace/:shardId" element={<ShardSpace />} />
       </Routes>
     </Router>
   );
