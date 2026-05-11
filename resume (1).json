@@ -1,0 +1,193 @@
+{
+  "selectedTemplate": 1,
+  "headings": {
+    "work": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "projects": "Projects",
+    "awards": "Awards"
+  },
+  "basics": {
+    "name": "David Val-Izevbigie",
+    "email": "valizevbigiedavid@gmail.com",
+    "phone": "+2348039496798",
+    "website": "https://david-val.vercel.app/",
+    "location": {
+      "address": "Lagos, Nigeria"
+    },
+    "summary": "Fullstack Engineer specializing in scalable SaaS platforms, fintech systems, and AI-driven applications. Experienced in designing multi-tenant architectures, high-throughput systems, and real-time applications with a focus on performance, reliability, and production-scale impact."
+  },
+  "education": [
+    {
+      "institution": "University of Benin",
+      "location": "Nigeria",
+      "area": "Mechanical Engineering",
+      "studyType": "Bachelor of Engineering",
+      "startDate": "2018-01",
+      "endDate": "2024-03",
+      "gpa": "4.02"
+    }
+  ],
+  "work": [
+    {
+      "company": "Punch Group",
+      "location": "Ikeja, Lagos, Nigeria",
+      "position": "Fullstack Engineer",
+      "website": "http://www.punch.cool/",
+      "startDate": "2024-10",
+      "endDate": "Present",
+      "highlights": [
+        "Architected multi-tenant SaaS platform supporting multiple organizations and managing 1,000+ talent profiles",
+        "Designed and implemented RBAC, authentication, and session management across distributed systems",
+        "Built modular GraphQL backend using Apollo, improving development velocity and maintainability",
+        "Implemented Redis-based caching, rate limiting, and distributed locking, improving system performance under load",
+        "Engineered high-throughput productivity and time-tracking system handling ~24 requests per user/hour across 40+ concurrent users over sustained 8-hour usage periods",
+        "Developed real-time ticketing and workflow system with audit trails for operational transparency",
+        "Built AI-powered recruitment assistant automating candidate screening and structured evaluations",
+        "Developed cross-platform applications (Electron + React Native) with offline-first architecture and background synchronization"
+      ]
+    },
+    {
+      "company": "Techbox Labs",
+      "location": "Lagos, Nigeria",
+      "position": "Fullstack Developer",
+      "startDate": "2025-01",
+      "endDate": "2025-09",
+      "highlights": [
+        "Led development of StockPulse AI POS and inventory intelligence system for real-time stock and sales operations",
+        "Implemented transactional consistency and real-time inventory tracking, reducing discrepancies across business workflows",
+        "Designed AI-driven demand forecasting and profit optimization systems for data-informed decision-making",
+        "Built fintech payment infrastructure with Paystack integration for secure and reliable transactions",
+        "Implemented multi-party payment splitting (fees, VAT, payouts) for complex financial flows",
+        "Developed real-time communication systems and cross-platform applications",
+        "Improved user engagement by 35% through gamification and behavioral incentive mechanisms"
+      ]
+    },
+    {
+      "company": "Syllabux Learning Solutions",
+      "location": "Lagos, Nigeria",
+      "position": "Fullstack Developer",
+      "startDate": "2024-06",
+      "endDate": "2024-12",
+      "highlights": [
+        "Developed multi-tenant school management SaaS platform used by 200+ schools",
+        "Built scalable academic, student, and staff management systems supporting large institutional datasets",
+        "Designed GraphQL APIs using Apollo for efficient and structured data access",
+        "Built offline-first mobile applications using SQLite with reliable synchronization",
+        "Integrated AI-assisted academic analytics and reporting systems",
+        "Automated report generation workflows, significantly reducing manual administrative effort"
+      ]
+    },
+    {
+      "company": "Freelance",
+      "location": "Lagos, Nigeria",
+      "position": "Fullstack Developer",
+      "startDate": "2020-11",
+      "endDate": "2024-06",
+      "highlights": [
+        "Delivered fullstack web and mobile solutions for multiple clients across industries",
+        "Designed backend systems and integrated responsive frontend applications",
+        "Improved performance, scalability, and reliability of deployed applications"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Core Stack",
+      "keywords": [
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "React",
+        "Next.js",
+        "Golang",
+        "React Native"
+      ]
+    },
+    {
+      "name": "Databases",
+      "keywords": [
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "SQLite"
+      ]
+    },
+    {
+      "name": "Infrastructure & Tools",
+      "keywords": [
+        "Docker",
+        "AWS",
+        "CI/CD",
+        "Git",
+        "Apollo GraphQL",
+        "Redis",
+        "Electron",
+        "Expo"
+      ]
+    },
+    {
+      "name": "Specializations",
+      "keywords": [
+        "Multi-tenant SaaS",
+        "Fintech Systems",
+        "High-throughput Systems",
+        "ERP/POS Platforms",
+        "Offline-first Applications",
+        "AI Integrations",
+        "System Architecture",
+        "Real-time Systems"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Wigomarket",
+      "description": "Built multi-vendor eCommerce and logistics platform with order splitting, dispatch tracking, escrow payments, and real-time notifications supporting marketplace-scale operations",
+      "keywords": [
+        "eCommerce",
+        "Logistics",
+        "Payments",
+        "Real-time"
+      ]
+    },
+    {
+      "name": "PopnChat",
+      "description": "Developed real-time messaging and fintech platform with wallet infrastructure and ledger system, processing over ₦600,000 in transactions within hours of launch",
+      "url": "https://popnchats.com",
+      "keywords": [
+        "Fintech",
+        "Chat",
+        "WebSockets",
+        "Payments"
+      ]
+    },
+    {
+      "name": "Shard",
+      "description": "Built AI-powered productivity system with automated task generation, gamification, and real-time collaboration features",
+      "keywords": [
+        "AI",
+        "Productivity",
+        "Gamification"
+      ]
+    },
+    {
+      "name": "LifeAdmin",
+      "description": "Developed offline-first mobile productivity application with local-first architecture and resilient synchronization",
+      "keywords": [
+        "Mobile",
+        "Offline-first"
+      ]
+    }
+  ],
+  "awards": [],
+  "sections": [
+    "templates",
+    "profile",
+    "education",
+    "work",
+    "skills",
+    "projects",
+    "awards"
+  ]
+}

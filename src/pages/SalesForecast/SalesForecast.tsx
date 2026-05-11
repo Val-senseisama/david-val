@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSEO } from '../../hooks/useSEO';
+import { useSEO, softwareAppSchema } from '../../hooks/useSEO';
 import { FaUpload, FaDownload, FaChartBar, FaBars, FaTimes, FaArrowLeft, FaPlus, FaTrash, FaSun, FaMoon, FaFileCsv, FaDatabase, FaDollarSign, FaCalendarAlt, FaChartLine } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
@@ -59,12 +59,17 @@ export default function SalesForecast() {
 
   // SEO for SalesForecast page
   useSEO({
-    title: 'Sales Forecasting & Analytics | ValTech',
+    title: 'Sales Forecasting & Analytics | Zevbii',
     description: 'Advanced sales forecasting and analytics platform. Upload sales data, generate predictions, visualize trends, and make data-driven business decisions.',
     keywords: 'Sales Forecasting, Business Analytics, Data Visualization, Sales Prediction, Business Intelligence, Data Analysis',
-    ogUrl: 'https://david-val.vercel.app/sales-forecast',
-    ogImage: 'https://david-val.vercel.app/sales-forecast-og.jpg',
-    canonical: 'https://david-val.vercel.app/sales-forecast'
+    ogUrl: 'https://zevbii.com/sales-forecast',
+    ogImage: 'https://zevbii.com/og-image.png',
+    canonical: 'https://zevbii.com/sales-forecast',
+    jsonLd: softwareAppSchema(
+      'Sales Forecasting & Analytics',
+      'Advanced sales forecasting and analytics platform. Upload sales data, generate predictions, visualize trends, and make data-driven business decisions.',
+      'https://zevbii.com/sales-forecast'
+    ),
   });
 
   // Load data from localStorage on component mount

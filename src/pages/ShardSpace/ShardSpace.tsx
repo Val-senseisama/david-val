@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSEO } from '../../hooks/useSEO';
+import { useSEO, softwareAppSchema } from '../../hooks/useSEO';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaGem, FaTrophy, FaCheck, FaPlay, FaPause, FaDownload, FaArchive, FaStar } from 'react-icons/fa';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -78,12 +78,17 @@ export default function ShardSpace() {
 
   // SEO for ShardSpace page
   useSEO({
-    title: 'ShardSpace - Gamified Goal Visualization | ValTech',
+    title: 'ShardSpace - Gamified Goal Visualization | Zevbii',
     description: 'Gamified goal visualization tool breaking large goals into milestones and mini-quests with XP tracking. Transform your goals into an epic adventure.',
     keywords: 'Goal Visualization, Gamification, Milestone Tracking, XP System, Goal Breakdown, Achievement Tracking',
-    ogUrl: 'https://david-val.vercel.app/shardspace',
-    ogImage: 'https://david-val.vercel.app/shardspace-og.jpg',
-    canonical: 'https://david-val.vercel.app/shardspace'
+    ogUrl: 'https://zevbii.com/shardspace',
+    ogImage: 'https://zevbii.com/og-image.png',
+    canonical: 'https://zevbii.com/shardspace',
+    jsonLd: softwareAppSchema(
+      'ShardSpace - Gamified Goal Visualization',
+      'Gamified goal visualization tool breaking large goals into milestones and mini-quests with XP tracking.',
+      'https://zevbii.com/shardspace'
+    ),
   });
 
   // Load shards from localStorage on component mount

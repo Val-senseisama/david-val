@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSEO } from '../../hooks/useSEO';
+import { useSEO, softwareAppSchema } from '../../hooks/useSEO';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaShoppingCart, FaCreditCard, FaCalculator, FaHistory,  FaStore, FaChartPie, FaReceipt, FaMoneyBillWave, FaPercent } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './MultiVendor.css';
@@ -47,12 +47,17 @@ export default function MultiVendor() {
 
   // SEO for MultiVendor page
   useSEO({
-    title: 'Multi-Vendor Marketplace | ValTech',
+    title: 'Multi-Vendor Marketplace | Zevbii',
     description: 'Complete multi-vendor marketplace solution with checkout system, vendor management, and transaction history. Streamline your e-commerce operations.',
     keywords: 'Multi-Vendor Marketplace, E-commerce Platform, Vendor Management, Checkout System, Online Store, Payment Processing',
-    ogUrl: 'https://david-val.vercel.app/multivendor',
-    ogImage: 'https://david-val.vercel.app/multivendor-og.jpg',
-    canonical: 'https://david-val.vercel.app/multivendor'
+    ogUrl: 'https://zevbii.com/multivendor',
+    ogImage: 'https://zevbii.com/og-image.png',
+    canonical: 'https://zevbii.com/multivendor',
+    jsonLd: softwareAppSchema(
+      'Multi-Vendor Marketplace',
+      'Complete multi-vendor marketplace solution with checkout system, vendor management, and transaction history.',
+      'https://zevbii.com/multivendor'
+    ),
   });
 
   // Constants for calculations

@@ -1,212 +1,152 @@
 import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
-import { Canvas } from '@react-three/fiber';
-import { Stars, OrbitControls } from '@react-three/drei';
-import { Suspense, lazy } from 'react';
 import { FaCode, FaDatabase, FaTools, FaRocket } from 'react-icons/fa';
 
-// Lazy load the 3D model component
-const LazySpaceRoverModel = lazy(() => import('./SpaceRoverModel'));
+const categoryIcons: Record<string, React.ReactNode> = {
+  languagesAndFrameworks: <FaCode size={18} />,
+  databases: <FaDatabase size={18} />,
+  toolsPlatforms: <FaTools size={18} />,
+  specialties: <FaRocket size={18} />,
+};
+
+const categoryLabels: Record<string, string> = {
+  languagesAndFrameworks: 'Languages & Frameworks',
+  databases: 'Databases',
+  toolsPlatforms: 'Tools & Platforms',
+  specialties: 'Specializations',
+};
 
 export default function Skills() {
   const data = usePortfolioData();
 
-  const skillCategories = [
-    {
-      title: 'Languages & Frameworks',
-      icon: <FaCode size={24} />,
-      skills: data.skills.languagesAndFrameworks
-    },
-    {
-      title: 'Databases',
-      icon: <FaDatabase size={24} />,
-      skills: data.skills.databases
-    },
-    {
-      title: 'Tools & Platforms',
-      icon: <FaTools size={24} />,
-      skills: data.skills.toolsPlatforms
-    },
-    {
-      title: 'Specialties',
-      icon: <FaRocket size={24} />,
-      skills: data.skills.specialties
-    }
-  ];
-
   return (
-    <section style={{
+    <section id="skills" style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+      background: '#050505',
       color: 'white',
-      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      padding: 'clamp(3rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem)',
     }}>
+      {/* Dot grid bg */}
       <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1
-      }}>
-        <Canvas 
-          camera={{ position: [0, 0, 5], fov: 75 }}
-          dpr={[1, 1.5]}
-          gl={{ 
-            antialias: true,
-            alpha: true,
-            powerPreference: "default",
-            preserveDrawingBuffer: false,
-            failIfMajorPerformanceCaveat: false
-          }}
-          onError={(error) => {
-            console.error('Skills Canvas error:', error);
-          }}
-        >
-          <ambientLight intensity={0.3} />
-          <Stars radius={60} depth={40} count={1000} factor={4} fade speed={0.4} />
-          <Suspense fallback={null}>
-            <LazySpaceRoverModel position={[-3, 0, -2]} />
-          </Suspense>
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.15} />
-        </Canvas>
-      </div>
+        position: 'absolute', inset: 0, zIndex: 0,
+        backgroundImage: 'radial-gradient(circle, rgba(212,175,55,0.1) 1px, transparent 1px)',
+        backgroundSize: '40px 40px',
+        pointerEvents: 'none',
+      }} />
+      {/* Radial gold glow top-right */}
+      <div style={{
+        position: 'absolute', top: '-10%', right: '-10%', zIndex: 0,
+        width: '500px', height: '500px',
+        background: 'radial-gradient(circle, rgba(212,175,55,0.07) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
 
-      <div style={{
-        position: 'relative',
-        zIndex: 2,
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}>
-        <motion.h2
-          initial={{ y: -50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: '1200px', margin: '0 auto' }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          style={{
-            fontSize: 'clamp(2rem, 6vw, 3rem)',
-            textAlign: 'center',
-            marginBottom: 'clamp(2rem, 4vw, 3rem)',
-            color: '#4a9eff',
-            textShadow: '0 0 20px rgba(74, 158, 255, 0.5)'
-          }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}
         >
-          Skills & Technologies
-        </motion.h2>
+          <p style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4AF37', marginBottom: '0.75rem', fontWeight: 600 }}>
+            Technical Expertise
+          </p>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 800, color: '#fff', marginBottom: '1rem' }}>
+            The Full Stack, Mastered.
+          </h2>
+          <p style={{ color: '#888', fontSize: 'clamp(0.9rem, 2vw, 1.05rem)', maxWidth: '580px', margin: '0 auto', lineHeight: 1.7 }}>
+            From database schema to deployed UI — I own the entire engineering lifecycle.
+          </p>
+        </motion.div>
 
+        {/* Skill category grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 'clamp(1.5rem, 3vw, 2rem)'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '1.5rem',
         }}>
-          {skillCategories.map((category, categoryIndex) => (
+          {Object.entries(data.skills).map(([key, skills], catIndex) => (
             <motion.div
-              key={category.title}
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ delay: categoryIndex * 0.2, duration: 0.8 }}
+              key={key}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: catIndex * 0.12, duration: 0.7 }}
               viewport={{ once: true }}
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                borderRadius: '15px',
-                padding: 'clamp(1.5rem, 3vw, 2rem)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                transition: 'all 0.3s ease'
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(212,175,55,0.15)',
+                borderRadius: '16px',
+                padding: '1.75rem',
+                transition: 'border-color 0.3s, background 0.3s',
               }}
-              whileHover={{
-                transform: 'translateY(-10px)',
-                boxShadow: '0 20px 40px rgba(74, 158, 255, 0.2)'
-              }}
+              whileHover={{ borderColor: 'rgba(212,175,55,0.45)', backgroundColor: 'rgba(212,175,55,0.04)' }}
             >
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)',
-                color: '#4a9eff'
-              }}>
-                {category.icon}
-                <h3 style={{
-                  fontSize: 'clamp(1.1rem, 3vw, 1.3rem)',
-                  marginLeft: '1rem',
-                  color: '#4a9eff'
-                }}>
-                  {category.title}
+              {/* Category header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem', color: '#D4AF37' }}>
+                {categoryIcons[key]}
+                <h3 style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#D4AF37', margin: 0 }}>
+                  {categoryLabels[key]}
                 </h3>
               </div>
 
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: 'clamp(0.6rem, 1.5vw, 0.8rem)'
-              }}>
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
+              {/* Skill chips */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                {(skills as string[]).map((skill, i) => (
+                  <motion.span
                     key={skill}
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{ scale: 1, opacity: 1 }}
-                    transition={{ 
-                      delay: categoryIndex * 0.2 + skillIndex * 0.1, 
-                      duration: 0.5 
-                    }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: catIndex * 0.1 + i * 0.05, duration: 0.4 }}
                     viewport={{ once: true }}
                     style={{
-                      background: 'rgba(74, 158, 255, 0.1)',
-                      border: '1px solid rgba(74, 158, 255, 0.3)',
-                      borderRadius: '20px',
-                      padding: 'clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2vw, 1rem)',
-                      fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)',
-                      transition: 'all 0.3s ease',
-                      cursor: 'pointer'
+                      fontSize: '0.8rem',
+                      color: '#ccc',
+                      background: 'rgba(255,255,255,0.05)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      borderRadius: '6px',
+                      padding: '0.3rem 0.7rem',
+                      transition: 'color 0.2s, border-color 0.2s',
+                      cursor: 'default',
                     }}
-                    whileHover={{
-                      scale: 1.1,
-                      background: 'rgba(74, 158, 255, 0.2)',
-                      boxShadow: '0 5px 15px rgba(74, 158, 255, 0.3)'
-                    }}
+                    whileHover={{ color: '#D4AF37', borderColor: 'rgba(212,175,55,0.4)' }}
                   >
                     {skill}
-                  </motion.div>
+                  </motion.span>
                 ))}
               </div>
             </motion.div>
           ))}
         </div>
 
+        {/* Bottom callout */}
         <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.8, duration: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
           viewport={{ once: true }}
           style={{
+            marginTop: 'clamp(2.5rem, 5vw, 4rem)',
+            padding: '2rem',
+            border: '1px solid rgba(212,175,55,0.2)',
+            borderRadius: '16px',
+            background: 'rgba(212,175,55,0.04)',
             textAlign: 'center',
-            marginTop: 'clamp(2rem, 5vw, 4rem)',
-            padding: 'clamp(1.5rem, 3vw, 2rem)',
-            background: 'rgba(74, 158, 255, 0.05)',
-            borderRadius: '15px',
-            border: '1px solid rgba(74, 158, 255, 0.2)'
           }}
         >
-          <h3 style={{
-            fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
-            marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
-            color: '#4a9eff'
-          }}>
-            Ready to Build the Future
+          <h3 style={{ color: '#D4AF37', fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>
+            Built for Production, Not Prototypes.
           </h3>
-          <p style={{
-            color: '#e0e0e0',
-            fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
-            lineHeight: '1.6'
-          }}>
-            From offline-first mobile apps to AI-powered ERP systems, 
-            I bring cutting-edge technologies together to create scalable, 
-            secure, and intuitive solutions that drive business growth.
+          <p style={{ color: '#888', fontSize: '0.95rem', lineHeight: 1.7, maxWidth: '700px', margin: '0 auto' }}>
+            From offline-first mobile apps to multi-tenant SaaS platforms and AI-integrated fintech systems —
+            I bring cutting-edge technologies together to build scalable, high-throughput solutions
+            that operate reliably in production at scale.
           </p>
         </motion.div>
       </div>
     </section>
   );
-} 
+}

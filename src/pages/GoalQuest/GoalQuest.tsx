@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSEO } from '../../hooks/useSEO';
+import { useSEO, softwareAppSchema } from '../../hooks/useSEO';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaTrophy, FaCalendarAlt, FaStar, FaCheck, FaPlay } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './GoalQuest.css';
@@ -40,12 +40,17 @@ export default function GoalQuest() {
 
   // SEO for GoalQuest page
   useSEO({
-    title: 'GoalQuest - Gamified Goal Tracking | ValTech',
+    title: 'GoalQuest - Gamified Goal Tracking | Zevbii',
     description: 'Gamified goal tracking application with XP system, quests, and progress visualization. Turn your goals into exciting quests and track your achievements.',
     keywords: 'Goal Tracking, Gamification, Quest System, XP Points, Achievement Tracking, Personal Development',
-    ogUrl: 'https://david-val.vercel.app/goal-quest',
-    ogImage: 'https://david-val.vercel.app/goal-quest-og.jpg',
-    canonical: 'https://david-val.vercel.app/goal-quest'
+    ogUrl: 'https://zevbii.com/goal-quest',
+    ogImage: 'https://zevbii.com/og-image.png',
+    canonical: 'https://zevbii.com/goal-quest',
+    jsonLd: softwareAppSchema(
+      'GoalQuest - Gamified Goal Tracking',
+      'Gamified goal tracking application with XP system, quests, and progress visualization. Turn your goals into exciting quests.',
+      'https://zevbii.com/goal-quest'
+    ),
   });
 
   // Load quests from localStorage on component mount

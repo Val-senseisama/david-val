@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSEO } from '../../hooks/useSEO';
+import { useSEO, softwareAppSchema } from '../../hooks/useSEO';
 import { FaPlus, FaSearch, FaEdit, FaTrash, FaBars, FaTimes, FaArrowLeft, FaDatabase, FaChartBar, FaUsers, FaBoxes, FaTruck, FaCog, FaSun, FaMoon, FaEye } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Inventory.css';
@@ -39,12 +39,17 @@ export default function Inventory() {
 
   // SEO for Inventory page
   useSEO({
-    title: 'Inventory Management System | ValTech',
+    title: 'Inventory Management System | Zevbii',
     description: 'Comprehensive inventory management system with real-time tracking, analytics, and reporting. Manage products, track stock levels, and optimize your inventory.',
     keywords: 'Inventory Management, Stock Tracking, Product Management, Inventory System, Warehouse Management, Stock Control',
-    ogUrl: 'https://david-val.vercel.app/inventory',
-    ogImage: 'https://david-val.vercel.app/inventory-og.jpg',
-    canonical: 'https://david-val.vercel.app/inventory'
+    ogUrl: 'https://zevbii.com/inventory',
+    ogImage: 'https://zevbii.com/og-image.png',
+    canonical: 'https://zevbii.com/inventory',
+    jsonLd: softwareAppSchema(
+      'Inventory Management System',
+      'Comprehensive inventory management system with real-time tracking, analytics, and reporting.',
+      'https://zevbii.com/inventory'
+    ),
   });
 
   // Load products from localStorage on component mount

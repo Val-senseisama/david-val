@@ -1,14 +1,8 @@
 import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
-import { Canvas } from '@react-three/fiber';
-import { Stars, OrbitControls } from '@react-three/drei';
-import { Suspense, lazy } from 'react';
 import { FaEnvelope, FaLinkedin, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-
-// Lazy load the 3D model component
-const LazySatelliteModel = lazy(() => import('./SatelliteModel'));
 
 export default function Contact() {
   const data = usePortfolioData();
@@ -16,323 +10,170 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  // Remove scroll interference prevention - it was causing issues
-  // useEffect(() => {
-  //   const handleWheel = (e: WheelEvent) => {
-  //     // Allow normal scrolling without interference
-  //     e.stopPropagation();
-  //   };
-
-  //   const handleTouchMove = (e: TouchEvent) => {
-  //     // Allow normal touch scrolling
-  //     e.stopPropagation();
-  //   };
-
-  //   const section = document.getElementById('contact');
-  //   if (section) {
-  //     section.addEventListener('wheel', handleWheel, { passive: true });
-  //     section.addEventListener('touchmove', handleTouchMove, { passive: true });
-  //     return () => {
-  //       section.removeEventListener('wheel', handleWheel);
-  //       section.removeEventListener('touchmove', handleTouchMove);
-  //     };
-  //   }
-  // }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
-
     if (!formRef.current) return;
-
     try {
-      // Send email to yourself (David)
       await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_contact',
         import.meta.env.VITE_EMAILJS_TEMPLATE_TO_YOU || 'template_to_you',
         formRef.current,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
-
-      // Send confirmation email to the sender
       await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_contact',
         import.meta.env.VITE_EMAILJS_TEMPLATE_TO_SENDER || 'template_to_sender',
         formRef.current,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
-
       setSubmitStatus('success');
       formRef.current.reset();
-      
-      // Reset status after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
-
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     } catch (error) {
       console.error('Failed to send email:', error);
       setSubmitStatus('error');
-      
-      // Reset status after 5 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
+      setTimeout(() => setSubmitStatus('idle'), 5000);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Remove form focus/blur handlers that were interfering with scroll
-  // const handleFormFocus = () => {
-  //   // Ensure smooth scrolling when form is focused
-  //   document.body.style.overflow = 'auto';
-  // };
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '0.8rem 1rem',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(212,175,55,0.2)',
+    borderRadius: '8px',
+    color: 'white',
+    fontSize: '0.95rem',
+    outline: 'none',
+    transition: 'border-color 0.2s',
+    boxSizing: 'border-box',
+  };
 
-  // const handleFormBlur = () => {
-  //   // Restore normal scrolling when form loses focus
-  //   document.body.style.overflow = 'auto';
-  // };
+  const contactLinks = [
+    { icon: <FaEnvelope size={16} />, label: 'Email', value: data.email, href: `mailto:${data.email}` },
+    { icon: <FaPhone size={16} />, label: 'Phone', value: data.phone, href: `tel:${data.phone}` },
+    { icon: <FaMapMarkerAlt size={16} />, label: 'Location', value: data.location, href: null },
+    { icon: <FaLinkedin size={16} />, label: 'LinkedIn', value: 'Connect on LinkedIn', href: data.linkedin },
+  ];
 
   return (
     <section id="contact" style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%)',
+      background: '#050505',
       color: 'white',
-      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      padding: 'clamp(3rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem)',
     }}>
+      {/* Dot grid bg */}
       <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-        pointerEvents: 'none'
-      }}>
-        <Canvas 
-          dpr={[1, 1.5]} 
-          camera={{ position: [0, 0, 5], fov: 75 }}
-          gl={{ 
-            antialias: true,
-            alpha: true,
-            powerPreference: "default",
-            preserveDrawingBuffer: false,
-            failIfMajorPerformanceCaveat: false
-          }}
-          onError={(error) => {
-            console.error('Contact Canvas error:', error);
-          }}
-          style={{ pointerEvents: 'none' }}
-        >
-          <ambientLight intensity={0.3} />
-          <Stars radius={80} depth={60} count={1200} factor={4} fade speed={0.6} />
-          <Suspense fallback={null}>
-            <LazySatelliteModel position={[0, 0, -3]} />
-          </Suspense>
-          <OrbitControls 
-            enableZoom={false} 
-            enablePan={false} 
-            enableRotate={false}
-            autoRotate 
-            autoRotateSpeed={0.15} 
-          />
-        </Canvas>
-      </div>
+        position: 'absolute', inset: 0, zIndex: 0,
+        backgroundImage: 'radial-gradient(circle, rgba(212,175,55,0.1) 1px, transparent 1px)',
+        backgroundSize: '40px 40px',
+        pointerEvents: 'none',
+      }} />
+      {/* Radial gold glow center-right */}
+      <div style={{
+        position: 'absolute', top: '20%', right: '-15%', zIndex: 0,
+        width: '600px', height: '600px',
+        background: 'radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
 
-      <div style={{
-        position: 'relative',
-        zIndex: 2,
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}>
-        <motion.h2
-          initial={{ y: -50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: '1100px', margin: '0 auto' }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          style={{
-            fontSize: 'clamp(2rem, 6vw, 3rem)',
-            textAlign: 'center',
-            marginBottom: 'clamp(2rem, 5vw, 4rem)',
-            color: '#4a9eff',
-            textShadow: '0 0 20px rgba(74, 158, 255, 0.5)'
-          }}
+          style={{ textAlign: 'center', marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}
         >
-          Let's Connect
-        </motion.h2>
+          <p style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4AF37', marginBottom: '0.75rem', fontWeight: 600 }}>
+            Let's Talk
+          </p>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 800, color: '#fff', marginBottom: '1rem' }}>
+            Let's build something that scales.
+          </h2>
+          <p style={{ color: '#888', fontSize: 'clamp(0.9rem, 2vw, 1rem)', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
+            Whether you have a project in mind, a role to fill, or just want to say hello — I'd love to hear from you.
+          </p>
+        </motion.div>
 
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           gap: 'clamp(2rem, 4vw, 4rem)',
-          alignItems: 'start'
+          alignItems: 'start',
         }}>
-          {/* Contact Form */}
+          {/* Form */}
           <motion.div
-            initial={{ x: -100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
             style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              borderRadius: '15px',
+              background: 'rgba(255,255,255,0.03)',
+              border: '1px solid rgba(212,175,55,0.15)',
+              borderRadius: '16px',
               padding: 'clamp(1.5rem, 3vw, 2rem)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)'
             }}
           >
-            <h3 style={{
-              fontSize: 'clamp(1.4rem, 3.5vw, 1.8rem)',
-              marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
-              color: '#4a9eff'
-            }}>
-              Send a Message
-            </h3>
-
-            <form 
-              ref={formRef} 
-              onSubmit={handleSubmit}
-              // onFocus={handleFormFocus}
-              // onBlur={handleFormBlur}
-            >
-              <div style={{ marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
-                <label style={{
-                  display: 'block',
-                  marginBottom: '0.5rem',
-                  color: '#e0e0e0',
-                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
-                }}>
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  required
-                  style={{
-                    width: '100%',
-                    padding: 'clamp(0.6rem, 2vw, 0.8rem)',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(74, 158, 255, 0.3)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
-                  }}
-                  placeholder="Your name"
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#D4AF37', marginBottom: '1.5rem' }}>Send a Message</h3>
+            <form ref={formRef} onSubmit={handleSubmit}>
+              <div style={{ marginBottom: '1.2rem' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#888', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Name</label>
+                <input type="text" name="name" required placeholder="Your name" style={inputStyle}
+                  onFocus={e => e.target.style.borderColor = 'rgba(212,175,55,0.6)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(212,175,55,0.2)'}
+                />
+              </div>
+              <div style={{ marginBottom: '1.2rem' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#888', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Email</label>
+                <input type="email" name="email" required placeholder="your@email.com" style={inputStyle}
+                  onFocus={e => e.target.style.borderColor = 'rgba(212,175,55,0.6)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(212,175,55,0.2)'}
+                />
+              </div>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#888', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Message</label>
+                <textarea name="message" required rows={5} placeholder="Tell me about your project..." style={{ ...inputStyle, resize: 'vertical' }}
+                  onFocus={e => e.target.style.borderColor = 'rgba(212,175,55,0.6)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(212,175,55,0.2)'}
                 />
               </div>
 
-              <div style={{ marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)' }}>
-                <label style={{
-                  display: 'block',
-                  marginBottom: '0.5rem',
-                  color: '#e0e0e0',
-                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
-                }}>
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  style={{
-                    width: '100%',
-                    padding: 'clamp(0.6rem, 2vw, 0.8rem)',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(74, 158, 255, 0.3)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
-                  }}
-                  placeholder="your.email@example.com"
-                />
-              </div>
-
-              <div style={{ marginBottom: 'clamp(1.5rem, 3vw, 2rem)' }}>
-                <label style={{
-                  display: 'block',
-                  marginBottom: '0.5rem',
-                  color: '#e0e0e0',
-                  fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
-                }}>
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  required
-                  rows={5}
-                  style={{
-                    width: '100%',
-                    padding: 'clamp(0.6rem, 2vw, 0.8rem)',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(74, 158, 255, 0.3)',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
-                    resize: 'vertical'
-                  }}
-                  placeholder="Tell me about your project..."
-                />
-              </div>
-
-              {/* Status Messages */}
               {submitStatus === 'success' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{
-                    background: 'rgba(34, 197, 94, 0.1)',
-                    border: '1px solid rgba(34, 197, 94, 0.3)',
-                    borderRadius: '8px',
-                    padding: 'clamp(0.75rem, 2vw, 1rem)',
-                    marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
-                    color: '#22c55e',
-                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
-                  }}
-                >
-                  ✅ Thank you! Your message has been sent successfully. I'll get back to you soon!
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.25)', borderRadius: '8px', padding: '0.8rem 1rem', marginBottom: '1rem', color: '#22c55e', fontSize: '0.88rem' }}>
+                  Message sent! I'll get back to you shortly.
                 </motion.div>
               )}
-
               {submitStatus === 'error' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{
-                    background: 'rgba(239, 68, 68, 0.1)',
-                    border: '1px solid rgba(239, 68, 68, 0.3)',
-                    borderRadius: '8px',
-                    padding: 'clamp(0.75rem, 2vw, 1rem)',
-                    marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
-                    color: '#ef4444',
-                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
-                  }}
-                >
-                  ❌ Sorry, there was an error sending your message. Please try again or contact me directly.
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '8px', padding: '0.8rem 1rem', marginBottom: '1rem', color: '#ef4444', fontSize: '0.88rem' }}>
+                  Failed to send. Please try again or contact me directly.
                 </motion.div>
               )}
 
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={!isSubmitting ? { scale: 1.05 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.95 } : {}}
+                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.97 } : {}}
                 style={{
                   width: '100%',
-                  padding: 'clamp(0.8rem, 2.5vw, 1rem)',
-                  background: isSubmitting 
-                    ? 'rgba(74, 158, 255, 0.5)' 
-                    : 'linear-gradient(135deg, #4a9eff 0%, #357abd 100%)',
+                  padding: '0.9rem',
+                  background: isSubmitting ? 'rgba(212,175,55,0.4)' : 'linear-gradient(135deg, #D4AF37, #B8860B)',
                   border: 'none',
                   borderRadius: '8px',
-                  color: 'white',
-                  fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
-                  fontWeight: 'bold',
+                  color: '#050505',
+                  fontWeight: 700,
+                  fontSize: '0.95rem',
                   cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.3s ease'
+                  letterSpacing: '0.03em',
                 }}
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -340,161 +181,42 @@ export default function Contact() {
             </form>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Contact info */}
           <motion.div
-            initial={{ x: 100, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h3 style={{
-              fontSize: 'clamp(1.4rem, 3.5vw, 1.8rem)',
-              marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
-              color: '#4a9eff'
-            }}>
-              Get in Touch
-            </h3>
-
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              borderRadius: '15px',
-              padding: 'clamp(1.5rem, 3vw, 2rem)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              marginBottom: 'clamp(1.5rem, 3vw, 2rem)'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
-              }}>
-                <FaEnvelope size={20} color="#4a9eff" />
-                <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ 
-                    color: '#e0e0e0', 
-                    margin: 0,
-                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
-                  }}>Email</p>
-                  <a 
-                    href={`mailto:${data.email}`}
-                    style={{ 
-                      color: '#4a9eff', 
-                      textDecoration: 'none',
-                      fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
-                    }}
-                  >
-                    {data.email}
-                  </a>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#D4AF37', marginBottom: '1.5rem' }}>Direct Contact</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {contactLinks.map(({ icon, label, value, href }) => (
+                <div key={label} style={{
+                  display: 'flex', alignItems: 'center', gap: '1rem',
+                  background: 'rgba(255,255,255,0.03)',
+                  border: '1px solid rgba(212,175,55,0.12)',
+                  borderRadius: '12px',
+                  padding: '1rem 1.25rem',
+                }}>
+                  <span style={{ color: '#D4AF37', flexShrink: 0 }}>{icon}</span>
+                  <div>
+                    <p style={{ fontSize: '0.7rem', color: '#666', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.2rem' }}>{label}</p>
+                    {href ? (
+                      <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
+                        style={{ color: '#ccc', fontSize: '0.9rem', textDecoration: 'none', transition: 'color 0.2s' }}
+                        onMouseEnter={e => e.currentTarget.style.color = '#D4AF37'}
+                        onMouseLeave={e => e.currentTarget.style.color = '#ccc'}
+                      >{value}</a>
+                    ) : (
+                      <p style={{ color: '#ccc', fontSize: '0.9rem', margin: 0 }}>{value}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
-
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
-              }}>
-                <FaPhone size={20} color="#4a9eff" />
-                <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ 
-                    color: '#e0e0e0', 
-                    margin: 0,
-                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
-                  }}>Phone</p>
-                  <a 
-                    href={`tel:${data.phone}`}
-                    style={{ 
-                      color: '#4a9eff', 
-                      textDecoration: 'none',
-                      fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
-                    }}
-                  >
-                    {data.phone}
-                  </a>
-                </div>
-              </div>
-
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
-              }}>
-                <FaMapMarkerAlt size={20} color="#4a9eff" />
-                <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ 
-                    color: '#e0e0e0', 
-                    margin: 0,
-                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
-                  }}>Location</p>
-                  <p style={{ 
-                    color: '#4a9eff', 
-                    margin: 0, 
-                    fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
-                  }}>
-                    {data.location}
-                  </p>
-                </div>
-              </div>
-
-              <div style={{
-                display: 'flex',
-                alignItems: 'center'
-              }}>
-                <FaLinkedin size={20} color="#4a9eff" />
-                <div style={{ marginLeft: '1rem' }}>
-                  <p style={{ 
-                    color: '#e0e0e0', 
-                    margin: 0,
-                    fontSize: 'clamp(0.85rem, 2.5vw, 1rem)'
-                  }}>LinkedIn</p>
-                  <a 
-                    href={data.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ 
-                      color: '#4a9eff', 
-                      textDecoration: 'none',
-                      fontSize: 'clamp(1rem, 2.5vw, 1.1rem)'
-                    }}
-                  >
-                    Connect on LinkedIn
-                  </a>
-                </div>
-              </div>
+              ))}
             </div>
-
-            <motion.div
-              initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
-              viewport={{ once: true }}
-              style={{
-                background: 'rgba(74, 158, 255, 0.05)',
-                borderRadius: '15px',
-                padding: 'clamp(1.5rem, 3vw, 2rem)',
-                border: '1px solid rgba(74, 158, 255, 0.2)',
-                textAlign: 'center'
-              }}
-            >
-              <h4 style={{
-                fontSize: 'clamp(1.1rem, 3vw, 1.3rem)',
-                marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
-                color: '#4a9eff'
-              }}>
-                Ready to Build Together?
-              </h4>
-              <p style={{
-                color: '#e0e0e0',
-                lineHeight: '1.6',
-                fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
-              }}>
-                Whether you need a full-stack developer for your next project, 
-                want to discuss potential collaborations, or just want to say hello, 
-                I'd love to hear from you!
-              </p>
-            </motion.div>
           </motion.div>
         </div>
       </div>
     </section>
   );
-} 
+}

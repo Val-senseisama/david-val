@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSEO } from '../../hooks/useSEO';
+import { useSEO, softwareAppSchema } from '../../hooks/useSEO';
 import { FaPlus, FaTrash, FaBars, FaTimes, FaArrowLeft, FaSun, FaMoon, FaBrain, FaSearch, FaFilter, FaDownload, FaPalette } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './MindMap.css';
@@ -52,12 +52,17 @@ export default function MindMap() {
 
   // SEO for MindMap page
   useSEO({
-    title: 'Mind Map Creator | ValTech',
+    title: 'Mind Map Creator | Zevbii',
     description: 'Interactive mind map creator with drag-and-drop functionality, category organization, and visual brainstorming tools. Create and organize your ideas visually.',
     keywords: 'Mind Map Creator, Visual Thinking, Brainstorming Tool, Idea Organization, Creative Mapping, Visual Notes',
-    ogUrl: 'https://david-val.vercel.app/mind-map',
-    ogImage: 'https://david-val.vercel.app/mind-map-og.jpg',
-    canonical: 'https://david-val.vercel.app/mind-map'
+    ogUrl: 'https://zevbii.com/mind-map',
+    ogImage: 'https://zevbii.com/og-image.png',
+    canonical: 'https://zevbii.com/mind-map',
+    jsonLd: softwareAppSchema(
+      'Mind Map Creator',
+      'Interactive mind map creator with drag-and-drop functionality, category organization, and visual brainstorming tools.',
+      'https://zevbii.com/mind-map'
+    ),
   });
 
   // Load nodes from localStorage on component mount

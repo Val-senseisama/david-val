@@ -1,59 +1,89 @@
 {
     "name": "David Uyi Val-Izevbigie",
-    "title": "Fullstack Developer",
-    "summary": "Fullstack Developer with 4+ years of experience architecting ERP, POS, and AI-driven inventory management platforms. Proficient in TypeScript, React Native, Apollo GraphQL, MySQL, and offline-first mobile systems. Passionate about scalable, secure, and intuitive solutions that improve business operations.",
+    "title": "Fullstack Engineer",
+    "summary": "Fullstack Engineer specializing in scalable SaaS platforms, fintech systems, and AI-driven applications. Experienced in designing multi-tenant architectures, high-throughput systems, and real-time applications with a focus on performance, reliability, and production-scale impact.",
     "location": "Lagos, Nigeria",
     "email": "valizevbigiedavid@gmail.com",
     "linkedin": "https://linkedin.com/in/david-uyi-val-izevbigie",
     "phone": "+2348039496798",
+    "website": "https://zevbii.com",
     "skills": {
       "languagesAndFrameworks": [
-        "TypeScript (React, Node.js, Express)",
+        "TypeScript",
         "JavaScript",
+        "Node.js",
+        "React",
+        "Next.js",
+        "Golang",
         "React Native"
       ],
       "databases": [
-        "MySQL",
         "PostgreSQL",
-        "SQLite",
-        "MongoDB"
+        "MySQL",
+        "MongoDB",
+        "SQLite"
       ],
       "toolsPlatforms": [
-        "Apollo GraphQL",
         "Docker",
-        "ElectronJS",
-        "Expo",
+        "AWS",
+        "CI/CD",
         "Git",
-        "Unit Testing"
+        "Apollo GraphQL",
+        "Redis",
+        "Electron",
+        "Expo"
       ],
       "specialties": [
-        "Offline-First Mobile Apps",
-        "ERP Systems",
-        "AI/ML",
-        "Natural Language Processing (NLP)",
-        "CI/CD",
-        "Data Security"
+        "Multi-tenant SaaS",
+        "Fintech Systems",
+        "High-throughput Systems",
+        "ERP/POS Platforms",
+        "Offline-first Applications",
+        "AI Integrations",
+        "System Architecture",
+        "Real-time Systems"
       ]
     },
     "experience": [
       {
-        "role": "Junior Fullstack Developer",
-        "company": "Techbox Labs",
-        "duration": "Jan 2025 – Present",
-        "location": "Lagos, Nigeria",
+        "role": "Fullstack Engineer",
+        "company": "Punch Group",
+        "duration": "Oct 2024 – Present",
+        "location": "Ikeja, Lagos, Nigeria",
+        "website": "http://www.punch.cool/",
         "technologies": [
-          "TypeScript", "React Native (Expo)", "ElectronJS", "Apollo GraphQL", "Flutterwave APIs", "MySQL", "AWS"
+          "TypeScript", "React", "Node.js", "Apollo GraphQL", "Redis", "Electron", "React Native"
         ],
         "achievements": [
-          "Architected and deployed ERP modules across inventory, POS, fixed asset management, and finance.",
-          "Developed AI-powered sales forecasting, stock optimization, and NLP-enhanced search features.",
-          "Built offline-first mobile and desktop apps with biometric login, budgeting tools, and PDF export functionality.",
-          "Designed and deployed a gamified goal-setting platform with XP rewards and multiplayer quests.",
-          "Integrated secure payment workflows with Flutterwave APIs for a multi-vendor eCommerce system."
+          "Architected multi-tenant SaaS platform supporting multiple organizations and managing 1,000+ talent profiles",
+          "Designed and implemented RBAC, authentication, and session management across distributed systems",
+          "Built modular GraphQL backend using Apollo, improving development velocity and maintainability",
+          "Implemented Redis-based caching, rate limiting, and distributed locking, improving system performance under load",
+          "Engineered high-throughput productivity system handling ~24 req/user/hour across 40+ concurrent users over 8-hour sessions",
+          "Developed real-time ticketing and workflow system with audit trails for operational transparency",
+          "Built AI-powered recruitment assistant automating candidate screening and structured evaluations",
+          "Developed cross-platform applications (Electron + React Native) with offline-first architecture and background sync"
         ]
       },
       {
-        "role": "Junior Fullstack Developer Intern",
+        "role": "Fullstack Developer",
+        "company": "Techbox Labs",
+        "duration": "Jan 2025 – Sep 2025",
+        "location": "Lagos, Nigeria",
+        "technologies": [
+          "TypeScript", "React Native (Expo)", "Node.js", "Paystack", "MySQL", "AWS", "Redis"
+        ],
+        "achievements": [
+          "Led development of StockPulse AI POS and inventory intelligence system for real-time stock and sales operations",
+          "Implemented transactional consistency and real-time inventory tracking, reducing discrepancies across workflows",
+          "Designed AI-driven demand forecasting and profit optimization systems for data-informed decision-making",
+          "Built fintech payment infrastructure with Paystack integration for secure and reliable transactions",
+          "Implemented multi-party payment splitting (fees, VAT, payouts) for complex financial flows",
+          "Improved user engagement by 35% through gamification and behavioral incentive mechanisms"
+        ]
+      },
+      {
+        "role": "Fullstack Developer",
         "company": "Syllabux Learning Solutions",
         "duration": "Jun 2024 – Dec 2024",
         "location": "Lagos, Nigeria",
@@ -61,14 +91,16 @@
           "React Native (Expo)", "Node.js", "SQLite", "Apollo GraphQL", "MySQL"
         ],
         "achievements": [
-          "Designed and launched an AI-powered inventory and POS system.",
-          "Built scalable backend architectures for batch inventory updates and loyalty programs.",
-          "Developed mobile apps with offline capabilities and PIN-based authentication.",
-          "Streamlined receipt generation with dynamic HTML templates and base64 encoding."
+          "Developed multi-tenant school management SaaS platform used by 200+ schools",
+          "Built scalable academic, student, and staff management systems supporting large institutional datasets",
+          "Designed GraphQL APIs using Apollo for efficient and structured data access",
+          "Built offline-first mobile applications using SQLite with reliable synchronization",
+          "Integrated AI-assisted academic analytics and reporting systems",
+          "Automated report generation workflows, significantly reducing manual administrative effort"
         ]
       },
       {
-        "role": "Freelance Fullstack Web Developer",
+        "role": "Freelance Fullstack Developer",
         "company": "Self-employed",
         "duration": "Nov 2020 – Jun 2024",
         "location": "Lagos, Nigeria",
@@ -76,10 +108,9 @@
           "React", "Node.js", "MySQL", "MongoDB", "Django"
         ],
         "achievements": [
-          "Delivered custom websites and ERP solutions tailored to client needs.",
-          "Integrated backend services and databases with responsive frontends.",
-          "Conducted testing and optimized codebases.",
-          "Designed and maintained databases for dynamic web applications."
+          "Delivered fullstack web and mobile solutions for multiple clients across industries",
+          "Designed backend systems and integrated responsive frontend applications",
+          "Improved performance, scalability, and reliability of deployed applications"
         ]
       }
     ],
@@ -88,11 +119,34 @@
       "degree": "Bachelor of Engineering (B.Eng)",
       "field": "Mechanical Engineering",
       "duration": "Jan 2018 – Mar 2024",
+      "gpa": "4.02 / 5.0",
       "coursework": [
         "Programming for Engineers",
         "Data Structures & Algorithms",
         "Engineering Data Analysis"
       ]
-    }
+    },
+    "projects": [
+      {
+        "name": "Wigomarket",
+        "description": "Multi-vendor eCommerce and logistics platform with order splitting, dispatch tracking, escrow payments, and real-time notifications supporting marketplace-scale operations",
+        "keywords": ["eCommerce", "Logistics", "Payments", "Real-time"]
+      },
+      {
+        "name": "PopnChat",
+        "description": "Real-time messaging and fintech platform with wallet infrastructure and ledger system, processing over ₦600,000 in transactions within hours of launch",
+        "url": "https://popnchats.com",
+        "keywords": ["Fintech", "Chat", "WebSockets", "Payments"]
+      },
+      {
+        "name": "Shard",
+        "description": "AI-powered productivity system with automated task generation, gamification, and real-time collaboration features",
+        "keywords": ["AI", "Productivity", "Gamification"]
+      },
+      {
+        "name": "LifeAdmin",
+        "description": "Offline-first mobile productivity application with local-first architecture and resilient synchronization",
+        "keywords": ["Mobile", "Offline-first"]
+      }
+    ]
   }
-  

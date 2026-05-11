@@ -28,7 +28,7 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div style={{
           minHeight: '100vh',
-          background: 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 100%)',
+          background: 'linear-gradient(135deg, #050505 0%, #111111 100%)',
           color: 'white',
           display: 'flex',
           flexDirection: 'column',
@@ -39,7 +39,7 @@ class ErrorBoundary extends Component<Props, State> {
         }}>
           <h1 style={{
             fontSize: '2rem',
-            color: '#4a9eff',
+            color: '#D4AF37',
             marginBottom: '1rem'
           }}>
             Oops! Something went wrong
@@ -56,7 +56,7 @@ class ErrorBoundary extends Component<Props, State> {
             onClick={() => window.location.reload()}
             style={{
               padding: '1rem 2rem',
-              background: 'linear-gradient(135deg, #4a9eff 0%, #357abd 100%)',
+              background: 'linear-gradient(135deg, #D4AF37 0%, #B8860B 100%)',
               border: 'none',
               borderRadius: '8px',
               color: 'white',

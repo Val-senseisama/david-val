@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://david-val.vercel.app/sitemap-v1.xml
+Sitemap: https://zevbii.com/sitemap.xml
 
 # Allow all pages to be crawled
 Allow: /inventory
@@ -30,4 +30,4 @@ Allow: /*.jpg
 Allow: /*.jpeg
 Allow: /*.gif
 Allow: /*.svg
-Allow: /*.ico 
+Allow: /*.ico

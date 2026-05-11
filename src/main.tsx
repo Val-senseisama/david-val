@@ -54,16 +54,16 @@ const globalStyles = `
   }
 
   ::-webkit-scrollbar-track {
-    background: #0c0c0c;
+    background: #050505;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #4a9eff;
+    background: #D4AF37;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #357abd;
+    background: #B8860B;
   }
 
   input, textarea {
@@ -72,8 +72,8 @@ const globalStyles = `
 
   input:focus, textarea:focus {
     outline: none;
-    border-color: #4a9eff !important;
-    box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2) !important;
+    border-color: #D4AF37 !important;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
   }
 
   /* Ensure smooth scrolling without interference */

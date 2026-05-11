@@ -1,0 +1,24 @@
+{
+  "name": "Zevbii | David Val-Izevbigie",
+  "short_name": "Zevbii",
+  "description": "Portfolio of David Uyi Val-Izevbigie — Fullstack Developer specializing in React, Three.js, ERP systems, and AI-powered solutions.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#0c0c0c",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/zevbii.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/zevbii.webp",
+      "sizes": "1024x1024",
+      "type": "image/webp"
+    }
+  ],
+  "categories": ["portfolio", "technology", "developer"]
+}

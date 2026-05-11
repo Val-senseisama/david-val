@@ -1,306 +1,156 @@
 import { motion } from 'framer-motion';
 import { usePortfolioData } from '../hooks/usePortfolioData';
-import { Canvas } from '@react-three/fiber';
-import { Stars, OrbitControls } from '@react-three/drei';
-import { Suspense, lazy } from 'react';
-import { FaBriefcase, FaCalendar, FaMapMarkerAlt } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
-
-// Lazy load the 3D model component
-const LazySpaceshipModel = lazy(() => import('./SpaceshipModel'));
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function Experience() {
   const data = usePortfolioData();
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
 
   return (
-    <section style={{
+    <section id="experience" style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #16213e 0%, #0c0c0c 100%)',
+      background: '#050505',
       color: 'white',
-      padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem)',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      padding: 'clamp(3rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem)',
     }}>
+      {/* Dot grid bg */}
       <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1
-      }}>
-        <Canvas 
-          camera={{ position: [0, 0, 5], fov: 75 }}
-          dpr={[1, 1.5]}
-          gl={{ 
-            antialias: true,
-            alpha: true,
-            powerPreference: "default",
-            preserveDrawingBuffer: false,
-            failIfMajorPerformanceCaveat: false
-          }}
-          onError={(error) => {
-            console.error('Experience Canvas error:', error);
-          }}
-        >
-          <ambientLight intensity={0.3} />
-          <Stars radius={70} depth={50} count={1500} factor={4} fade speed={0.5} />
-          <Suspense fallback={null}>
-            <LazySpaceshipModel position={[4, 2, -3]} />
-          </Suspense>
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.25} />
-        </Canvas>
-      </div>
+        position: 'absolute', inset: 0, zIndex: 0,
+        backgroundImage: 'radial-gradient(circle, rgba(212,175,55,0.1) 1px, transparent 1px)',
+        backgroundSize: '40px 40px',
+        pointerEvents: 'none',
+      }} />
+      {/* Gold glow bottom-left */}
+      <div style={{
+        position: 'absolute', bottom: '-10%', left: '-10%', zIndex: 0,
+        width: '500px', height: '500px',
+        background: 'radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
 
-      <div style={{
-        position: 'relative',
-        zIndex: 2,
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}>
-        <motion.h2
-          initial={{ y: -50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: '900px', margin: '0 auto' }}>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          style={{
-            fontSize: 'clamp(2rem, 6vw, 3rem)',
-            textAlign: 'center',
-            marginBottom: 'clamp(2rem, 5vw, 4rem)',
-            color: '#4a9eff',
-            textShadow: '0 0 20px rgba(74, 158, 255, 0.5)'
-          }}
+          style={{ marginBottom: 'clamp(2.5rem, 5vw, 4rem)' }}
         >
-          Experience Journey
-        </motion.h2>
+          <p style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#D4AF37', marginBottom: '0.75rem', fontWeight: 600 }}>
+            Work History
+          </p>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 800, color: '#fff' }}>
+            A track record of shipping at scale.
+          </h2>
+        </motion.div>
 
-        <div style={{
-          position: 'relative'
-        }}>
-          {/* Timeline line - only shown on desktop */}
-          {isDesktop && (
-            <div style={{
-              position: 'absolute',
-              left: '50%',
-              top: 0,
-              bottom: 0,
-              width: '2px',
-              background: 'linear-gradient(180deg, #4a9eff 0%, transparent 100%)',
-              transform: 'translateX(-50%)',
-              zIndex: 1
-            }} />
-          )}
+        {/* Timeline */}
+        <div style={{ position: 'relative' }}>
+          {/* Vertical line */}
+          <div style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: '2px',
+            background: 'linear-gradient(180deg, #D4AF37 0%, rgba(212,175,55,0.1) 100%)',
+          }} />
 
           {data.experience.map((exp, index) => (
             <motion.div
-              key={`${exp.company}-${exp.role}`}
-              initial={{ x: index % 2 === 0 ? -100 : 100, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              transition={{ delay: index * 0.3, duration: 0.8 }}
+              key={`${exp.company}-${index}`}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.15, duration: 0.7 }}
               viewport={{ once: true }}
               style={{
-                display: 'flex',
-                justifyContent: isDesktop ? (index % 2 === 0 ? 'flex-start' : 'flex-end') : 'center',
-                marginBottom: 'clamp(2rem, 4vw, 3rem)',
                 position: 'relative',
-                zIndex: 2
+                paddingLeft: '2.5rem',
+                paddingBottom: index < data.experience.length - 1 ? 'clamp(2rem, 5vw, 3.5rem)' : 0,
               }}
             >
+              {/* Timeline dot */}
               <div style={{
-                width: '100%',
-                maxWidth: '500px',
-                background: 'rgba(255, 255, 255, 0.05)',
-                borderRadius: '15px',
-                padding: 'clamp(1.5rem, 3vw, 2rem)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                position: 'relative',
-                transition: 'all 0.3s ease',
-                ...(isDesktop && {
-                  width: '45%',
-                  marginLeft: index % 2 === 0 ? '0' : 'auto',
-                  marginRight: index % 2 === 0 ? 'auto' : '0'
-                })
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 15px 30px rgba(74, 158, 255, 0.2)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-              >
-                {/* Timeline dot - only shown on desktop */}
-                {isDesktop && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    [index % 2 === 0 ? 'right' : 'left']: '-60px',
-                    width: '20px',
-                    height: '20px',
-                    background: '#4a9eff',
-                    borderRadius: '50%',
-                    transform: 'translateY(-50%)',
-                    boxShadow: '0 0 20px rgba(74, 158, 255, 0.8)',
-                    zIndex: 3
-                  }} />
-                )}
+                position: 'absolute',
+                left: '-6px',
+                top: '6px',
+                width: '14px',
+                height: '14px',
+                borderRadius: '50%',
+                background: '#D4AF37',
+                border: '3px solid #050505',
+                boxShadow: '0 0 12px rgba(212,175,55,0.6)',
+              }} />
 
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
-                  color: '#4a9eff'
-                }}>
-                  <FaBriefcase size={20} />
-                  <h3 style={{
-                    fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
-                    marginLeft: '0.5rem',
-                    color: '#4a9eff'
-                  }}>
+              {/* Card */}
+              <div style={{
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(212,175,55,0.15)',
+                borderRadius: '16px',
+                padding: 'clamp(1.25rem, 3vw, 1.75rem)',
+                transition: 'border-color 0.3s',
+              }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(212,175,55,0.4)')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(212,175,55,0.15)')}
+              >
+                {/* Role + duration */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.35rem' }}>
+                  <h3 style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)', fontWeight: 700, color: '#fff', margin: 0 }}>
                     {exp.role}
                   </h3>
+                  <span style={{ fontSize: '0.78rem', color: '#D4AF37', border: '1px solid rgba(212,175,55,0.3)', borderRadius: '100px', padding: '0.2rem 0.7rem', whiteSpace: 'nowrap' }}>
+                    {exp.duration}
+                  </span>
                 </div>
 
-                <h4 style={{
-                  fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-                  marginBottom: '0.5rem',
-                  color: '#e0e0e0'
-                }}>
-                  {exp.company}
-                </h4>
-
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: '0.5rem',
-                  color: '#a0a0a0',
-                  fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)'
-                }}>
-                  <FaCalendar size={14} />
-                  <span style={{ marginLeft: '0.5rem' }}>{exp.duration}</span>
+                {/* Company + location */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                  <span style={{ fontSize: '0.9rem', fontWeight: 600, color: '#D4AF37' }}>{exp.company}</span>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.8rem', color: '#666' }}>
+                    <FaMapMarkerAlt size={11} />
+                    {exp.location}
+                  </span>
                 </div>
 
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)',
-                  color: '#a0a0a0',
-                  fontSize: 'clamp(0.8rem, 2.5vw, 0.9rem)'
-                }}>
-                  <FaMapMarkerAlt size={14} />
-                  <span style={{ marginLeft: '0.5rem' }}>{exp.location}</span>
-                </div>
-
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 'clamp(0.4rem, 1.5vw, 0.5rem)',
-                  marginBottom: 'clamp(1rem, 2.5vw, 1.5rem)'
-                }}>
-                  {exp.technologies.map((tech, techIndex) => (
-                    <motion.span
-                      key={tech}
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: index * 0.3 + techIndex * 0.1, duration: 0.5 }}
-                      viewport={{ once: true }}
-                      style={{
-                        background: 'rgba(74, 158, 255, 0.1)',
-                        border: '1px solid rgba(74, 158, 255, 0.3)',
-                        borderRadius: '15px',
-                        padding: 'clamp(0.25rem, 1.5vw, 0.3rem) clamp(0.6rem, 2vw, 0.8rem)',
-                        fontSize: 'clamp(0.7rem, 2.5vw, 0.8rem)',
-                        color: '#4a9eff'
-                      }}
-                    >
+                {/* Tech chips */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1rem' }}>
+                  {exp.technologies.map(tech => (
+                    <span key={tech} style={{
+                      fontSize: '0.72rem',
+                      color: '#D4AF37',
+                      background: 'rgba(212,175,55,0.08)',
+                      border: '1px solid rgba(212,175,55,0.2)',
+                      borderRadius: '5px',
+                      padding: '0.2rem 0.55rem',
+                    }}>
                       {tech}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
 
-                <ul style={{
-                  listStyle: 'none',
-                  padding: 0
-                }}>
-                  {exp.achievements.map((achievement, achievementIndex) => (
-                    <motion.li
-                      key={achievement}
-                      initial={{ x: -20, opacity: 0 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      transition={{ delay: index * 0.3 + achievementIndex * 0.1, duration: 0.6 }}
-                      viewport={{ once: true }}
-                      style={{
-                        marginBottom: 'clamp(0.6rem, 2vw, 0.8rem)',
-                        paddingLeft: 'clamp(1rem, 3vw, 1.5rem)',
-                        position: 'relative',
-                        lineHeight: '1.6',
-                        color: '#e0e0e0',
-                        fontSize: 'clamp(0.9rem, 2.5vw, 1rem)'
-                      }}
-                    >
-                      <div style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: '0.5rem',
-                        width: '6px',
-                        height: '6px',
-                        background: '#4a9eff',
-                        borderRadius: '50%'
-                      }} />
-                      {achievement}
-                    </motion.li>
+                {/* Achievements */}
+                <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                  {exp.achievements.map((ach, i) => (
+                    <li key={i} style={{
+                      display: 'flex',
+                      gap: '0.75rem',
+                      marginBottom: '0.55rem',
+                      color: '#aaa',
+                      fontSize: 'clamp(0.82rem, 2vw, 0.9rem)',
+                      lineHeight: 1.6,
+                    }}>
+                      <span style={{ color: '#D4AF37', flexShrink: 0, marginTop: '0.45rem', fontSize: '0.4rem', width: '6px', height: '6px', background: '#D4AF37', borderRadius: '50%', display: 'inline-block' }} />
+                      {ach}
+                    </li>
                   ))}
                 </ul>
               </div>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          viewport={{ once: true }}
-          style={{
-            textAlign: 'center',
-            marginTop: 'clamp(2rem, 5vw, 4rem)',
-            padding: 'clamp(1.5rem, 3vw, 2rem)',
-            background: 'rgba(74, 158, 255, 0.05)',
-            borderRadius: '15px',
-            border: '1px solid rgba(74, 158, 255, 0.2)'
-          }}
-        >
-          <h3 style={{
-            fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
-            marginBottom: 'clamp(0.75rem, 2vw, 1rem)',
-            color: '#4a9eff'
-          }}>
-            Continuous Growth & Innovation
-          </h3>
-          <p style={{
-            color: '#e0e0e0',
-            fontSize: 'clamp(1rem, 2.5vw, 1.1rem)',
-            lineHeight: '1.6'
-          }}>
-            From freelance development to building enterprise-grade ERP systems, 
-            each experience has shaped my expertise in creating solutions that 
-            bridge the gap between cutting-edge technology and practical business needs.
-          </p>
-        </motion.div>
       </div>
     </section>
   );
-} 
+}
