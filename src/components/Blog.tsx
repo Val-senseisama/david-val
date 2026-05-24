@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   FaLinkedin, 
@@ -34,6 +34,24 @@ export default function Blog() {
   const [filteredBlogs, setFilteredBlogs] = useState<BlogItem[]>(blogsData);
   const [preloadedMap, setPreloadedMap] = useState<Set<string>>(new Set());
   const [isMobile, setIsMobile] = useState(false);
+  // Only start preloading iframes when the Blog section is near the viewport
+  const [shouldPreload, setShouldPreload] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Trigger preload when section is ~500px below viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldPreload(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "500px" }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -80,7 +98,7 @@ export default function Blog() {
   };
 
   return (
-    <section id="blog" style={{
+    <section ref={sectionRef} id="blog" style={{
       minHeight: "100vh",
       background: "#050505",
       color: "white",
@@ -90,30 +108,26 @@ export default function Blog() {
       borderBottom: "1px solid rgba(212, 175, 55, 0.15)",
     }}>
 
-      {/*
-        Hidden off-screen iframe preloader.
-        Rendered on mount so the browser fetches & caches all embed
-        resources (HTML / CSS / JS / fonts) in the background.
-        When the modal opens, the in-modal iframe hits the cache → near-instant load.
-        Uses position:fixed + left:-9999px so layout is never affected.
-      */}
-      <div
-        aria-hidden="true"
-        style={{ position: "fixed", left: "-9999px", top: "-9999px", width: 1, height: 1, overflow: "hidden", pointerEvents: "none", zIndex: -1 }}
-      >
-        {blogsData.map(blog => (
-          <iframe
-            key={blog.id}
-            src={blog.embedUrl}
-            title={`preload-${blog.id}`}
-            width="1"
-            height="1"
-            frameBorder="0"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-popups-to-escape-sandbox"
-            onLoad={() => markPreloaded(blog.id)}
-          />
-        ))}
-      </div>
+      {/* Deferred off-screen iframe preloader — only fires once Blog section is near */}
+      {shouldPreload && (
+        <div
+          aria-hidden="true"
+          style={{ position: "fixed", left: "-9999px", top: "-9999px", width: 1, height: 1, overflow: "hidden", pointerEvents: "none", zIndex: -1 }}
+        >
+          {blogsData.map(blog => (
+            <iframe
+              key={blog.id}
+              src={blog.embedUrl}
+              title={`preload-${blog.id}`}
+              width="1"
+              height="1"
+              frameBorder="0"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-popups-to-escape-sandbox"
+              onLoad={() => markPreloaded(blog.id)}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Decorative Golden Ambient Glows */}
       <div style={{
