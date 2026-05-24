@@ -1,6 +1,7 @@
 # 🪐 David's Portfolio — React + Three.js (Galaxy Theme)
 
 ## 🚀 Goal
+
 Build a **visually stunning, animated outer space-themed developer portfolio in the current working directory** using:
 
 - **React 18.2.0 (Vite)** – UI framework
@@ -31,7 +32,6 @@ spacerover.glb
 spaceship.glb
 spacestation.glb
 /vite.config.js
-
 
 ---
 
@@ -161,7 +161,7 @@ const { name, experience } = usePortfolioData();
   "summary": "Builder of AI, ERP, and scalable offline-first systems from the edge of the galaxy.",
   "skills": {
     "languages": ["TypeScript", "JavaScript", "Dart"],
-    "tools": ["React Native", "Node.js", "MySQL", "Apollo GraphQL", "AWS"]
+    "tools": ["React Native", "Python", "Node.js", "MySQL", "Apollo GraphQL", "AWS"]
   },
   "experience": [
     {
@@ -209,3 +209,4 @@ Deploy using:
     🧠 Portfolio data powered by detail.json
 
     🎯 Fully deployable and modular project with space aesthetics
+```

@@ -15,7 +15,8 @@
         "React",
         "Next.js",
         "Golang",
-        "React Native"
+        "React Native",
+        "Python"
       ],
       "databases": [
         "PostgreSQL",

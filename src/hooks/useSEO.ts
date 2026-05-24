@@ -156,7 +156,7 @@ export const personSchema = {
     name: 'Zevbii',
   },
   knowsAbout: [
-    'React', 'TypeScript', 'Node.js', 'Golang',
+    'React', 'TypeScript', 'Node.js', 'Golang', 'Python',
     'React Native', 'Multi-tenant SaaS', 'Fintech Systems',
     'Apollo GraphQL', 'Redis', 'AI Integrations',
     'High-throughput Systems', 'Fullstack Engineering',
