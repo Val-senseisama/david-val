@@ -20,6 +20,7 @@ import ShardSpace from "./pages/ShardSpace/ShardSpace";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Showcase from "./components/Showcase";
+import Blog from "./components/Blog";
 import { useSEO, personSchema, websiteSchema } from "./hooks/useSEO";
 
 // Throttle function to limit scroll event frequency
@@ -97,6 +98,7 @@ function PortfolioApp() {
     "Skills",
     "Experience",
     "Showcase",
+    "Blog",
     "Contact",
   ];
 
@@ -350,6 +352,11 @@ function PortfolioApp() {
         {/* Showcase Section */}
         <section id="showcase">
           <Showcase />
+        </section>
+
+        {/* Blog Section */}
+        <section id="blog">
+          <Blog />
         </section>
 
         {/* Contact Section */}
