@@ -148,9 +148,10 @@ export const personSchema = {
   image: 'https://zevbii.com/og-image.png',
   sameAs: [
     'https://github.com/val-senseisama',
-    'https://linkedin.com/in/david-val-izevbigie',
+    'https://linkedin.com/in/david-uyi-val-izevbigie',
+    'https://www.youtube.com/@zevbii',
   ],
-  jobTitle: 'Fullstack Engineer',
+  jobTitle: 'Senior Fullstack Engineer',
   worksFor: {
     '@type': 'Organization',
     name: 'Zevbii',
@@ -169,7 +170,7 @@ export const websiteSchema = {
   name: 'Zevbii | David Val-Izevbigie',
   url: 'https://zevbii.com',
   description:
-    'Portfolio of David Uyi Val-Izevbigie — Fullstack Developer specializing in React, Three.js, ERP systems, and AI-powered solutions.',
+    'Zevbii is the studio of David Val-Izevbigie, a senior fullstack engineer in Lagos building SaaS platforms, payment systems, LLM tools and mobile games.',
   author: {
     '@type': 'Person',
     name: 'David Uyi Val-Izevbigie',
