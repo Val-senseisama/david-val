@@ -69,23 +69,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(502).json({ error: 'Failed to send message' });
   }
 
-  // Best-effort auto-reply. Requires a verified domain on the `from` address;
-  // with the default onboarding@resend.dev sender this will only reach your
-  // own Resend account email, so a failure here must not fail the request.
-  const autoReply = await resend.emails.send({
-    from: `David Val <${fromEmail}>`,
-    to: email,
-    subject: 'Thanks for reaching out',
-    html: `
-      <p>Hi ${safeName},</p>
-      <p>Thanks for your message — I've received it and will get back to you shortly.</p>
-      <p>Best,<br>David</p>
-    `,
-  });
-
-  if (autoReply.error) {
-    console.warn('Auto-reply not sent:', autoReply.error);
-  }
-
+  // No auto-reply: emailing the visitor-supplied address would let anyone use
+  // this endpoint to send mail from our domain to arbitrary recipients.
   return res.status(200).json({ ok: true });
 }
