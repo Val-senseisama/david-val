@@ -6,7 +6,7 @@ export default function Experience() {
       <div className="z-wrap">
         <div className="z-head">
           <div>
-            <h2 className="z-h2">Where I've shipped.</h2>
+            <h2 className="z-h2" data-perch="">Where I've shipped.</h2>
             <p className="z-lede">{data.summary}</p>
           </div>
           <a className="z-btn z-btn--ink" href={data.resume} target="_blank" rel="noopener noreferrer">

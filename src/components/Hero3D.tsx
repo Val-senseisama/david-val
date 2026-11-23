@@ -56,6 +56,7 @@ export default function Hero3D() {
 
       <motion.div
         className="z-hero__now"
+        data-perch="right"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9, duration: 0.8 }}

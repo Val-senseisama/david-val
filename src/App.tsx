@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Nav from "./components/Nav";
@@ -9,6 +9,7 @@ import Skills from "./components/Skills";
 import Showcase from "./components/Showcase";
 import Blog from "./components/Blog";
 import Contact from "./components/Contact";
+const Mascot = lazy(() => import("./components/Mascot"));
 const Inventory = lazy(() => import("./pages/Inventory"));
 const SalesForecast = lazy(() => import("./pages/SalesForecast"));
 const MultiVendor = lazy(() => import("./pages/MultiVendor/index"));
@@ -19,6 +20,11 @@ import { useSEO, personSchema, websiteSchema } from "./hooks/useSEO";
 import data from "./data/detail.json";
 
 function Home() {
+  const [mascot, setMascot] = useState(false);
+  useEffect(() => {
+    const t = window.setTimeout(() => setMascot(true), 1200);
+    return () => window.clearTimeout(t);
+  }, []);
   useSEO({
     title: "Zevbii — games and software by David Val-Izevbigie",
     description:
@@ -54,6 +60,11 @@ function Home() {
           </nav>
         </div>
       </footer>
+      {mascot && (
+        <Suspense fallback={null}>
+          <Mascot />
+        </Suspense>
+      )}
     </ErrorBoundary>
   );
 }

@@ -1082,3 +1082,43 @@ a.z-product__media:hover {
 html {
   scrollbar-color: #9aa1ad var(--ground);
 }
+
+/* ---------- mascot ---------- */
+.z-mascot {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+}
+.z-mascot canvas {
+  pointer-events: none !important;
+}
+.z-bubble {
+  position: fixed;
+  left: 0;
+  top: 0;
+  max-width: 220px;
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 30px -12px rgba(14, 17, 22, 0.45);
+  font: 600 0.92rem/1.3 var(--body);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s;
+  will-change: transform;
+}
+.z-bubble::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transform: translateX(-50%) rotate(45deg);
+}

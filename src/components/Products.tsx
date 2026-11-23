@@ -10,7 +10,7 @@ export default function Products() {
       <div className="z-wrap">
         <div className="z-head">
           <div>
-            <h2 className="z-h2">Products people use.</h2>
+            <h2 className="z-h2" data-perch="">Products people use.</h2>
             <p className="z-lede">
               Games and business software I built and run, from the first commit to the store
               listing.
@@ -18,7 +18,7 @@ export default function Products() {
           </div>
         </div>
 
-        <article className="z-feature" style={accent(featured.accent)}>
+        <article className="z-feature" data-perch="" style={accent(featured.accent)}>
           <a
             className="z-feature__media"
             href={featured.url}
@@ -62,7 +62,7 @@ export default function Products() {
                   <span className="z-status">{p.status}</span>
                   <span>{p.kind}</span>
                 </div>
-                <h3 className="z-product__name">{p.name}</h3>
+                <h3 className="z-product__name" data-perch="">{p.name}</h3>
                 <p className="z-product__line">{p.line}</p>
                 <p>{p.detail}</p>
                 {p.proof && <span className="z-proof">{p.proof}</span>}

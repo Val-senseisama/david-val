@@ -48,7 +48,7 @@ export default function Contact() {
     <section className="z-section z-contact" id="contact">
       <div className="z-wrap z-contact__grid">
         <div>
-          <h2 className="z-h2">Have a product to build, or a role to fill?</h2>
+          <h2 className="z-h2" data-perch="">Have a product to build, or a role to fill?</h2>
           <p className="z-lede">
             Tell me what you're working on. I reply to every message, usually within a day.
           </p>

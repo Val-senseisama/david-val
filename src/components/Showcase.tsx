@@ -54,7 +54,7 @@ export default function Showcase() {
       <div className="z-wrap">
         <div className="z-head">
           <div>
-            <h2 className="z-h2">Labs: try them in your browser.</h2>
+            <h2 className="z-h2" data-perch="">Labs: try them in your browser.</h2>
             <p className="z-lede">
               Small working demos of patterns I use in production. No sign-up; everything runs on
               this site.
