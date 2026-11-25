@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { IconContext } from "react-icons";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Nav from "./components/Nav";
 import Hero3D from "./components/Hero3D";
@@ -90,19 +91,22 @@ function Home() {
 
 export default function App() {
   return (
-    <Router>
-      <Suspense fallback={null}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/sales-forecast" element={<SalesForecast />} />
-        <Route path="/multivendor" element={<MultiVendor />} />
-        <Route path="/goal-quest" element={<GoalQuest />} />
-        <Route path="/mind-map" element={<MindMap />} />
-        <Route path="/shardspace" element={<ShardSpace />} />
-        <Route path="/shardspace/:shardId" element={<ShardSpace />} />
-      </Routes>
-      </Suspense>
-    </Router>
+    // every react-icons icon on the site is decorative (icon-only buttons carry aria-label)
+    <IconContext.Provider value={{ attr: { "aria-hidden": true } }}>
+      <Router>
+        <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/sales-forecast" element={<SalesForecast />} />
+          <Route path="/multivendor" element={<MultiVendor />} />
+          <Route path="/goal-quest" element={<GoalQuest />} />
+          <Route path="/mind-map" element={<MindMap />} />
+          <Route path="/shardspace" element={<ShardSpace />} />
+          <Route path="/shardspace/:shardId" element={<ShardSpace />} />
+        </Routes>
+        </Suspense>
+      </Router>
+    </IconContext.Provider>
   );
 }

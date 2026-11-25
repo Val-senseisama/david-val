@@ -35,7 +35,7 @@ export default function Nav() {
     <nav className={`z-nav${solid || open ? " is-solid" : ""}`} aria-label="Main">
       <div className="z-wrap z-nav__row">
         <a className="z-brand" href="#top" onClick={() => setOpen(false)}>
-          <img src="/zevbii.webp" alt="" width={30} height={30} />
+          <img src="/zevbii-64.webp" alt="" width={30} height={30} />
           Zevbii
         </a>
         <div className="z-nav__end">

@@ -44,7 +44,8 @@ export default function Hero3D() {
           height={112}
           alt="David Val-Izevbigie"
         />
-        <motion.h1 {...rise(0.2)}>
+        {/* the page's largest paint: slides in but is never invisible, so it counts at first render */}
+        <motion.h1 initial={{ y: 12 }} animate={{ y: 0 }} transition={rise(0).transition}>
           I build payment systems and SaaS products.
         </motion.h1>
         <motion.p {...rise(0.35)} className="z-hero__sub">
