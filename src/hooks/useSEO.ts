@@ -170,7 +170,7 @@ export const websiteSchema = {
   name: 'Zevbii | David Val-Izevbigie',
   url: 'https://zevbii.com',
   description:
-    'Zevbii is the studio of David Val-Izevbigie, a senior fullstack engineer in Lagos building SaaS platforms, payment systems, LLM tools and mobile games.',
+    'David Val-Izevbigie is a senior fullstack engineer in Lagos who builds payment systems, multi-tenant SaaS and LLM-powered products.',
   author: {
     '@type': 'Person',
     name: 'David Uyi Val-Izevbigie',

@@ -2,7 +2,7 @@
   {
     "id": "notion-knowledge-hub",
     "title": "Notion Knowledge Hub",
-    "description": "My complete central database of engineering notes, system design papers, and programming guides, embedded directly from my Notion workspace.",
+    "description": "My Notion notes on system design, databases and programming.",
     "date": "May 2026",
     "readTime": "Interactive",
     "platform": "notion",
@@ -13,7 +13,7 @@
   {
     "id": "notion-idempotent-payments",
     "title": "When the Gateway Times Out: Idempotent Payment Design",
-    "description": "A ₦50,000 withdrawal. A timed-out gateway. Funds that may have already left the account — but the system shows FAILED. This article breaks down how to design payment systems that guarantee no duplicate payouts, no lost funds, and correct reconciliation. Core principle: delayed truth over incorrect truth.",
+    "description": "A ₦50,000 withdrawal times out at the gateway. The money may already have left, but your system says FAILED. How to design payouts so a timeout never pays twice or loses funds, and how to reconcile afterwards.",
     "date": "May 2026",
     "readTime": "8 min read",
     "platform": "notion",
@@ -24,8 +24,8 @@
   {
     "id": "linkedin-post-1",
     "title": "How Not to Buy a Scammer Coffee",
-    "description": "Building a fraud-resistant financial system taught me how real-world exploits happen — and how to stop them. From card testing to multi-account attacks, I share the exact patterns we observed and the systems we built to protect every naira, automatically and in real time.",
-    "date": "Dec 2024",
+    "description": "Card testing, multi-account abuse and the other fraud we saw on a live payments app, and the checks we built to stop each one.",
+    "date": "Mar 2026",
     "readTime": "5 min read",
     "platform": "linkedin",
     "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7444085149731848193",
@@ -35,8 +35,8 @@
   {
     "id": "linkedin-post-2",
     "title": "How We Built a Hybrid WebRTC Calling System Inside a Mobile WebView",
-    "description": "WebRTC was supposed to be the universal answer for real-time audio/video — not if your app lives inside a mobile WebView. I break down how we built PopnChat's calling system: why we wrote WebRTC logic twice (TypeScript + Java), how we kept signaling in JS while native code owned the media, and the specific bugs that only appear on real devices.",
-    "date": "Dec 2024",
+    "description": "PopnChat runs inside a mobile WebView, where WebRTC calls break. Why we wrote the WebRTC logic twice (TypeScript and Java), kept signaling in JS while native code handled the media, and the bugs that only showed up on real phones.",
+    "date": "Mar 2026",
     "readTime": "7 min read",
     "platform": "linkedin",
     "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7443701695349522432",
@@ -46,8 +46,8 @@
   {
     "id": "linkedin-post-3",
     "title": "The Floating-Point Bomb: Why Your Finance App Is Probably Losing Money",
-    "description": "If your fintech app uses floating-point numbers for money, it is already leaking value. Floating-point precision errors silently break wallets, audits, refunds, and compliance. The only safe approach is integer-based currency handling (kobo/cents) with centralized logic — this is not an optimization, it is a requirement.",
-    "date": "Nov 2024",
+    "description": "If your app stores money as floating-point numbers, rounding errors are already creeping into wallets, refunds and audits. Store amounts as integer kobo or cents, and do the conversion in one place.",
+    "date": "Jan 2026",
     "readTime": "4 min read",
     "platform": "linkedin",
     "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7419720507153022976",

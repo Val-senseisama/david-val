@@ -67,10 +67,9 @@ export default function Blog() {
       <div className="z-wrap">
         <div className="z-head">
           <div>
-            <h2 className="z-h2" data-perch="">Notes from production.</h2>
+            <h2 className="z-h2" data-perch="">Writing</h2>
             <p className="z-lede">
-              What broke, why, and how I fixed it: payments, fraud, real-time calling and system
-              design.
+              Posts about payments, fraud, and making WebRTC calls work inside a WebView.
             </p>
           </div>
         </div>

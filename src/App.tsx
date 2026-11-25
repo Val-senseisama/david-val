@@ -18,17 +18,36 @@ const MindMap = lazy(() => import("./pages/MindMap/MindMap"));
 const ShardSpace = lazy(() => import("./pages/ShardSpace/ShardSpace"));
 import { useSEO, personSchema, websiteSchema } from "./hooks/useSEO";
 import data from "./data/detail.json";
+import { smoothHashLinks } from "./utils/smoothScroll";
 
 function Home() {
   const [mascot, setMascot] = useState(false);
   useEffect(() => {
-    const t = window.setTimeout(() => setMascot(true), 1200);
-    return () => window.clearTimeout(t);
+    // Wide screens: Val arrives with the hero desk. Narrower screens have no desk, so the
+    // mascot's 3D code (~250 KB gzipped) waits until the visitor first scrolls or touches,
+    // then for an idle moment, keeping it off the first load.
+    if (window.matchMedia("(min-width: 1100px)").matches) {
+      const t = window.setTimeout(() => setMascot(true), 300);
+      return () => window.clearTimeout(t);
+    }
+    const events = ["scroll", "pointerdown", "touchstart", "keydown"] as const;
+    let idle = 0;
+    const start = () => {
+      events.forEach((e) => window.removeEventListener(e, start));
+      const ric = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 200));
+      idle = ric(() => setMascot(true));
+    };
+    events.forEach((e) => window.addEventListener(e, start, { passive: true, once: true }));
+    return () => {
+      events.forEach((e) => window.removeEventListener(e, start));
+      (window.cancelIdleCallback ?? window.clearTimeout)(idle);
+    };
   }, []);
+  useEffect(() => smoothHashLinks(), []);
   useSEO({
-    title: "Zevbii — games and software by David Val-Izevbigie",
+    title: "David Val-Izevbigie · Fullstack engineer, payments and SaaS",
     description:
-      "Zevbii is the studio of David Val-Izevbigie, a senior fullstack engineer in Lagos building SaaS platforms, payment systems, LLM tools and mobile games.",
+      "David Val-Izevbigie is a senior fullstack engineer in Lagos who builds payment systems, multi-tenant SaaS and LLM-powered products.",
     keywords:
       "Zevbii, David Val-Izevbigie, fullstack engineer, The Long Road, Shard, PopnChat, DirectCrib, SaaS, fintech, React, Node.js, TypeScript, Go, Godot",
     ogUrl: "https://zevbii.com/",
@@ -42,11 +61,11 @@ function Home() {
       <Nav />
       <Hero3D />
       <main>
-        <Products />
         <Experience />
+        <Products />
+        <Blog />
         <Skills />
         <Showcase />
-        <Blog />
         <Contact />
       </main>
       <footer className="z-foot">

@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaMoon, FaSun, FaTimes } from "react-icons/fa";
 import data from "../data/detail.json";
+import { useTheme } from "../utils/theme";
 
 const links = [
-  ["Products", "#products"],
   ["Experience", "#experience"],
-  ["Skills", "#skills"],
-  ["Labs", "#labs"],
+  ["Products", "#products"],
   ["Writing", "#blog"],
+  ["Skills", "#skills"],
+  ["Demos", "#labs"],
   ["Contact", "#contact"],
 ] as const;
 
 export default function Nav() {
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
+  const [theme, toggleTheme] = useTheme();
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > window.innerHeight * 0.6);
@@ -36,32 +38,42 @@ export default function Nav() {
           <img src="/zevbii.webp" alt="" width={30} height={30} />
           Zevbii
         </a>
-        <ul className="z-nav__links">
-          {links.map(([label, href]) => (
-            <li key={href}>
-              <a href={href}>{label}</a>
+        <div className="z-nav__end">
+          <ul className="z-nav__links">
+            {links.map(([label, href]) => (
+              <li key={href}>
+                <a href={href}>{label}</a>
+              </li>
+            ))}
+            <li className="z-nav__cta">
+              <a
+                className="z-btn z-btn--gold"
+                href={data.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Resume
+              </a>
             </li>
-          ))}
-          <li className="z-nav__cta">
-            <a
-              className="z-btn z-btn--gold"
-              href={data.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Resume
-            </a>
-          </li>
-        </ul>
-        <button
-          className="z-nav__toggle"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="z-sheet"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <FaTimes size={20} /> : <FaBars size={20} />}
-        </button>
+          </ul>
+          <button
+            className="z-theme"
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={theme === "dark" ? "Light mode" : "Dark mode"}
+            onClick={toggleTheme}
+          >
+            {theme === "dark" ? <FaSun size={15} /> : <FaMoon size={14} />}
+          </button>
+          <button
+            className="z-nav__toggle"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="z-sheet"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
+        </div>
       </div>
       {open && (
         <div className="z-nav__sheet" id="z-sheet">

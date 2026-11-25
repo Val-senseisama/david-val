@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
-import { FaArrowRight } from "react-icons/fa";
-import { featured, products, alsoBuilt } from "../data/products";
+import { products, alsoBuilt } from "../data/products";
 
 const accent = (c: string) => ({ "--accent": c }) as CSSProperties;
 
@@ -10,53 +9,14 @@ export default function Products() {
       <div className="z-wrap">
         <div className="z-head">
           <div>
-            <h2 className="z-h2" data-perch="">Products people use.</h2>
-            <p className="z-lede">
-              Games and business software I built and run, from the first commit to the store
-              listing.
-            </p>
+            <h2 className="z-h2" data-perch="">Products</h2>
+            <p className="z-lede">Apps I built and still run myself, plus a game in testing.</p>
           </div>
         </div>
 
-        <article className="z-feature" data-perch="" style={accent(featured.accent)}>
-          <a
-            className="z-feature__media"
-            href={featured.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${featured.name}: ${featured.linkLabel}`}
-          >
-            <img src={featured.image} alt={featured.imageAlt} width={1280} height={720} />
-          </a>
-          <div className="z-feature__body">
-            <div className="z-meta">
-              <span className="z-status">{featured.status}</span>
-              <span>{featured.kind}</span>
-            </div>
-            <h3>{featured.name}</h3>
-            <p className="line">{featured.line}</p>
-            <p>{featured.detail}</p>
-            <ul className="z-tags">
-              {featured.stack.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
-            <div>
-              <a
-                className="z-btn z-btn--gold"
-                href={featured.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {featured.linkLabel} <FaArrowRight size={13} />
-              </a>
-            </div>
-          </div>
-        </article>
-
         <div className="z-products">
           {products.map((p) => (
-            <article className="z-product" key={p.id} style={accent(p.accent)}>
+            <article className="z-product" id={p.id} key={p.id} style={accent(p.accent)}>
               <div className="z-product__text">
                 <div className="z-meta">
                   <span className="z-status">{p.status}</span>

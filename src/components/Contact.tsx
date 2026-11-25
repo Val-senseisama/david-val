@@ -50,7 +50,7 @@ export default function Contact() {
         <div>
           <h2 className="z-h2" data-perch="">Have a product to build, or a role to fill?</h2>
           <p className="z-lede">
-            Tell me what you're working on. I reply to every message, usually within a day.
+            Tell me what you're working on. The form comes straight to my inbox.
           </p>
           <ul className="z-direct">
             {direct.map(({ icon, value, href }) => (

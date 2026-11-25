@@ -27,10 +27,10 @@
       "context": "Telehealth platform",
       "technologies": ["Next.js", "React 19", "TanStack Query/Table", "Zustand", "Tailwind", "Agora"],
       "achievements": [
-        "Built the media dashboard from scratch: a TipTap article composer with cover-image cropping, YouTube/Vimeo embeds, server-side HTML sanitization, and reviewer comments anchored to highlighted text.",
-        "Made navigation feel instant with SSR streaming, Suspense boundaries, route skeletons, and optimistic tab switching, removing request waterfalls.",
-        "Built appointment management for the physician PWA: infinite queries, personalized booking by appointment type, and timezone-safe unavailability.",
-        "Built an influencer dashboard, fixed KPI and financial reporting in the admin dashboard, and moved routes from numeric IDs to UUIDs."
+        "Built the media dashboard from scratch, including an article editor where reviewers comment on highlighted text.",
+        "Removed request waterfalls with streamed SSR and route skeletons, so pages appear before their data does.",
+        "Built appointment management for the physicians' PWA, with unavailability that holds across timezones.",
+        "Fixed the admin dashboard's KPI and financial reports, and built the influencer dashboard."
       ]
     },
     {
@@ -41,11 +41,11 @@
       "context": "Three production platforms: recruiting SaaS, healthcare care-coordination, clinical AI",
       "technologies": ["Node.js", "Apollo GraphQL", "MongoDB", "PostgreSQL", "Next.js", "Electron", "BullMQ"],
       "achievements": [
-        "Zwilt: led a phased identity migration onto a single admin source of truth with dual-write mirroring and a go/no-go cutover gate; verified credentials for 99% of accounts.",
-        "Zwilt: built seat-based Stripe billing with idempotent subscriptions, webhooks, seat suspension and reactivation, and an AI-credit system.",
-        "Zwilt: built ARIA, a tool-calling LLM agent for candidate, company and LinkedIn search that streams tool results over WebSockets.",
-        "Healthcare: built a HIPAA-oriented security layer (TOTP 2FA, IP allowlisting, session limits, audit logs, DLP redaction) and cross-organization RBAC with audited support access.",
-        "Clinical AI: built a pipeline that turns session recordings into structured clinical notes citing a source for every fact, with LLM failover across Anthropic, Gemini and Groq."
+        "Zwilt: moved accounts onto one identity source in phases, with dual writes and a go/no-go check before cutover. 99% of accounts came across with verified credentials.",
+        "Zwilt: built per-seat Stripe billing and the AI credits customers spend.",
+        "Zwilt: built ARIA, an LLM agent that searches candidates, companies and LinkedIn and streams what it finds as it goes.",
+        "Healthcare: built the HIPAA-oriented security layer and access control across organizations, so every support login is audited.",
+        "Clinical AI: built the pipeline that turns session recordings into clinical notes, where every fact cites its source. It fails over between Anthropic, Gemini and Groq."
       ]
     },
     {
@@ -56,10 +56,10 @@
       "context": "POS, legal research and education products",
       "technologies": ["TypeScript", "React Native (Expo)", "Node.js", "Paystack", "MySQL", "Redis"],
       "achievements": [
-        "Led StockPulse AI, a POS and inventory platform with transactional real-time stock tracking and AI demand forecasting.",
-        "Built its Paystack payments with multi-party splitting of fees, VAT and payouts.",
-        "Built the frontend of ELC, a legal research app with case law, citation search, AI document analysis and drafting.",
-        "Built a multi-tenant back office licensing digital textbooks to schools; raised engagement 35% via gamification."
+        "Led StockPulse AI, a POS and inventory platform that tracks stock live and forecasts demand.",
+        "Built its Paystack payments, splitting each sale across fees, VAT and vendor payouts.",
+        "Built the frontend of ELC, a legal research app for searching case law and drafting with AI.",
+        "Built the back office that licenses digital textbooks to schools. Adding gamification raised engagement 35%."
       ]
     },
     {
@@ -70,8 +70,8 @@
       "context": "School management SaaS",
       "technologies": ["Apollo GraphQL", "Node.js", "Electron", "SQLite", "React Native"],
       "achievements": [
-        "Built a multi-tenant school management SaaS used by 200+ schools: report cards, broadsheets, transcripts, billing, inventory and AI lesson plans.",
-        "Built Academix, an offline Electron classroom app on SQLite with device registration and license-key activation, plus offline-first mobile apps with background sync."
+        "Built a school management SaaS used by 200+ schools for report cards, transcripts, billing and AI lesson plans.",
+        "Built Academix, a classroom app that works with no internet, unlocked by license key, plus mobile apps that sync when they get a connection."
       ]
     },
     {

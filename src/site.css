@@ -18,6 +18,50 @@
   --display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --body: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --on-ink: #ffffff; /* text on an --ink fill */
+  --ink-hover: #262c38;
+  --on-gold: #0e1116; /* gold buttons keep dark text in both themes */
+  --gold-hover: #e3b440;
+  --nav-glass: rgba(242, 244, 247, 0.92);
+  --scrollbar: #9aa1ad;
+  color-scheme: light;
+}
+
+/* Dark: follows the system unless the nav toggle picked a theme (html[data-theme]).
+   The two blocks below must stay identical. */
+:root[data-theme="dark"] {
+  --ground: #0d1015;
+  --surface: #151a22;
+  --ink: #eeece6;
+  --ink-2: #b5bbc6;
+  --ink-3: #8a919e;
+  --line: #272d38;
+  --gold-ink: #e3b440;
+  --night: #07090c;
+  --night-2: #10141b;
+  --on-ink: #0e1116;
+  --ink-hover: #ffffff;
+  --nav-glass: rgba(13, 16, 21, 0.86);
+  --scrollbar: #3a414d;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0d1015;
+    --surface: #151a22;
+    --ink: #eeece6;
+    --ink-2: #b5bbc6;
+    --ink-3: #8a919e;
+    --line: #272d38;
+    --gold-ink: #e3b440;
+    --night: #07090c;
+    --night-2: #10141b;
+    --on-ink: #0e1116;
+    --ink-hover: #ffffff;
+    --nav-glass: rgba(13, 16, 21, 0.86);
+    --scrollbar: #3a414d;
+    color-scheme: dark;
+  }
 }
 
 *,
@@ -59,18 +103,6 @@ img {
   outline: 2px solid var(--gold);
   outline-offset: 3px;
   border-radius: 4px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
 }
 
 /* ---------- shared ---------- */
@@ -130,10 +162,10 @@ img {
 }
 .z-btn--gold {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--on-gold);
 }
 .z-btn--gold:hover {
-  background: #e3b440;
+  background: var(--gold-hover);
   box-shadow: 0 10px 30px -10px rgba(212, 161, 42, 0.7);
   transform: translateY(-2px);
 }
@@ -147,10 +179,10 @@ img {
 }
 .z-btn--ink {
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 .z-btn--ink:hover {
-  background: #262c38;
+  background: var(--ink-hover);
   transform: translateY(-2px);
 }
 .z-btn--line {
@@ -198,10 +230,10 @@ img {
   z-index: 50;
   transition: background 0.3s, border-color 0.3s, color 0.3s;
   border-bottom: 1px solid transparent;
-  color: var(--on-night);
+  color: var(--ink);
 }
 .z-nav.is-solid {
-  background: rgba(242, 244, 247, 0.92);
+  background: var(--nav-glass);
   backdrop-filter: saturate(1.4) blur(12px);
   -webkit-backdrop-filter: saturate(1.4) blur(12px);
   border-color: var(--line);
@@ -255,15 +287,35 @@ img {
   display: inline-flex;
   padding: 0 16px;
   opacity: 1;
-  color: var(--ink);
+  color: var(--on-gold);
 }
 .z-nav__links a.z-btn:hover {
-  background: #e3b440;
+  background: var(--gold-hover);
 }
 .z-nav .z-btn {
   min-height: 38px;
   padding: 0 16px;
   font-size: 0.9rem;
+}
+.z-nav__end {
+  display: flex;
+  align-items: center;
+}
+.z-theme {
+  width: 38px;
+  height: 38px;
+  margin-left: 8px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.z-theme:hover {
+  background: rgba(127, 127, 127, 0.14);
 }
 .z-nav__toggle {
   display: none;
@@ -303,6 +355,9 @@ img {
     font: 600 1.15rem/1.2 var(--display);
     border-bottom: 1px solid var(--line);
   }
+  .z-nav__sheet a.z-btn--gold {
+    color: var(--on-gold);
+  }
   .z-nav__sheet .z-btn {
     margin-top: 16px;
     border-bottom: 0;
@@ -313,33 +368,93 @@ img {
   }
 }
 
-/* ---------- hero (night band) ---------- */
+/* ---------- hero ---------- */
 .z-hero {
   position: relative;
   min-height: min(100svh, 920px);
-  background: var(--night);
-  color: var(--on-night);
+  background: var(--ground);
+  color: var(--ink);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-.z-hero__canvas {
+.z-desk {
   position: absolute;
-  inset: 0;
-  z-index: 0;
+  z-index: 3;
+  top: 84px;
+  bottom: 72px;
+  left: calc(50% + 110px);
+  right: max(var(--gutter), calc((100% - var(--max)) / 2));
 }
-.z-hero__veil {
+.z-desk canvas {
+  touch-action: pan-y;
+}
+.z-desk__perch {
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 1px;
   pointer-events: none;
-  background: radial-gradient(
-      120% 90% at 85% 40%,
-      transparent 20%,
-      rgba(11, 13, 18, 0.55) 60%,
-      var(--night) 100%
-    ),
-    linear-gradient(90deg, var(--night) 0%, rgba(11, 13, 18, 0.7) 45%, transparent 75%);
+}
+.z-desk__tip {
+  display: inline-block;
+  transform: translateY(-50%);
+}
+/* the link is a still, slightly padded hit area; only the pill inside pops and shakes,
+   so a shaking label never slides out from under the cursor */
+.z-desk__tip > a {
+  display: inline-block;
+  padding: 8px;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+}
+.z-desk__tip > a > span {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font: 600 0.85rem/1 var(--body);
+  transform-origin: 50% 100%;
+  animation: z-tip-pop 0.45s var(--ease-out) both;
+}
+.z-desk__tip > a > span.is-hover {
+  animation: z-tip-shake 0.7s ease-in-out infinite;
+}
+@keyframes z-tip-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.06);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes z-tip-shake {
+  0%, 55%, 100% {
+    transform: none;
+  }
+  10% {
+    transform: rotate(-7deg) scale(1.06);
+  }
+  22% {
+    transform: rotate(6deg) scale(1.06);
+  }
+  34% {
+    transform: rotate(-4deg) scale(1.04);
+  }
+  45% {
+    transform: rotate(2deg);
+  }
+}
+.z-product {
+  scroll-margin-top: 80px;
 }
 .z-hero__body {
   width: 100%;
@@ -352,12 +467,13 @@ img {
   padding-top: 120px;
   padding-bottom: 48px;
 }
-.z-hero__mark {
-  width: 64px;
-  height: 64px;
-  border-radius: 14px;
+.z-hero__photo {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 28px;
-  box-shadow: 0 18px 50px -12px rgba(212, 161, 42, 0.55);
+  border: 1px solid var(--line);
 }
 .z-hero h1 {
   font-family: var(--display);
@@ -365,21 +481,17 @@ img {
   font-size: clamp(2.8rem, 8.2vw, 6rem);
   line-height: 0.95;
   letter-spacing: -0.035em;
-  max-width: 11ch;
+  max-width: 13ch;
   text-wrap: balance;
-}
-.z-hero h1 em {
-  font-style: normal;
-  color: var(--gold);
 }
 .z-hero__sub {
   margin-top: 26px;
   max-width: 52ch;
   font-size: clamp(1.05rem, 1.7vw, 1.2rem);
-  color: var(--on-night-2);
+  color: var(--ink-2);
 }
 .z-hero__sub strong {
-  color: var(--on-night);
+  color: var(--ink);
   font-weight: 600;
 }
 .z-hero__actions {
@@ -392,15 +504,15 @@ img {
   width: 100%;
   position: relative;
   z-index: 2;
-  border-top: 1px solid rgba(243, 239, 228, 0.12);
-  background: rgba(11, 13, 18, 0.6);
+  border-top: 1px solid var(--line);
+  background: var(--surface);
 }
 .z-hero__now a {
   display: flex;
   align-items: center;
   gap: 14px;
   min-height: 64px;
-  color: var(--on-night);
+  color: var(--ink);
   text-decoration: none;
   font-size: 0.98rem;
 }
@@ -425,7 +537,7 @@ img {
   }
 }
 .z-hero__now span.dim {
-  color: var(--on-night-2);
+  color: var(--ink-3);
 }
 .z-arrow {
   transition: transform 0.3s var(--ease-out);
@@ -538,6 +650,14 @@ img {
 .z-product__line {
   font: 600 1.15rem/1.35 var(--display);
   color: var(--accent);
+}
+:root[data-theme="dark"] .z-product__line {
+  color: color-mix(in srgb, var(--accent) 55%, #fff);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .z-product__line {
+    color: color-mix(in srgb, var(--accent) 55%, #fff);
+  }
 }
 .z-product__text p {
   margin-top: 12px;
@@ -767,7 +887,7 @@ a.z-product__media:hover {
   border-radius: 12px;
   display: grid;
   place-items: center;
-  background: var(--ink);
+  background: var(--night);
   color: var(--gold);
 }
 .z-labs h3 {
@@ -812,7 +932,7 @@ a.z-product__media:hover {
 .z-chip[aria-pressed="true"] {
   background: var(--ink);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 .z-search {
   flex: 1 1 220px;
@@ -1080,21 +1200,45 @@ a.z-product__media:hover {
 
 /* ---------- scrollbar ---------- */
 html {
-  scrollbar-color: #9aa1ad var(--ground);
+  scrollbar-color: var(--scrollbar) var(--ground);
 }
 
 /* ---------- mascot ---------- */
+#root {
+  position: relative;
+}
+/* The mascot layer covers the whole page and scrolls with it, so Val stays glued to
+   what he stands on while the compositor scrolls. Only a small box around him renders. */
 .z-mascot {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 45;
+  overflow: clip;
   pointer-events: none;
+}
+.z-mascot__box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
 }
 .z-mascot canvas {
   pointer-events: none !important;
 }
+.z-flash {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, rgba(255, 255, 255, 0.85) 30%, rgba(255, 255, 255, 0) 70%);
+  opacity: 0;
+  pointer-events: none;
+}
 .z-bubble {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   max-width: 220px;

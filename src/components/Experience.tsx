@@ -2,12 +2,11 @@ import data from "../data/detail.json";
 
 export default function Experience() {
   return (
-    <section className="z-section" id="experience" style={{ paddingTop: 0 }}>
+    <section className="z-section" id="experience">
       <div className="z-wrap">
         <div className="z-head">
           <div>
-            <h2 className="z-h2" data-perch="">Where I've shipped.</h2>
-            <p className="z-lede">{data.summary}</p>
+            <h2 className="z-h2" data-perch="">Experience</h2>
           </div>
           <a className="z-btn z-btn--ink" href={data.resume} target="_blank" rel="noopener noreferrer">
             Full resume (PDF)

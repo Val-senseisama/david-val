@@ -54,11 +54,8 @@ export default function Showcase() {
       <div className="z-wrap">
         <div className="z-head">
           <div>
-            <h2 className="z-h2" data-perch="">Labs: try them in your browser.</h2>
-            <p className="z-lede">
-              Small working demos of patterns I use in production. No sign-up; everything runs on
-              this site.
-            </p>
+            <h2 className="z-h2" data-perch="">Demos</h2>
+            <p className="z-lede">Small apps you can try here. They run in your browser.</p>
           </div>
         </div>
         <ul className="z-labs">

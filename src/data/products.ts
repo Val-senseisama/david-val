@@ -14,38 +14,7 @@ export interface Product {
   accent: string;
 }
 
-export const featured: Product = {
-  id: "the-long-road",
-  name: "The Long Road",
-  kind: "Game · Android",
-  status: "Closed test on Google Play",
-  line: "A 3D action RPG built for a $100 phone.",
-  detail:
-    "Five free classes, a five-act story, real-time combat with block, parry and dodge, online Arena PvP and co-op boss raids. Its weapons and world are modelled by script in Blender, and it runs at around 50 fps on a budget Redmi.",
-  stack: ["Godot 4", "Blender", "Node.js referee server", "Firebase push"],
-  url: "https://thelongroad.zevbii.com/",
-  linkLabel: "Join the test",
-  image: "/products/longroad.webp",
-  imageAlt: "The Long Road: a Paladin fighting in the Inner Keep, with touch controls on screen",
-  accent: "#D9622B",
-};
-
 export const products: Product[] = [
-  {
-    id: "shard",
-    name: "Shard",
-    kind: "Productivity · Android",
-    status: "Live on Google Play",
-    line: "An AI goal planner with a friend watching.",
-    detail:
-      "Tell Shard a goal and it breaks it into a dated plan around your week, then puts a friend alongside you who notices if you stop.",
-    stack: ["Expo", "GraphQL", "Socket.IO", "LLM planning"],
-    url: "https://shard.zevbii.com/",
-    linkLabel: "shard.zevbii.com",
-    image: "/products/shard.webp",
-    imageAlt: "Shard landing page: Finish what you actually start",
-    accent: "#7C4DDB",
-  },
   {
     id: "popnchat",
     name: "PopnChat",
@@ -63,6 +32,21 @@ export const products: Product[] = [
     accent: "#4F46E5",
   },
   {
+    id: "shard",
+    name: "Shard",
+    kind: "Productivity · Android",
+    status: "Live on Google Play",
+    line: "An AI goal planner with a friend watching.",
+    detail:
+      "Tell Shard a goal and it breaks it into a dated plan around your week, then puts a friend alongside you who notices if you stop.",
+    stack: ["Expo", "GraphQL", "Socket.IO", "LLM planning"],
+    url: "https://shard.zevbii.com/",
+    linkLabel: "shard.zevbii.com",
+    image: "/products/shard.webp",
+    imageAlt: "Shard landing page: Finish what you actually start",
+    accent: "#7C4DDB",
+  },
+  {
     id: "directcrib",
     name: "DirectCrib",
     kind: "Marketplace · Web",
@@ -76,6 +60,21 @@ export const products: Product[] = [
     image: "/products/directcrib.webp",
     imageAlt: "DirectCrib landing page: Find a space. Rent better.",
     accent: "#0F766E",
+  },
+  {
+    id: "the-long-road",
+    name: "The Long Road",
+    kind: "Game · Android",
+    status: "Closed test on Google Play",
+    line: "A 3D action RPG built for a $100 phone.",
+    detail:
+      "Online Arena PvP and co-op boss raids go through a Node.js referee server, and the game holds around 50 fps on a budget Redmi. Five classes, a five-act story, and a world modelled by script in Blender.",
+    stack: ["Godot 4", "Blender", "Node.js referee server", "Firebase push"],
+    url: "https://thelongroad.zevbii.com/",
+    linkLabel: "Join the test",
+    image: "/products/longroad.webp",
+    imageAlt: "The Long Road: a Paladin fighting in the Inner Keep, with touch controls on screen",
+    accent: "#D9622B",
   },
 ];
 

@@ -5,8 +5,16 @@
 
     <!-- Viewport & Theme -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0b0d12" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1015" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- apply a saved light/dark choice before first paint (src/utils/theme.ts) -->
+    <script>
+      try {
+        var t = localStorage.getItem("zevbii-theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,10 +30,10 @@
     <link rel="manifest" href="/manifest.json" />
 
     <!-- Primary SEO -->
-    <title>Zevbii — games and software by David Val-Izevbigie</title>
+    <title>David Val-Izevbigie · Fullstack engineer, payments and SaaS</title>
     <meta
       name="description"
-      content="Zevbii is the studio of David Val-Izevbigie, a senior fullstack engineer in Lagos building SaaS platforms, payment systems, LLM tools and mobile games."
+      content="David Val-Izevbigie is a senior fullstack engineer in Lagos who builds payment systems, multi-tenant SaaS and LLM-powered products."
     />
     <meta
       name="keywords"
@@ -44,11 +52,11 @@
     <meta property="og:locale" content="en_US" />
     <meta
       property="og:title"
-      content="Zevbii — games and software by David Val-Izevbigie"
+      content="David Val-Izevbigie · Fullstack engineer, payments and SaaS"
     />
     <meta
       property="og:description"
-      content="Zevbii is the studio of David Val-Izevbigie, a senior fullstack engineer in Lagos building SaaS platforms, payment systems, LLM tools and mobile games."
+      content="David Val-Izevbigie is a senior fullstack engineer in Lagos who builds payment systems, multi-tenant SaaS and LLM-powered products."
     />
     <meta property="og:url" content="https://zevbii.com/" />
     <meta property="og:image" content="https://zevbii.com/og-image.png" />
@@ -61,7 +69,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Zevbii — games and software by David Val-Izevbigie"
+      content="David Val-Izevbigie · Fullstack engineer, payments and SaaS"
     />
 
     <!-- Twitter Card -->
@@ -70,16 +78,16 @@
     <meta name="twitter:creator" content="@val_izevbigie" />
     <meta
       name="twitter:title"
-      content="Zevbii — games and software by David Val-Izevbigie"
+      content="David Val-Izevbigie · Fullstack engineer, payments and SaaS"
     />
     <meta
       name="twitter:description"
-      content="Zevbii is the studio of David Val-Izevbigie, a senior fullstack engineer in Lagos building SaaS platforms, payment systems, LLM tools and mobile games."
+      content="David Val-Izevbigie is a senior fullstack engineer in Lagos who builds payment systems, multi-tenant SaaS and LLM-powered products."
     />
     <meta name="twitter:image" content="https://zevbii.com/og-image.png" />
     <meta
       name="twitter:image:alt"
-      content="Zevbii — games and software by David Val-Izevbigie"
+      content="David Val-Izevbigie · Fullstack engineer, payments and SaaS"
     />
 
     <!-- JSON-LD: Person + WebSite Structured Data -->
@@ -122,7 +130,7 @@
           "@type": "WebSite",
           "name": "Zevbii | David Val-Izevbigie",
           "url": "https://zevbii.com",
-          "description": "Zevbii is the studio of David Val-Izevbigie, a senior fullstack engineer in Lagos building SaaS platforms, payment systems, LLM tools and mobile games.",
+          "description": "David Val-Izevbigie is a senior fullstack engineer in Lagos who builds payment systems, multi-tenant SaaS and LLM-powered products.",
           "author": {
             "@type": "Person",
             "name": "David Uyi Val-Izevbigie"
